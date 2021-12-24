@@ -1,0 +1,49 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h1 style='color:black'>
+      <i class="fas fa-virus" style='font-size: 40px; width: 40px'></i>
+      PC_COVID
+    </h1>
+  </div>
+
+  <ul class="list-unstyled components">
+    <li class="{{#if active.patients}}active{{/if}}">
+      <a href="/manager/patients">
+        <i class="fas fa-user-friends"></i>
+        Danh sách người liên quan
+      </a>
+    </li>
+    <li class="{{#if active.products}}active{{/if}}">
+      <a href="/manager/products">
+        <i class="fas fa-cookie-bite"></i>
+        Các sản phẩm nhu yếu phẩm
+      </a>
+    </li>
+
+    <li class="{{#if active.packets}}active{{/if}}">
+      <a href="/manager/packets">
+        <i class="fas fa-archive"></i>
+        Các gói nhu yếu phẩm
+      </a>
+    </li>
+
+    <li class="{{#if active.report}}active{{/if}}">
+      <a href="/manager/report">
+        <i class="fa fa-bar-chart "></i>
+        Thống kê thông tin
+      </a>
+    </li>
+    <li class="{{#if active.payment}}active{{/if}}">
+      <a href="/manager/payment">
+        <i class="fa fa-money " aria-hidden="true"></i>
+        Quản lí thanh toán
+      </a>
+    </li>
+    <li>
+      <a href="/manager/signout">
+        <i class="fas fa-sign-out-alt"></i>
+        Đăng xuất
+      </a>
+    </li>
+  </ul>
+</nav>

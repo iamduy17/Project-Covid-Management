@@ -1,0 +1,29 @@
+<nav id="sidebar">
+  <div class="sidebar-header">
+    <h1 style='color:black'>
+      <i class="fas fa-virus" style='font-size: 40px; width: 40px'></i>
+
+      PC_COVID
+    </h1>
+  </div>
+  <ul class="list-unstyled components">
+    <li class="{{#if active.accounts}}active{{/if}}">
+      <a href="/admin/accounts">
+        <i class="fa fa-tasks" aria-hidden="true"></i>
+        Quản lí tài khoản
+      </a>
+    </li>
+    <li class="{{#if active.places}}active{{/if}}">
+      <a href="/admin/places">
+        <i class="fas fa-clinic-medical"></i>
+        Quản lí địa điểm
+      </a>
+    </li>
+    <li>
+      <a href="/admin/signout">
+        <i class="fas fa-sign-out-alt"></i>
+        Đăng xuất
+      </a>
+    </li>
+  </ul>
+</nav>

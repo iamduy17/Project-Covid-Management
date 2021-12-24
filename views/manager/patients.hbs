@@ -1,0 +1,97 @@
+<!-- Page Content  -->
+<div id="content">
+    <div class="row">
+        <div class="col-md-8 mr-auto">
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2 w-75" type="search" placeholder="" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                    <i class="fa fa-search" aria-hidden="true"></i>
+                    Tìm kiếm
+                </button>
+            </form>
+        </div>
+        <div class="col-md-2">
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="addPatient">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Thêm F0
+            </button>
+        </div>
+    </div>
+    <div class="row my-3">
+        <div class="col-md-12">
+            <table id="dtBasicExample" class="table table-striped">
+                <thead>
+                    <tr>
+                        <th scope="col">Họ tên</th>
+                        <th scope="col">Số CMND</th>
+                        <th scope="col">Trạng thái</th>
+                        <th scope="col">Nơi điều trị</th>
+                        <th scope="col"></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <th scope="row">Kwame Fitzpatrick</th>
+                        <td>234185103</td>
+                        <td><span class="bg-danger text-white rounded p-1">F0</span></td>
+                        <td>Bệnh viện đa khoa Thủ Đức</td>
+                        <td>
+                            <button class="btn btn-sm p-0" id="seeDetail">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm p-0" id="addRelatedPerson">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Chloe Shaw</th>
+                        <td>214687192</td>
+                        <td><span class="bg-warning text-white rounded p-1">F1</span></td>
+                        <td>Bệnh viện đa khoa Thủ Đức</td>
+                        <td>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Jawad Lang</th>
+                        <td>213591348</td>
+                        <td><span class="bg-info text-white rounded p-1">F2</span></td>
+                        <td>Bệnh viện đa khoa tỉnh Gia Lai</td>
+                        <td>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th scope="row">Sumaiya Drummond</th>
+                        <td>214691247</td>
+                        <td><span class="bg-success text-white rounded p-1">F3</span></td>
+                        <td>Bệnh viện đa khoa Thủ Đức</td>
+                        <td>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-search" aria-hidden="true"></i>
+                            </button>
+                            <button class="btn btn-sm p-0">
+                                <i class="fa fa-plus" aria-hidden="true"></i>
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{{>modals/patients/addF0Modal}}
+{{>modals/patients/addRelatedPersonModal}}
+{{>modals/patients/detailPersonModal}}
+
