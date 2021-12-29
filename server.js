@@ -4,7 +4,7 @@ const express = require('express'),
       path = require("path");
 
 require('./middlewares/handlebars')(app);
-
+app.use(express.json());
 app.use(express.urlencoded({
     extended: true,
 }));
