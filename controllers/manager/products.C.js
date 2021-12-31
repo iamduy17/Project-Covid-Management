@@ -1,10 +1,11 @@
-class ProductController{
-  show(req, res){
-    res.render('manager/products/list', {
-        title: 'Danh sách các sản phẩm nhu yếu phẩm',
-        active: { products: true },
-      });
-  }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new ProductController();;
+router.get('/', (req, res) => {
+  res.render('manager/products/list', {
+    title: 'Danh sách các sản phẩm nhu yếu phẩm',
+    active: { products: true },
+  });
+});
+
+module.exports = router;

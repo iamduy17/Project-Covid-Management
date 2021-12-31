@@ -1,10 +1,11 @@
-class ReportController {
-    show(req, res) {
-        res.render('manager/report/list', {
-            title: 'Thống kê thông tin',
-            active: { report: true },
-        });
-    }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new ReportController();;
+router.get('/', (req, res) => {
+  res.render('manager/report/list', {
+    title: 'Thống kê thông tin',
+    active: { report: true },
+  });
+});
+
+module.exports = router;

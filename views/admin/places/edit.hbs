@@ -1,0 +1,94 @@
+<div id="content" style="margin:40px 200px 40px;">
+    <div class="card border border-dark" >
+  <div class="card-header text-center">
+    <h4>Chỉnh sửa địa điểm</h4>
+  </div>
+  <div class="card-body">
+    <form method="POST">
+        <div class="form-group">
+        <label for="txtCateID">ID</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtCateID"
+          name="txtCateID"
+          readonly
+          value="abc"
+          {{!-- value="{{this.place.CatID}}" --}}
+        />
+      </div>
+      <div class="form-group">
+        <label for="txt">Tên</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txt"
+          name="txt"
+          value="abc"
+          autofocus
+          {{!-- value="{{this.place.CatID}}" --}}
+        />
+      </div>
+      <div class="form-group">
+        <label for="txtCate">Sức chứa</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtCate"
+          name="txtCate"
+          value="abc"
+          {{!-- value="{{this.place.CatName}}" --}}
+        />
+      </div>
+       <div class="form-group">
+        <label for="txtCateName">Số lượng tiếp nhận hiện tại</label>
+        <input
+          type="text"
+          class="form-control"
+          id="txtCateName"
+          name="txtCateName"
+          value="abc"
+          {{!-- value="{{this.place.CatName}}" --}}
+        />
+      </div>
+      <a
+        class="btn btn-success"
+        href="/admin/places"
+        title="Back to list"
+        role="button"
+      >
+        <i class="fa fa-backward" aria-hidden="true"></i>
+      </a>
+      <button type="submit" class="btn btn-primary"
+      title="edit" formaction="/admin/places/update">
+        <i class="fa fa-check" aria-hidden="true"></i>
+        Save
+      </button>
+    </form>
+  </div>
+  <div class="card-footer text-muted">
+    Footer
+  </div>
+</div>
+</div>
+
+{{#section 'css'}}
+  <!-- Jquery ui CSS -->
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+    <!-- Bootstrap CSS CDN -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+    <!-- Our Custom CSS -->
+    <link rel="stylesheet" href="/assets/css/navBar.css">
+    <link href='https://fonts.googleapis.com/css?family=Mulish' rel='stylesheet'>
+    <!-- Font Awesome JS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+{{/section}}
+
+{{#section 'nav'}}
+    {{> navbarAdmin }}
+{{/section}}
+
+{{#section 'script'}}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+{{/section}}

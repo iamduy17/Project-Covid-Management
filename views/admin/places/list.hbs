@@ -154,14 +154,16 @@
         
             function addPlace() {
                 var valid = true;
-                allFields.removeClass( "ui-state-error" );
-                valid = valid && checkLength(placeName, "tên địa điểm", 3, 16 ); 
-                valid = valid && checkRegexp(placeName, /^[a-z]([0-9a-z_\s])+$/i, "Tên địa điểm bao gồm a-z, 0-9, dấu gạch dưới, dấu cách và phải bắt đầu bằng một chữ cái." );
+                allFields.removeClass("ui-state-error");
+
+                valid = valid && checkLength(placeName, "tên địa điểm", 3, 16); 
+                valid = valid && checkRegexp(placeName, /^[a-z]([0-9a-z_\s])+$/i, "Tên địa điểm bao gồm a-z, 0-9, dấu gạch dưới, dấu cách và phải bắt đầu bằng một chữ cái.");
+
+                valid = valid && checkRegexp(capacity, /\d/, "Điền thông tin sức chứa.");
+                valid = valid && checkRegexp(number, /\d/, "Điền thông tin số lượng hiện tại.");
                 valid = valid && checkNumber(capacity, number, "Số lương tiếp nhận phải nhỏ hơn sức chứa.");
 
-                if ( valid ) {
-                    console.log(placeName.val());
-                    console.log("abcd");
+                if (valid) {
                      $.ajax({
                         url: "/admin/places",
                         method: "POST",
@@ -203,7 +205,7 @@
                             class: "CreateButton btn btn-primary",
                             text: "Create",
                             click : addPlace
-                        },
+                    },
                     Cancel: {
                         class: "CancelButton btn btn-primary",
                         text: "Cancel",
@@ -226,7 +228,7 @@
             });
         
             $("#create-place").button().on("click", function() {
-            dialog.dialog("open");
+                dialog.dialog("open");
             });
     });
     </script>

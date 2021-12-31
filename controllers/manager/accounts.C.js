@@ -1,10 +1,11 @@
-class AccountController{
-  show(req, res){
-    res.render('manager/accounts/list', {
-        title: 'Quản lí tài khoản',
-        active: { accounts: true },
-      });
-  }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new AccountController();;
+router.get('/', (req, res) => {
+  res.render('manager/accounts/list', {
+    title: 'Quản lí tài khoản',
+    active: { accounts: true },
+  });
+});
+
+module.exports = router;

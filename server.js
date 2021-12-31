@@ -10,9 +10,11 @@ app.use(express.urlencoded({
 }));
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', require('./routes/home.C'));
-app.use('/manager', require('./routes/manager.C'));
-app.use('/user', require('./routes/user.C'));
-app.use('/admin', require('./routes/admin.C'));
+app.use('/', require('./controllers/home.C'));
+app.use('/admin', require('./controllers/admin/main.C'));
+app.use('/manager', require('./controllers/manager/main.C'));
+app.use('/user', require('./controllers/user/main.C'));
 
-app.listen(port, ()=> console.log(`server is listening on port: ${port}`));
+app.listen(port, () => {
+  console.log(`Example app listening on port http://localhost:${port}`);
+});

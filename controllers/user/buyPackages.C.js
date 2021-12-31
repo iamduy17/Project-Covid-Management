@@ -1,16 +1,17 @@
-class BuyPackagesController {
-    show(req, res) {
-        res.render('user/packages/buyPackages', {
-            title: 'Mua gói nhu yếu phẩm',
-            active: { buyPackages: true },
-          });
-    }
-    getDetail(req, res){
-        res.render('user/packages/packageDetail', {
-            title: 'Chi tiết gói nhu yếu phẩm',
-            active: { buyPackages: true },
-          });
-    }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new BuyPackagesController();;
+router.get('/', (req, res) => {
+  res.render('user/packages/buyPackages', {
+    title: 'Mua gói nhu yếu phẩm',
+    active: { buyPackages: true },
+  });
+});
+router.get('/packageDetail', (req, res) => {
+  res.render('user/packages/packageDetail', {
+    title: 'Chi tiết gói nhu yếu phẩm',
+    active: { buyPackages: true },
+  });
+});
+
+module.exports = router;

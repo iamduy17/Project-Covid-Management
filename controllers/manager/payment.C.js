@@ -1,10 +1,11 @@
-class PaymentController{
-  show(req, res){
-    res.render('manager/payment/list', {
-        title: 'Quản lí thanh toán',
-        active: { payment: true },
-      });
-  }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new PaymentController();;
+router.get('/', (req, res) => {
+  res.render('manager/payment/list', {
+    title: 'Quản lí thanh toán',
+    active: { payment: true },
+  });
+});
+
+module.exports = router;

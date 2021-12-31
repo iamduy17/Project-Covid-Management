@@ -1,10 +1,11 @@
-class PayController {
-    show(req, res) {
-        res.render('user/pay/pay', {
-            title: 'Thanh toán chi phí',
-            active: { pay: true }
-        });
-    }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new PayController();;
+router.get('/', (req, res) => {
+  res.render('user/pay/pay', {
+    title: 'Thanh toán chi phí',
+    active: { pay: true },
+  });
+});
+
+module.exports = router;

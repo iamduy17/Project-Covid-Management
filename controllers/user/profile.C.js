@@ -1,10 +1,11 @@
-class ProfileController {
-    show(req, res) {
-        res.render('user/profile/infor', {
-            title: 'Thông tin cá nhân',
-            active: { profile: true },
-          });
-    }
-}
+const express = require('express'),
+  router = express.Router();
 
-module.exports = new ProfileController();;
+router.get('/', (req, res) => {
+  res.render('user/profile/infor', {
+    title: 'Thông tin cá nhân',
+    active: { profile: true },
+  });
+});
+
+module.exports = router;
