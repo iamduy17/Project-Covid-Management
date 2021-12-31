@@ -1,7 +1,7 @@
 const express = require('express'),
       app = express(),
       port =  process.env.PORT || 3000,
-      path = require("path");
+      path = require('path');
 
 require('./middlewares/handlebars')(app);
 app.use(express.json());
