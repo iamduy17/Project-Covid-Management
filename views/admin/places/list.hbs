@@ -9,54 +9,76 @@
                 <div class="col-md-2">
                     <a class="btn btn-primary float-right" style="color: white;" id="create-place" href="javascript:;"
                         role="button" title="Add">
-                        <i class="fa fa-plus" aria-hidden="true"></i> Add
+                        <i class="fa fa-plus" aria-hidden="true"></i> Thêm
                     </a>
                 </div>
             </div>
         </div>
-        <div class="card-body">
-            <table class="table">
-                <thead class="thead-dark">
-                    <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">Tên</th>
-                        <th scope="col">Sức chứa</th>
-                        <th scope="col">Số lượng tiếp nhận hiện tại</th>
-                        <th scope="col"></th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <th scope="row">1</th>
-                        <td>Larry</td>
-                        <td>15000</td>
-                        <td style="padding-left: 100px">15000</td>
-                        <td class="text-right">
-                            <a class="btn btn-primary" href="javascript:;" role="button" title="edit">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">2</th>
-                        <td>ABC</td>
-                        <td>13000</td>
-                        <td style="padding-left: 100px">15000</td>
-                        <td class="text-right">
-                            <a class="btn btn-primary" href="javascript:;" role="button" title="edit">
-                                <i class="fa fa-pencil" aria-hidden="true"></i>
-                            </a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
+        {{#if this.empty}}
+            <div class="card-body">
+                <p class="card-text">Không có dữ liệu.</p>
+            </div>
+        {{else}}
+            <div class="card-body">
+                <table class="table">
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">STT</th>
+                            <th scope="col">Tên</th>
+                            <th scope="col">Sức chứa</th>
+                            <th scope="col">Số lượng tiếp nhận hiện tại</th>
+                            <th scope="col"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each this.places}}
+                            <tr>
+                                <th scope="row">{{Stt}}</th>
+                                <td>{{NamePlace}}</td>
+                                <td>{{Size}}</td>
+                                <td style="padding-left: 100px">{{Amount}}</td>
+                                <td class="text-right">
+                                    <a class="btn btn-primary" href="/admin/places/edit?id={{Id}}&&page={{../page}}" role="button" title="edit">
+                                        <i class="fa fa-pencil" aria-hidden="true"></i>
+                                    </a>
+                                </td>
+                            </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+         {{/if}}
+        <nav aria-label="..." class="mx-auto">
+            <ul class="pagination mx-auto">
+                <li class="page-item  {{#unless can_go_prev}} disabled {{/unless}}">
+                <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                </li>
+                {{#each this.page_items }}
+                    {{#if isActive}}
+                        <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{value}}</span>
+                        </li>
+                    {{else}}
+                        <li class="page-item {{#if isDisabled}} disabled {{/if}}"><a class="page-link" href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                {{/each}}
+                 <li class="page-item  {{#unless can_go_next}} disabled {{/unless}}">
+                     <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+                
+            </ul>
+        </nav>
     </div>
+    
 </div>
 {{#section 'dialog'}}
 <div id="dialog-form" title="Tạo địa điểm mới">
         <p class="validateTips">Điền các trường được yêu cầu</p>
-        <form method="POST" action="/admin/places">
+        <form method="POST">
             <fieldset>
             <label for="placeName">Tên địa điểm</label>
             <input type="text" name="placeName" id="placeName" class="text ui-widget-content ui-corner-all" autofocus>
@@ -64,6 +86,20 @@
             <input type="number" name="capacity" id="capacity" class="text ui-widget-content ui-corner-all">
             <label for="number">Số lượng tiếp nhận hiện tại</label>
             <input type="number" name="number" id="number" class="text ui-widget-content ui-corner-all">
+             <div class="row  ml-3">
+                <div class="form-check ml-5">
+                    <input class="form-check-input" type="radio" name="gridRadios" value="1" checked>
+                    <label class="form-check-label" for="gridRadios">
+                        Điều trị
+                    </label>
+                </div>
+                    <div class="form-check ml-3">
+                    <input class="form-check-input" type="radio" name="gridRadios" value="0">
+                    <label class="form-check-label" for="gridRadios">
+                        Cách ly
+                    </label>
+                </div>
+            </div>
             <!-- Allow form submission with keyboard without duplicating the dialog button -->
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
@@ -153,6 +189,7 @@
             }
         
             function addPlace() {
+                var option = $("input[name='gridRadios']:checked");
                 var valid = true;
                 allFields.removeClass("ui-state-error");
 
@@ -162,32 +199,22 @@
                 valid = valid && checkRegexp(capacity, /\d/, "Điền thông tin sức chứa.");
                 valid = valid && checkRegexp(number, /\d/, "Điền thông tin số lượng hiện tại.");
                 valid = valid && checkNumber(capacity, number, "Số lương tiếp nhận phải nhỏ hơn sức chứa.");
-
+                
                 if (valid) {
                      $.ajax({
-                        url: "/admin/places",
+                        url: "/admin/places/add",
                         method: "POST",
                         contentType: "application/json",
                         data: JSON.stringify({
                             placeName: placeName.val(),
                             capacity: capacity.val(),
-                            number: number.val()
+                            number: number.val(),
+                            option: option.val()
                         }),
-                        success: function (res) {
-                            $(".card-body tbody").append(`<tr>
-                                <th scope="row">${res.id}</th>
-                                <td>${placeName.val()}</td>
-                                <td>${capacity.val()}</td>
-                                <td style="padding-left: 100px">${number.val()}</td>
-                                <td class="text-right">
-                                    <a class="btn btn-primary" href="javascript:;" role="button" title="edit">
-                                    <i class="fa fa-pencil" aria-hidden="true"></i>
-                                    </a>
-                                </td>
-                            </tr>`);
-                            tips.text("All form fields are required.").addClass("ui-state-error");
+                        success: function(res){
                             dialog.dialog( "close" );
-                        }
+                            window.location.href = res.redirect;
+                        }                
                     });
                 }
                 return valid;
@@ -200,8 +227,6 @@
                 modal: true,
                 buttons: {
                     CreatePlace:{ 
-                            type: "submit",
-                            url: "/admin/places",
                             class: "CreateButton btn btn-primary",
                             text: "Create",
                             click : addPlace
