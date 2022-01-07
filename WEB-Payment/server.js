@@ -5,14 +5,13 @@ require('dotenv').config();
 const express = require('express');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
-const mongoose = require('mongoose');
 const cors = require('cors');
 
 // Local
-const loginApi = require('./src/apis/login.api');
-const paymentApi = require("./src/apis/payment.api");
-const changePassApi = require('./src/apis/changePass.api');
-const rechargeApi = require("./src/apis/recharge.api");
+// const loginApi = require('./src/apis/login.api');
+// const paymentApi = require('./src/apis/payment.api');
+//const changePassApi = require('./src/apis/changePass.api');
+const rechargeApi = require('./src/apis/recharge.api');
 
 // Configurations
 const app = express();
@@ -31,7 +30,7 @@ app.listen(process.env.PORT, () => {
 });
 
 // APIs
-app.use('/signin', loginApi);
-app.use('/changePass', userApi);
-app.use('/payment',changePassApi);
-app.use("/recharge", adminApi);
+//app.use('/signin', loginApi);
+//app.use('/changePass', changePassApi);
+//app.use('/payment', paymentApi); 
+app.use('/recharge', rechargeApi);
