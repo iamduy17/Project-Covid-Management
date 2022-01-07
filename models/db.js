@@ -3,7 +3,6 @@ const pgp = require('pg-promise')({
 });
 const schema = 'public';
 const cn = {
-<<<<<<< HEAD
 user: 'postgres',
 host: 'localhost',
 database: 'covid1', // điền tên db trên máy của mình vào
@@ -11,15 +10,6 @@ password: '123456',  // điền cái password master
 port: 5432,
 max: 30,
 }
-=======
-    user: 'postgres',
-    host: 'localhost',
-    database: 'covid',
-    password: '0927022304',
-    port: 5432,
-    max: 30,
-};
->>>>>>> abe14c1148df6e89e5e7ce81a613db7dd8281ad7
 const db = pgp(cn);
 
 exports.load = async (tbName, orderBy) => {
@@ -37,7 +27,6 @@ exports.load = async (tbName, orderBy) => {
     }
 };
 
-<<<<<<< HEAD
 exports.loadPage = async (tbName, ID, limit, offset) => {
   const table = new pgp.helpers.TableName({table: tbName, schema: schema});
   const qStr = pgp.as.format(`SELECT * FROM $1 WHERE "CatID"='${ID}' LIMIT ${limit} OFFSET ${offset}`, table);
@@ -83,38 +72,6 @@ exports.loadCondition1 = async (tbName, condition, limit, offset) => {
       console.log('error db/loadCondition: ', error);
   }
 }
-=======
-exports.loadPage = async (tbName, limit, offset, condition, orderBy) => {
-    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-    const qStr =
-        pgp.as.format(`SELECT * FROM $1 `, table) +
-        condition +
-        ` ORDER BY "${orderBy}" ASC ` +
-        ` LIMIT ${limit} OFFSET ${offset}`;
-    //console.log(qStr);
-    try {
-        const res = await db.any(qStr);
-        return res;
-    } catch (error) {
-        console.log('error db/loadPage: ', error);
-    }
-};
-
-exports.loadCondition = async (tbName, orderBy, condition) => {
-    const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
-    const qStr =
-        pgp.as.format('SELECT * FROM $1', table) +
-        condition +
-        ` ORDER BY "${orderBy}" ASC`;
-    //console.log(qStr);
-    try {
-        const res = await db.any(qStr);
-        return res;
-    } catch (error) {
-        console.log('error db/loadCondition: ', error);
-    }
-};
->>>>>>> abe14c1148df6e89e5e7ce81a613db7dd8281ad7
 
 exports.count = async (tbName, idFieldName, condition) => {
     const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
