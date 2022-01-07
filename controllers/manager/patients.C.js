@@ -293,6 +293,7 @@ router.post('/update/:id', async (req, res) => {
     userRelated[i].Status = status;
     await patientModel.updateUser(userRelated[i], userRelated[i].Id);
   }
+  //update history
   // req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
   res.redirect('/manager/patients');
 });

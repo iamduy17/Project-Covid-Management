@@ -6,6 +6,9 @@ router.get('/', (req, res) => {
 });
 
 router.get('/signout', (req, res) => {
+  if (req.user) {
+    req.logOut();
+  }
   res.redirect('/');
 });
 

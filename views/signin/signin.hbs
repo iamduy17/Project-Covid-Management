@@ -31,67 +31,87 @@
           <div class="login100-pic js-tilt">
             <img src="assets/login/images/img-01.png" alt="IMG" />
           </div>
-          <form method="POST" class="login100-form validate-form">
-            <span class="login100-form-title"> PC Covid Login </span>
-
+          <form method="POST" active="/signin" class="login100-form validate-form">
+            <span class="login100-form-title">
+                {{#if firstSignin}}
+                    Đăng kí Admin
+                {{else}} 
+                    Đăng nhập PC Covid
+                 {{/if}}
+            </span>
+           
+            {{#if errorSystem}}
+                 <div class="page-hero d-flex align-items-center justify-content-center"><h3 style="font-family: Poppins-Medium; color:red;">{{message}}</h3></div>
+            {{/if}}
             <div
-              class="wrap-input100 validate-input"
-              data-validate="User is required"
+              class="wrap-input100 validate-input{{#if errorUser}} alert-validate{{/if}}"
+              data-validate="{{message}}"
             >
               <input
                 class="input100"
                 type="text"
-                name="user"
-                placeholder="Username"
+                name="username"
+                placeholder="Tên tài khoản"
               />
               <span class="symbol-input100">
                <i class="fa fa-user" aria-hidden="true"></i>
               </span>
+              
             </div>
 
             <div
-              class="wrap-input100 validate-input"
-              data-validate="Password is required"
+              class="wrap-input100 validate-input{{#if errorPass}} alert-validate{{/if}}"
+              data-validate="{{message}}"
             >
               <input
                 class="input100"
                 type="password"
                 name="password"
-                placeholder="Password"
+                placeholder="Mật khẩu"
               />
               <span class="symbol-input100">
                 <i class="fa fa-lock" aria-hidden="true"></i>
               </span>
             </div>
-
-            <div class="d-flex justify-content-center">
-                <fieldset class="form-group">
-                    <div class="row">
-                        <div class="form-check mr-3">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="1" checked>
-                            <label class="form-check-label" for="gridRadios1">
-                                User
-                            </label>
+             {{#if firstSignin}}
+                <div class="container-login100-form-btn">
+                    <button class="login100-form-btn" formaction="/register">Đăng kí</button>
+                </div>
+                {{else}} 
+                <div class="d-flex justify-content-center">
+                    <fieldset class="form-group">
+                        <div class="row">
+                            <div class="form-check mr-3">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="1" checked>
+                                <label class="form-check-label" for="gridRadios">
+                                    Người dùng
+                                </label>
+                            </div>
+                            <div class="form-check ml-2">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="2">
+                                <label class="form-check-label" for="gridRadios">
+                                    Quản trị
+                                </label>
+                            </div>
+                            <div class="form-check ml-3">
+                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="3">
+                                <label class="form-check-label" for="gridRadios">
+                                    Quản lí
+                                </label>
+                            </div>
                         </div>
-                        <div class="form-check ml-3">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="2">
-                            <label class="form-check-label" for="gridRadios2">
-                                Admin
-                            </label>
-                        </div>
-                         <div class="form-check ml-3">
-                            <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="3">
-                            <label class="form-check-label" for="gridRadios2">
-                                Manager
-                            </label>
-                        </div>
-                    </div>
-                </fieldset>
-            </div>
-
-            <div class="container-login100-form-btn">
-              <button class="login100-form-btn">Login</button>
-            </div>
+                    </fieldset>
+                </div>
+                {{#if errorRole}}
+                     <div class="wrap-input100 validate-input alert-validate"
+                    data-validate="{{message}}"></div>
+                {{/if}}
+               
+                <div class="container-login100-form-btn" >
+                <button class="login100-form-btn">Đăng nhập</button>
+                </div>
+                 {{/if}}
+            
 
             <div class="text-center p-t-100">
             </div>

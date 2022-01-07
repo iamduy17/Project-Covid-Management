@@ -6,61 +6,68 @@
   <div class="card-body">
     <form method="POST">
         <div class="form-group">
-        <label for="txtCateID">ID</label>
+        <label for="txtPlaceID">ID</label>
         <input
           type="text"
           class="form-control"
-          id="txtCateID"
-          name="txtCateID"
+          id="txtPlaceID"
+          name="txtPlaceID"
+          value="{{this.place.Id}}"
           readonly
-          value="abc"
-          {{!-- value="{{this.place.CatID}}" --}}
         />
       </div>
       <div class="form-group">
-        <label for="txt">Tên</label>
+        <label for="txtNamePlace">Tên địa điểm</label>
         <input
           type="text"
           class="form-control"
-          id="txt"
-          name="txt"
-          value="abc"
+          id="txtNamePlace"
+          name="txtNamePlace"
+          value="{{this.place.NamePlace}}"
           autofocus
-          {{!-- value="{{this.place.CatID}}" --}}
         />
       </div>
       <div class="form-group">
-        <label for="txtCate">Sức chứa</label>
+        <label for="txtSize">Sức chứa</label>
         <input
-          type="text"
+          type="number"
           class="form-control"
-          id="txtCate"
-          name="txtCate"
-          value="abc"
-          {{!-- value="{{this.place.CatName}}" --}}
+          id="txtSize"
+          name="txtSize"
+          value="{{this.place.Size}}"
         />
       </div>
        <div class="form-group">
-        <label for="txtCateName">Số lượng tiếp nhận hiện tại</label>
+        <label for="txtAmount">Số lượng tiếp nhận hiện tại</label>
         <input
-          type="text"
+          type="number"
           class="form-control"
-          id="txtCateName"
-          name="txtCateName"
-          value="abc"
-          {{!-- value="{{this.place.CatName}}" --}}
+          id="txtAmount"
+          name="txtAmount"
+          value="{{this.place.Amount}}"
+        />
+      </div>
+       <div class="form-group">
+        <label for="txtRole">Khu (0: Cách ly, 1: Điều trị)</label>
+        <input
+          type="number"
+          class="form-control"
+          id="txtRole"
+          name="txtRole"
+          value="{{this.place.Role}}"
+          readonly
         />
       </div>
       <a
         class="btn btn-success"
-        href="/admin/places"
+        href="/admin/places?page={{page}}"
         title="Back to list"
         role="button"
       >
         <i class="fa fa-backward" aria-hidden="true"></i>
       </a>
       <button type="submit" class="btn btn-primary"
-      title="edit" formaction="/admin/places/update">
+      title="update" formaction="/admin/places/update?page={{page}}">
         <i class="fa fa-check" aria-hidden="true"></i>
         Save
       </button>
