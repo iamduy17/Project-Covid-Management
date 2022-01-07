@@ -1,20 +1,167 @@
 <script>
-    $('#addPatient').click(() => {
-        $('#addF0Modal').modal('show');
-    })
-    $('#addRelatedPerson').click(() => {
-        $('#addRelatedPersonModal').modal('show');
-    })
-    $('#seeDetail').click(() => {
-        $('#detailPersonModal').modal('show');
-    })
-
-    $(document).ready(function () {
+    function loadDistrict(provinceId) {
+        if (provinceId) {
+            $.ajax({
+                url: "/manager/patients/getDistrict/" + provinceId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    $('select[name="district"]').empty();
+                    for (let i = 0; i < data.length; i++) {
+                        $('select[name="district"]').append('<option value="' + data[i].Id + '">' + data[i].NameDistrict + '</option>');
+                    }
+                }
+            });
+        } else {
+            $('select[name="district"]').empty();
+        }
+    }
+    function loadWard(districtId) {
+        if (districtId) {
+            $.ajax({
+                url: "/manager/patients/getWard/" + districtId,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('select[name="ward"]').empty();
+                    for (let i = 0; i < data.length; i++) {
+                        $('select[name="ward"]').append('<option value="' + data[i].Id + '">' + data[i].NameWard + '</option>');
+                    }
+                }
+            });
+        } else {
+            $('select[name="ward"]').empty();
+        }
+    }
+    function loadPlace(status, idUser) {
+        if (status) {
+            $.ajax({
+                url: "/manager/patients/getPlace/" + status,
+                type: "GET",
+                dataType: "json",
+                success: function (data) {
+                    console.log(data);
+                    $('#inputPlace' + idUser).empty();
+                    for (let i = 0; i < data.length; i++) {
+                        $('#inputPlace' + idUser).append('<option value="' + data[i].Id + '">' + data[i].NamePlace + '</option>');
+                    }
+                }
+            });
+        } else {
+            $('#inputPlace' + idUser).empty();
+        }
+    }
+    $(document).ready(async function () {
         $('#dtBasicExample').DataTable({
             searching: false,
             paging: false,
             info: false,
         });
-    $('.dataTables_length').addClass('bs-select');
-    });
+        $('.dataTables_length').addClass('bs-select');
+        loadDistrict(1);
+        loadWard(1);
+        $('select[name="province"]').on('change', async function () {
+            var provinceId = $(this).val();
+            loadDistrict(provinceId);
+            //var districtId = $('select[name="district"]').val();
+
+            //console.log(districtId);
+            //await loadWard(districtId);
+        });
+        $('select[name="district"]').on('change', function () {
+            var districtId = $(this).val();
+            loadWard(districtId);
+        });
+
+        $('#MessageValidateAddF0').hide();
+        $('#NameAddF0').focus(() => {
+            $('#MessageValidateAddF0').hide();
+        });
+        function removeAscent(str) {
+            if (str === null || str === undefined) return str;
+            str = str.toLowerCase();
+            str = str.replace(/à|á|ạ|ả|ã|â|ầ|ấ|ậ|ẩ|ẫ|ă|ằ|ắ|ặ|ẳ|ẵ/g, "a");
+            str = str.replace(/è|é|ẹ|ẻ|ẽ|ê|ề|ế|ệ|ể|ễ/g, "e");
+            str = str.replace(/ì|í|ị|ỉ|ĩ/g, "i");
+            str = str.replace(/ò|ó|ọ|ỏ|õ|ô|ồ|ố|ộ|ổ|ỗ|ơ|ờ|ớ|ợ|ở|ỡ/g, "o");
+            str = str.replace(/ù|ú|ụ|ủ|ũ|ư|ừ|ứ|ự|ử|ữ/g, "u");
+            str = str.replace(/ỳ|ý|ỵ|ỷ|ỹ/g, "y");
+            str = str.replace(/đ/g, "d");
+            return str;
+        }
+
+        $('#NameAddF0').blur(() => {
+            //const pattern = /[A-Za - z]/;
+            var pattern = /^[a-zA-Z ]{2,}$/g;
+            const name = $('#NameAddF0').val();
+            if (name == '') {
+                $('#MessageValidateAddF0').html("Không được bỏ trống họ tên");
+                $('#MessageValidateAddF0').show(300);
+            }
+            else if (!pattern.test(removeAscent(name))) {
+                $('#MessageValidateAddF0').html("Họ tên chỉ bao gồm chữ!");
+                $('#MessageValidateAddF0').show(300);
+            }
+        });
+        $('#IdNumberAddF0').focus(() => {
+            $('#MessageValidateAddF0').hide();
+        });
+        $('#IdNumberAddF0').blur(() => {
+            //const pattern = /[A-Za - z]/;
+            var pattern = /\b\d{12}\b/g;
+            const idNumber = $('#IdNumberAddF0').val();
+            if (idNumber == '') {
+                $('#MessageValidateAddF0').html("Không được bỏ trống số CMND");
+                $('#MessageValidateAddF0').show(300);
+            }
+            else if (!pattern.test(idNumber)) {
+                $('#MessageValidateAddF0').html("Số CMND là 1 dãy số gồm 12 chữ số!");
+                $('#MessageValidateAddF0').show(300);
+            }
+        });
+        {{#each patients}}
+        $('#MessageValidateRelated{{Id}}').hide();
+        $('#NameRelated{{Id}}').focus(() => {
+            $('#MessageValidateRelated{{Id}}').hide();
+        });
+        $('#NameRelated{{Id}}').blur(() => {
+            //const pattern = /[A-Za - z]/;
+            var pattern = /^[a-zA-Z ]{2,}$/g;
+            const name = $('#NameRelated{{Id}}').val();
+            if (name == '') {
+                $('#MessageValidateRelated{{Id}}').html("Không được bỏ trống họ tên");
+                $('#MessageValidateRelated{{Id}}').show(300);
+            }
+            else if (!pattern.test(removeAscent(name))) {
+                $('#MessageValidateRelated{{Id}}').html("Họ tên chỉ bao gồm chữ!");
+                $('#MessageValidateRelated{{Id}}').show(300);
+            }
+        });
+        $('#IdNumberRelated{{Id}}').focus(() => {
+            $('#MessageValidateRelated{{Id}}').hide();
+        });
+        $('#IdNumberRelated{{Id}}').blur(() => {
+            //const pattern = /[A-Za - z]/;
+            var pattern = /\b\d{12}\b/g;
+            const idNumber = $('#IdNumberRelated{{Id}}').val();
+            if (idNumber == '') {
+                $('#MessageValidateRelated{{Id}}').html("Không được bỏ trống số CMND");
+                $('#MessageValidateRelated{{Id}}').show(300);
+            }
+            else if (!pattern.test(idNumber)) {
+                $('#MessageValidateRelated{{Id}}').html("Số CMND là 1 dãy số gồm 12 chữ số!");
+                $('#MessageValidateRelated{{Id}}').show(300);
+            }
+        });
+        //loadPlace($('#inputStatus{{Id}}').val(), {{Id}});
+        $('#inputStatus{{Id}}').on('change', function () {
+            var status = $(this).val();
+            console.log(status);
+            loadPlace(status, {{Id}});
+        });
+        {{/each}}
+
+
+        });
 </script>

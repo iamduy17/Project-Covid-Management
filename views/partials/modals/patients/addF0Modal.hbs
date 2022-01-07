@@ -1,4 +1,4 @@
-<div class="modal" id="addF0Modal" tabindex="-1">
+<div class="modal" id="addF0" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,20 +7,26 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-10 mx-auto text-center">
+                            <div class="alert alert-danger" role="alert" id="MessageValidateAddF0"></div>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-5">
-                            <label for="inputEmail4">Họ tên</label>
-                            <input type="email" class="form-control" id="inputEmail4">
+                            <label for="NameAddF0">Họ tên</label>
+                            <input type="text" class="form-control" id="NameAddF0" name="name" required>
                         </div>
                         <div class="form-group col-md-5">
-                            <label for="inputPassword4">Số CMND</label>
-                            <input type="password" class="form-control" id="inputPassword4">
+                            <label for="IdNumber">Số CMND</label>
+                            <input type="text" class="form-control" id="IdNumberAddF0" name="idNumber" required>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputPassword4">Năm sinh</label>
-                            <input type="password" class="form-control" id="inputPassword4">
+                            <label for="Year">Năm sinh</label>
+                            <input type="number" min="1900" max="2021" class="form-control" id="Year" name="year"
+                                required>
                         </div>
                     </div>
                     <hr />
@@ -31,22 +37,23 @@
                     </div>
                     <div class="form-row border rounded mb-1">
                         <div class="form-group col-md-4 ">
-                            <label for="inputEmail4">Tỉnh/thành phố</label>
-                            <select id="inputState" class="form-control">
+                            <label for="inputProvince">Tỉnh/thành phố</label>
+                            <select id="inputProvince" class="form-control" name="province">
+                                {{#each provinces}}
+                                <option value={{Id}}>{{NameProvince}}</option>
+                                {{/each}}
+                            </select>
+                        </div>
+                        <div class="form-group col-md-4">
+                            <label for="inputDistrict">Quận/huyện</label>
+                            <select id="inputDistrict" class="form-control" name="district">
                                 <option selected>Choose...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputPassword4">Quận/huyện</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputPassword4">Phường/xã</label>
-                            <select id="inputState" class="form-control">
+                            <label for="inputWard">Phường/xã</label>
+                            <select id="inputWard" class="form-control" name="ward">
                                 <option selected>Choose...</option>
                                 <option>...</option>
                             </select>
@@ -58,35 +65,22 @@
                             <h4>Nơi điều trị</h4>
                         </div>
                     </div>
-                    <div class="form-row border rounded">
-                        <div class="form-group col-md-4">
-                            <label for="inputEmail4">Tỉnh/thành phố</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputPassword4">Quận/huyện</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputPassword4">Phường/xã</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <select id="inputPlace" class="form-control" name="place">
+                                {{#each hospitals}}
+                                <option value={{Id}}>{{NamePlace}}</option>
+                                {{/each}}
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" formmethod="post"
+                        formaction="/manager/patients/addF0">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

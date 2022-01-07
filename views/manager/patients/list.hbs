@@ -3,16 +3,18 @@
     <div class="row">
         <div class="col-md-8 mr-auto">
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2 w-75" type="search" placeholder="" aria-label="Search">
-                <button class="btn btn-outline-success my-2 my-sm-0" type="submit">
+                <input class="form-control mr-sm-2 w-75" name="search" type="search" placeholder="" aria-label="Search">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit"
+                    formaction="/manager/patients/search">
                     <i class="fa fa-search" aria-hidden="true"></i>
                     Tìm kiếm
                 </button>
             </form>
         </div>
         <div class="col-md-2">
-            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="addPatient">
-                <i class="fa fa-plus" aria-hidden="true"></i>
+            <button class="btn btn-outline-danger my-2 my-sm-0" type="submit" id="addPatient" data-toggle="modal"
+                data-target="#addF0">
+                <i class=" fa fa-plus" aria-hidden="true"></i>
                 Thêm F0
             </button>
         </div>
@@ -30,103 +32,94 @@
                     </tr>
                 </thead>
                 <tbody>
+                    {{#each patients}}
                     <tr>
-                        <th scope="row">Kwame Fitzpatrick</th>
-                        <td>234185103</td>
-                        <td><span class="bg-danger text-white rounded p-1">F0</span></td>
-                        <td>Bệnh viện đa khoa Thủ Đức</td>
+                        <th scope="row">{{Name}}</th>
+                        <td>{{IdNumber}}</td>
                         <td>
-                            <button class="btn btn-sm p-0" id="seeDetail">
+                            {{#ifStr Status 0 }}<span
+                                class="bg-danger text-white rounded p-1">F{{Status}}</span>{{/ifStr}}
+                            {{#ifStr Status 1 }}<span
+                                class="bg-warning text-white rounded p-1">F{{Status}}</span>{{/ifStr}}
+                            {{#ifStr Status 2 }}<span
+                                class="bg-info text-white rounded p-1">F{{Status}}</span>{{/ifStr}}
+                            {{#ifStr Status 3 }}<span
+                                class="bg-success text-white rounded p-1">F{{Status}}</span>{{/ifStr}}
+                        </td>
+                        <td>{{Place.NamePlace}}</td>
+                        <td>
+                            <button class="btn btn-sm p-0" data-toggle="modal" data-target="#detailPatient{{Id}}">
                                 <i class="fa fa-search" aria-hidden="true"></i>
                             </button>
-                            <button class="btn btn-sm p-0" id="addRelatedPerson">
+                            {{#ifNotStr Status 3}}
+                            <button class="btn btn-sm p-0" data-toggle="modal" data-target="#addRelatedPatient{{Id}}">
                                 <i class="fa fa-plus" aria-hidden="true"></i>
                             </button>
+                            {{/ifNotStr}}
                         </td>
                     </tr>
-                    <tr>
-                        <th scope="row">Chloe Shaw</th>
-                        <td>214687192</td>
-                        <td><span class="bg-warning text-white rounded p-1">F1</span></td>
-                        <td>Bệnh viện đa khoa Thủ Đức</td>
-                        <td>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Jawad Lang</th>
-                        <td>213591348</td>
-                        <td><span class="bg-info text-white rounded p-1">F2</span></td>
-                        <td>Bệnh viện đa khoa tỉnh Gia Lai</td>
-                        <td>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th scope="row">Sumaiya Drummond</th>
-                        <td>214691247</td>
-                        <td><span class="bg-success text-white rounded p-1">F3</span></td>
-                        <td>Bệnh viện đa khoa Thủ Đức</td>
-                        <td>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-search" aria-hidden="true"></i>
-                            </button>
-                            <button class="btn btn-sm p-0">
-                                <i class="fa fa-plus" aria-hidden="true"></i>
-                            </button>
-                        </td>
-                    </tr>
+                    {{/each}}
                 </tbody>
             </table>
         </div>
     </div>
+    <div>
+        <nav aria-label="...">
+            <ul class="pagination">
+                <li class="page-item  {{#unless can_go_prev}} disabled {{/unless}}">
+                    <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>
+                {{#each this.page_items }}
+                {{#if isActive}}
+                <li class="page-item active" aria-current="page">
+                    <span class="page-link">{{value}}</span>
+                </li>
+                {{else}}
+                <li class="page-item {{#if isDisabled}} disabled {{/if}}"><a class="page-link"
+                        href="?page={{value}}">{{value}}</a></li>
+                {{/if}}
+                {{/each}}
+                <li class="page-item  {{#unless can_go_next}} disabled {{/unless}}">
+                    <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>
+
+            </ul>
+        </nav>
+    </div>
+
 </div>
 {{>modals/patients/addF0Modal}}
 {{>modals/patients/addRelatedPersonModal}}
 {{>modals/patients/detailPersonModal}}
 
 {{#section 'css'}}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
-    <!-- Bootstrap CSS CDN -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
-    <!-- Our Custom CSS -->
-    <link rel="stylesheet" href="/assets/css/navBar.css">
-    <link href='https://fonts.googleapis.com/css?family=Mulish' rel='stylesheet'>
-    <!-- Font Awesome JS -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+<link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">
+<!-- Bootstrap CSS CDN -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+<!-- Our Custom CSS -->
+<link rel="stylesheet" href="/assets/css/navBar.css">
+<link href='https://fonts.googleapis.com/css?family=Mulish' rel='stylesheet'>
+<!-- Font Awesome JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 {{/section}}
 
 {{#section 'nav'}}
-    {{> navbarManager }}
+{{> navbarManager }}
 {{/section}}
 
 {{#section 'script'}}
-    <!-- Popper.JS -->
+<!-- Popper.JS -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 <!-- Bootstrap JS -->
-<script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
 <link rel="stylesheet" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $('#sidebarCollapse').on('click', function () {
-            $('#sidebar').toggleClass('active');
-        });
-    });
-</script>
-{{> js/patientsJs }}
-
+{{>js/patientsJs}}
 {{/section}}

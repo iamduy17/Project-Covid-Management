@@ -1,4 +1,5 @@
-<div class="modal" id="addRelatedPersonModal" tabindex="-1">
+{{#each patients}}
+<div class="modal" id="addRelatedPatient{{Id}}" tabindex="-1">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
@@ -7,28 +8,47 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
-                <form>
+            <form>
+                <div class="modal-body">
+                    <div class="form-row">
+                        <div class="form-group col-md-10 mx-auto text-center">
+                            <div class="alert alert-danger" role="alert" id="MessageValidateRelated{{Id}}"></div>
+                        </div>
+                    </div>
                     <div class="form-row">
                         <div class="form-group col-md-4">
-                            <label for="inputEmail4">Họ tên</label>
-                            <input type="email" class="form-control" id="inputEmail4">
+                            <label for="NameRelated{{Id}}">Họ tên</label>
+                            <input type="text" class="form-control" id="NameRelated{{Id}}" name="name" required>
                         </div>
                         <div class="form-group col-md-4">
-                            <label for="inputPassword4">Số CMND</label>
-                            <input type="password" class="form-control" id="inputPassword4">
+                            <label for="IdNumberRelated{{Id}}">Số CMND</label>
+                            <input type="text" class="form-control" id="IdNumberRelated{{Id}}" name="idNumber" required>
                         </div>
                         <div class="form-group col-md-2">
-                            <label for="inputPassword4">Năm sinh</label>
-                            <input type="password" class="form-control" id="inputPassword4">
+                            <label for="Year">Năm sinh</label>
+                            <input type="number" min="1900" max="2021" class="form-control" id="Year" name="year"
+                                required>
                         </div>
                         <div class="form-group col-md-2">
                             <label for="inputPassword4">Trạng thái</label>
-                            <select id="inputState" class="form-control">
-                                <option>F1</option>
-                                <option>F2</option>
-                                <option>F3</option>
+                            {{#ifStr Status 0}}
+                            <select id="inputStatus" name="status" class="form-control">
+                                <option value="1">F1</option>
+                                <option value="2">F2</option>
+                                <option value="3">F3</option>
                             </select>
+                            {{/ifStr}}
+                            {{#ifStr Status 1}}
+                            <select id="inputStatus" name="status" class="form-control">
+                                <option value="2">F2</option>
+                                <option value="3">F3</option>
+                            </select>
+                            {{/ifStr}}
+                            {{#ifStr Status 2}}
+                            <select id="inputStatus" name="status" class="form-control">
+                                <option value="3">F3</option>
+                            </select>
+                            {{/ifStr}}
                         </div>
                     </div>
                     <hr />
@@ -40,21 +60,22 @@
                     <div class="form-row border rounded mb-1">
                         <div class="form-group col-md-4 ">
                             <label for="inputEmail4">Tỉnh/thành phố</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                            <select id="inputState" class="form-control" name="province">
+                                {{#each ../provinces}}
+                                <option value={{Id}}>{{NameProvince}}</option>
+                                {{/each}}
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputPassword4">Quận/huyện</label>
-                            <select id="inputState" class="form-control">
+                            <select id="inputState" class="form-control" name="district">
                                 <option selected>Choose...</option>
                                 <option>...</option>
                             </select>
                         </div>
                         <div class="form-group col-md-4">
                             <label for="inputPassword4">Phường/xã</label>
-                            <select id="inputState" class="form-control">
+                            <select id="inputState" class="form-control" name="ward">
                                 <option selected>Choose...</option>
                                 <option>...</option>
                             </select>
@@ -63,38 +84,28 @@
                     <hr />
                     <div class="form-row my-0">
                         <div class="form-group col-md-12 my-0">
-                            <h4>Nơi điều trị</h4>
+                            <h4>Nơi cách li</h4>
                         </div>
                     </div>
-                    <div class="form-row border rounded">
-                        <div class="form-group col-md-4">
-                            <label for="inputEmail4">Tỉnh/thành phố</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputPassword4">Quận/huyện</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
-                            </select>
-                        </div>
-                        <div class="form-group col-md-4">
-                            <label for="inputPassword4">Phường/xã</label>
-                            <select id="inputState" class="form-control">
-                                <option selected>Choose...</option>
-                                <option>...</option>
+                    <div class="form-row">
+                        <div class="form-group col-md-10">
+                            <select id="inputPlace" class="form-control" name="place">
+
+                                {{#each ../isolation}}
+                                <option value={{Id}}>{{NamePlace}}</option>
+                                {{/each}}
+
                             </select>
                         </div>
                     </div>
-                </form>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
-                <button type="button" class="btn btn-primary">Thêm</button>
-            </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+                    <button type="submit" class="btn btn-primary" formmethod="post"
+                        formaction="/manager/patients/addRelated/{{Id}}">Thêm</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+{{/each}}

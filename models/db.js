@@ -5,8 +5,8 @@ const schema = 'public';
 const cn = {
 user: 'postgres',
 host: 'localhost',
-database: 'covid', // điền tên db trên máy của mình vào
-password: '0927022304',  // điền cái password master
+database: 'covid1', // điền tên db trên máy của mình vào
+password: '123456',  // điền cái password master
 port: 5432,
 max: 30,
 }
@@ -35,10 +35,32 @@ exports.loadPage = async (tbName, ID, limit, offset) => {
       console.log('error db/loadPage: ', error);
   }
 }
+exports.loadPageofUser = async (tbName, limit, offset) => {
+  const table = new pgp.helpers.TableName({table: tbName, schema: schema});
+  const qStr = pgp.as.format(`SELECT * FROM $1 LIMIT ${limit} OFFSET ${offset}`, table);
+ 
+  try {
+      const res = await db.any(qStr);
+      return res;
+  } catch (error) {
+      console.log('error db/loadPage: ', error);
+  }
+}
 
 exports.loadCondition = async (tbName, orderBy, condition) => {
   const table = new pgp.helpers.TableName({table: tbName, schema: schema});
   const qStr = pgp.as.format('SELECT * FROM $1', table) + condition + ` ORDER BY "${orderBy}" ASC`;
+ 
+  try {
+      const res = await db.any(qStr);
+      return res;
+  } catch (error) {
+      console.log('error db/loadCondition: ', error);
+  }
+}
+exports.loadCondition1 = async (tbName, condition, limit, offset) => {
+  const table = new pgp.helpers.TableName({table: tbName, schema: schema});
+  const qStr = pgp.as.format(`SELECT * FROM $1 `, table) + condition + `LIMIT ${limit} OFFSET ${offset}`;
  
   try {
       const res = await db.any(qStr);
