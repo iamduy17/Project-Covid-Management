@@ -134,7 +134,7 @@ exports.get = async (tbName, fieldName, value) => {
 exports.add = async (tbName, entity) => {
     const table = new pgp.helpers.TableName({ table: tbName, schema: schema });
     const qStr = pgp.helpers.insert(entity, null, table) + ' RETURNING *';
-    console.log(qStr);
+    //console.log(qStr);
     try {
         const res = await db.one(qStr);
         return res;
@@ -148,7 +148,7 @@ exports.patch = async (tbName, filedName, entity, condition) => {
 
     const conditionInput = pgp.as.format(condition, entity);
     const qStr = pgp.helpers.update(entity, filedName, table) + conditionInput;
-    console.log('update:', qStr);
+    //console.log('update:', qStr);
     try {
         const res = await db.any(qStr);
         return res;
@@ -177,7 +177,7 @@ exports.IdMax = async (tbName, filedName) => {
         `SELECT max("${filedName}") as "Max" FROM $1 `,
         table
     );
-    console.log(qStr);
+    //console.log(qStr);
     try {
         const res = await db.any(qStr);
         return res;
