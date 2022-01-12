@@ -79,4 +79,22 @@ module.exports = {
     const res = await db.patch(tbName, fieldName, product, condition);
     return res;
   },
+  filterMoney: async (value, type, limit, offset)=> {
+    var condition = '';
+    if(type == 1)
+      condition = ` WHERE "Price" >= ${value} ORDER BY "Id" ASC `;
+    else if(type == 2)
+      condition = ` WHERE "Price" < ${value} ORDER BY "Id" ASC `;
+    const res = await db.loadCondition1(tbName, condition, limit, offset);
+    return res;
+  },
+  countMoney: async (value, type) => {
+    var condition =''; 
+    if(type == 1)
+      condition = ` WHERE "Price" >= ${value} `;
+    else if(type == 2)
+      condition = ` WHERE "Price" <= ${value} `;
+    const res = await db.count(tbName, idFieldName, condition);
+    return res;
+  },
 }
