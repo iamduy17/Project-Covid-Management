@@ -16,8 +16,8 @@
                                 <i class="fas fa-filter" aria-hidden="true"></i>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                <li><a class="dropdown-item" href="/product/filter/byName">Lọc theo tên</a></li>
-                                <li><a class="dropdown-item" href="/product/filter/byCost">Lọc theo giá tiền</a></li>
+                                <li><a class="dropdown-item" href="/manager/packets/filter/byCountMore5">Lọc theo số lượng sản phẩm lớn hơn 5</a></li>
+                                <li><a class="dropdown-item" href="/manager/packets/filter/byCountLess5">Lọc theo số lượng sản phẩm nhỏ hơn 5</a></li>
                             </ul>
                         </div>
                         <div class="dropdown">
@@ -69,6 +69,9 @@
                             <p> <strong>Mức giới hạn số lượng mỗi sản phẩm trong gói:</strong> {{LimitProducts}}</p>
                             <p> <strong>Mức giới hạn gói cho mỗi người theo thời gian: </strong> {{LimitPeople}}</p>
                             <p> <strong>Thời gian giới hạn (tính theo ngày): </strong> {{LimitTime}} ngày</p>
+                            {{#if Introduce}}
+                                <p> <strong>Mô tả: </strong> {{Introduce}}</p>
+                            {{/if}}
                         </div>
                         <div class="accordion-footer ms-3 mb-1">
                             <a class="btn btn-outline-primary" role="button" title="Edit"

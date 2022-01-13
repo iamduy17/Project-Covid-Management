@@ -1,5 +1,5 @@
 const db = require('../db');
-const tbName = 'ActiveManager';// dùng 2 db khác nhau có sửa tên
+const tbName = 'ManagerActivity';
 const idFieldName = 'Id';
 module.exports = {
     get: async (username) => {

@@ -177,7 +177,7 @@ router.post('/search', async(req, res) => {
   for(let i = 1; i <= nPages; i++){
     const item = {
       value: i,
-      isActive: i === page&&search
+      isActive: i === page
     };
     page_items.push(item);
   };
@@ -272,6 +272,141 @@ router.get('/sort/byCost', async(req, res) => {
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm theo giá tiền`);
   //req.session.pathCur = `http://localhost:3000/manager/products/sort/byCost`;
+  res.render('manager/products/list', {
+    title: 'Danh sách các sản phẩm nhu yếu phẩm',
+    active: { products: true },
+    products: list,
+    empty: list.length===0,
+    page_items: page_items,
+    prev_value: page - 1,
+    next_value: page + 1,
+    can_go_prev: page > 1,
+    can_go_next: page < nPages
+  });
+});
+
+router.get('/filter/byUnitKg', async(req, res) => {
+  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+
+  const limit = 3;
+  const page = +req.query.page || 1;
+  if(page < 0)
+    page = 1;
+  const offset = (page - 1)*limit;   
+  const [total, list] = await Promise.all([
+      productModel.countSearch("kg"),
+      productModel.loadSearch("kg", limit, offset)
+  ]);
+
+  for(var i = 0; i < list.length; i++)
+  {
+    var id = list[i].Id;
+    list[i].images = await productModel.loadImage(id);
+  }
+  
+  const nPages = Math.ceil(total[0].Size/3);   
+
+  const page_items = [];
+  for(let i = 1; i <= nPages; i++){
+    const item = {
+      value: i,
+      isActive: i === page
+    };
+    page_items.push(item);
+  };
+  
+  //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có đơn vị là kg`);
+  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byUnitKg`;
+  res.render('manager/products/list', {
+    title: 'Danh sách các sản phẩm nhu yếu phẩm',
+    active: { products: true },
+    products: list,
+    empty: list.length===0,
+    page_items: page_items,
+    prev_value: page - 1,
+    next_value: page + 1,
+    can_go_prev: page > 1,
+    can_go_next: page < nPages
+  });
+});
+
+router.get('/filter/byCost10k', async(req, res) => {
+  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+
+  const limit = 3;
+  const page = +req.query.page || 1;
+  if(page < 0)
+    page = 1;
+  const offset = (page - 1)*limit;   
+  const [total, list] = await Promise.all([
+      productModel.countMoney(10000, 1),
+      productModel.filterMoney(10000, 1 , limit, offset)
+  ]);
+
+  for(var i = 0; i < list.length; i++)
+  {
+    var id = list[i].Id;
+    list[i].images = await productModel.loadImage(id);
+  }
+  
+  const nPages = Math.ceil(total[0].Size/3);   
+
+  const page_items = [];
+  for(let i = 1; i <= nPages; i++){
+    const item = {
+      value: i,
+      isActive: i === page
+    };
+    page_items.push(item);
+  };
+  
+  //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có giá tối thiểu từ 10,000 VNĐ`);
+  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byCost10k`;
+  res.render('manager/products/list', {
+    title: 'Danh sách các sản phẩm nhu yếu phẩm',
+    active: { products: true },
+    products: list,
+    empty: list.length===0,
+    page_items: page_items,
+    prev_value: page - 1,
+    next_value: page + 1,
+    can_go_prev: page > 1,
+    can_go_next: page < nPages
+  });
+});
+
+router.get('/filter/byCost0k', async(req, res) => {
+  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+
+  const limit = 3;
+  const page = +req.query.page || 1;
+  if(page < 0)
+    page = 1;
+  const offset = (page - 1)*limit;   
+  const [total, list] = await Promise.all([
+      productModel.countMoney(10000, 2),
+      productModel.filterMoney(10000, 2 , limit, offset)
+  ]);
+
+  for(var i = 0; i < list.length; i++)
+  {
+    var id = list[i].Id;
+    list[i].images = await productModel.loadImage(id);
+  }
+  
+  const nPages = Math.ceil(total[0].Size/3);   
+
+  const page_items = [];
+  for(let i = 1; i <= nPages; i++){
+    const item = {
+      value: i,
+      isActive: i === page
+    };
+    page_items.push(item);
+  };
+  
+  //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có giá tối đa 10,000 VNĐ`);
+  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byCost0k`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
