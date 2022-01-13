@@ -9,13 +9,13 @@ const rechargeAccount = async (req, res, next) => {
         Balance: parseInt(req.body.money) + getMoneyCur,
       };
       const rs = await rechargeM.patch(user);
-      return res.status(200).json({ message: "success" });
+      return res.status(200).json({ message: "success"});
     }
-    res.status(400).json({ message: "Cannot update" });
+    res.status(400).json({ message: "Cannot update"});
    
   } catch (error) {
     console.log(error);
-    return res.status(400).json({ message: "Cannot fetch data" });
+    return res.status(400).json({ message: "Cannot fetch data"});
   }
 };
 

@@ -104,8 +104,8 @@ router.get('/history', async (req, res) => {
     //Kiểm tra login
     if (!req.user || req.user.Role != 2) return res.redirect('/');
 
-    const id = parseInt(req.query.id);
-
+    const id = parseInt(req.query.id) || 1;
+    console.log(id);
     const limit = 6;
     const page = +req.query.page || 1;
 
@@ -159,7 +159,7 @@ router.get('/history/active', async (req, res) => {
         return res.redirect('/');
     }
 
-    const id = parseInt(req.query.id);
+    const id = parseInt(req.query.id) || 1;
     const limit = 6;
     const page = +req.query.page || 1;
 
@@ -183,7 +183,7 @@ router.get('/history/active', async (req, res) => {
     for (let i = 0; i < list.length; i++)
         list[i].Stt = i + 1 + (page - 1) * limit;
 
-    // req.session.pathCur = `http://localhost:3000/admin/accounts/history?id=${id}&&page=${page}&&username=${req.query.username}`;
+    req.session.pathCur = `http://localhost:3000/admin/accounts`;
     res.render('admin/accounts/managerActivity', {
         title: 'Quản lí tài khoản',
         active: { accounts: true },
@@ -194,7 +194,7 @@ router.get('/history/active', async (req, res) => {
         username: req.query.username,
         page_items,
         page,
-        linkOld: req.headers.referer,
+        pathOld: req.headers.referer,
         prev_value: page - 1,
         next_value: page + 1,
         can_go_prev: page > 1,
