@@ -6,6 +6,14 @@ const express = require('express'),
     bcrypt = require('bcrypt'),
     saltRounds = 10,
     alert = require('alert');
+function generateIdAccountPayment(){
+    res = ""
+    for(let i = 0; i < 10; i++){
+        const number = Math.floor(Math.random() * 10);
+        res += number;
+    }
+    return res;
+}
 router.get('/', async (req, res) => {
     // if (!req.user || parseInt(req.user.Role) != 3)
     //   return res.redirect('/');
@@ -199,7 +207,18 @@ router.post('/addF0', async (req, res) => {
     };
     await patientModel.addHistory(history);
     // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
-
+    let accountId = ""
+    do{
+        accountId = generateIdAccountPayment();
+    }while(await patientModel.getOnePaymentAccount(accountId));
+    let accountPayment = {
+        ID: accountId,
+        Password: passwordHashed,
+        Balance: 0,
+        Role: 0
+    }
+    console.log(accountPayment);
+    await patientModel.addPaymentAccount(accountPayment);
     res.redirect('/manager/patients');
 });
 router.post('/addRelated/:id', async (req, res) => {

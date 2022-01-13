@@ -1,4 +1,5 @@
 const db = require('../db');
+const dbPayment = require('../dbPayment');
 
 const tbName = 'User';
 const idFieldName = 'Id';
@@ -117,5 +118,14 @@ module.exports = {
     const res = await db.add("HistoryUser", history);
     return res;
   },
-
+  getOnePaymentAccount: async (idUser) => {
+    const res = await dbPayment.get("Account", 'ID', idUser);
+    if(res)
+      return res[0];
+    return null;
+  },
+  addPaymentAccount: async account => {
+    const res = await dbPayment.add("Account", account);
+    return res;
+  },
 }

@@ -8,9 +8,9 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // Local
-// const loginApi = require('./src/apis/login.api');
+ const loginApi = require('./src/apis/login.api');
 // const paymentApi = require('./src/apis/payment.api');
-//const changePassApi = require('./src/apis/changePass.api');
+const changePassApi = require('./src/apis/changePass.api');
 const rechargeApi = require('./src/apis/recharge.api');
 
 // Configurations
@@ -23,7 +23,9 @@ app.use(
     credentials: 'true',
   })
 );
-
+app.get('/', (req, res) => {
+  res.status(200).send('abcd');
+})
 // Listening
 app.listen(process.env.PORT, () => {
   console.log(`Server is listening on port ${process.env.PORT}`);
@@ -31,6 +33,7 @@ app.listen(process.env.PORT, () => {
 
 // APIs
 //app.use('/signin', loginApi);
-//app.use('/changePass', changePassApi);
+app.use('/changePass', changePassApi);
 //app.use('/payment', paymentApi); 
 app.use('/recharge', rechargeApi);
+app.use('/login', loginApi);
