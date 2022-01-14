@@ -356,4 +356,114 @@ router.get('/search', async(req, res) => {
     empty: list.length===0
   });
 });
+
+router.get('/filter/byCountMore5', async (req, res) => {
+  //if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  
+  const list = await packetModel.all();
+  const allProducts = await packetModel.allProduct();
+
+  for (let index = 0; index < list.length; index++) {
+    const idProducts = await packetModel.getListIdProductsOfPacket(list[index].Id);
+    const allProductsUnChecked = await packetModel.allProduct();
+
+    var nameProducts = new Array();
+    for (let j = 0; j < idProducts.length; j++) {
+      var nameProduct = await packetModel.getNameProducts(idProducts[j].IdProduct);
+      nameProduct[0].images = await productModel.loadImage(nameProduct[0].Id);
+      nameProducts.push(nameProduct[0]);    
+    }
+    if(nameProducts.length < 5)
+    {
+      list.splice(index, 1);
+      index--;
+      continue;
+    }
+
+    list[index].products = nameProducts;    // Lưu danh sách các sản phẩm có trong gói
+
+    var indexUnchecked = new Array();   
+    nameProducts.forEach(element => {
+      allProductsUnChecked.forEach(e => {
+        if(e.Id == element.Id)
+          indexUnchecked.push(allProductsUnChecked.indexOf(e));
+      });     
+    });
+    
+    indexUnchecked.sort(compareNumbers);
+ 
+    var minus = 0;
+    indexUnchecked.forEach(element => {
+      allProductsUnChecked.splice(element - minus, 1);
+      minus++;
+    });
+
+    list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
+  }
+  
+  //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm lớn hơn 5`);
+  //req.session.pathCur = `http://localhost:3000/manager/packets`;
+  res.render('manager/packets/list', {
+    title: 'Các gói nhu yếu phẩm',
+    active: { packets: true },
+    allProducts: allProducts,
+    packets: list,
+    empty: list.length===0
+  });
+});
+
+router.get('/filter/byCountLess5', async (req, res) => {
+  //if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  
+  const list = await packetModel.all();
+  const allProducts = await packetModel.allProduct();
+
+  for (let index = 0; index < list.length; index++) {
+    const idProducts = await packetModel.getListIdProductsOfPacket(list[index].Id);
+    const allProductsUnChecked = await packetModel.allProduct();
+
+    var nameProducts = new Array();
+    for (let j = 0; j < idProducts.length; j++) {
+      var nameProduct = await packetModel.getNameProducts(idProducts[j].IdProduct);
+      nameProduct[0].images = await productModel.loadImage(nameProduct[0].Id);
+      nameProducts.push(nameProduct[0]);    
+    }
+    if(nameProducts.length > 5)
+    {
+      list.splice(index, 1);
+      index--;
+      continue;
+    }
+
+    list[index].products = nameProducts;    // Lưu danh sách các sản phẩm có trong gói
+
+    var indexUnchecked = new Array();   
+    nameProducts.forEach(element => {
+      allProductsUnChecked.forEach(e => {
+        if(e.Id == element.Id)
+          indexUnchecked.push(allProductsUnChecked.indexOf(e));
+      });     
+    });
+    
+    indexUnchecked.sort(compareNumbers);
+ 
+    var minus = 0;
+    indexUnchecked.forEach(element => {
+      allProductsUnChecked.splice(element - minus, 1);
+      minus++;
+    });
+
+    list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
+  }
+  
+  //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm nhỏ hơn 5`);
+  //req.session.pathCur = `http://localhost:3000/manager/packets`;
+  res.render('manager/packets/list', {
+    title: 'Các gói nhu yếu phẩm',
+    active: { packets: true },
+    allProducts: allProducts,
+    packets: list,
+    empty: list.length===0
+  });
+});
 module.exports = router;
