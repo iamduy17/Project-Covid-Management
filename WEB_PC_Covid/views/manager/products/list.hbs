@@ -30,8 +30,8 @@
                                 <li><a class="dropdown-item" href="/manager/products/sort/byCost">Sắp xếp theo giá tiền</a></li>
                             </ul>
                         </div>
-                        <input class="form-control me-2" type="search" name="search" placeholder="Search">
-                        <button class="btn btn-outline-light" type="submit" formaction="/manager/products/search"><i class="fas fa-search"
+                        <input class="form-control me-2 search-box" type="text" name="search" placeholder="Search">
+                        <button class="btn btn-outline-light btn-search" type="submit" formaction="/manager/products/search"><i class="fas fa-search"
                                 aria-hidden="true"></i></button>
                     </form>
                 </div>
@@ -132,24 +132,28 @@
                     <div class="modal-body">
                         <div class="form-group mb-2">
                             <label for="productName">Tên sản phẩm: </label>
-                            <input class="form-control" type="text" name="productName" id="productName">
+                            <input class="form-control productNameAdd" type="text" name="productName">
+                            <div class="checkNameAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productImage">Hình ảnh: </label>
-                            <input class="form-control" type="file" name="productImage" id="productImage" multiple>
+                            <input class="form-control productImageAdd" type="file" name="productImage" id="productImage" multiple>
+                            <div class="checkImageAdd"></div>
                         </div>
                         <div class="form-group mb-2">
-                            <label for="productName">Giá tiền: </label>
-                            <input class="form-control" type="number" name="productPrice" id="productPrice">
+                            <label for="productPrice">Giá tiền: </label>
+                            <input class="form-control productPriceAdd" type="number" name="productPrice">
+                            <div class="checkPriceAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productName">Đơn vị định lượng: </label>
-                            <input class="form-control" type="text" name="productUnit" id="productUnit">
+                            <input class="form-control productUnitAdd" type="text" name="productUnit">
+                            <div class="checkUnitAdd"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <input type="submit" class="btn btn-primary btn-add" value="Save" />
                     </div>
                 </form>
             </div>
@@ -169,20 +173,23 @@
                     <div class="modal-body">
                         <div class="form-group mb-2">
                             <label for="productName">Tên sản phẩm: </label>
-                            <input class="form-control" type="text" name="productName" id="productName" value="{{NameProduct}}">
+                            <input class="form-control productNameEdit" type="text" name="productName" value="{{NameProduct}}">
+                            <div class="checkNameEdit"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productPrice">Giá tiền: </label>
-                            <input class="form-control" type="number" name="productPrice" id="productPrice" value="{{Price}}">
+                            <input class="form-control productPriceEdit" type="number" name="productPrice" id="productPrice" value="{{Price}}">
+                            <div class="checkPriceEdit"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productUnit">Đơn vị định lượng: </label>
-                            <input class="form-control" type="text" name="productUnit" id="productUnit" value="{{Unit}}">
+                            <input class="form-control productUnitEdit" type="text" name="productUnit" id="productUnit" value="{{Unit}}">
+                            <div class="checkUnitEdit"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <input type="submit" class="btn btn-primary btn-edit" value="Save" />
                     </div>
                 </form>
             </div>
@@ -244,17 +251,140 @@
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/js/fileinput.min.js"></script>
 <script src="https://cdn.jsdelivr.net/gh/kartik-v/bootstrap-fileinput@5.2.5/themes/fas/theme.min.js"></script>
 <script>
-    $(".carousel-item:nth-child(1)").addClass("active");
-    $( function() {
-        $("#productImage").fileinput({
-            uploadUrl: "/images",
-            maxFileCount: 5,
-            allowedFileTypes: ['image'],    // allow only images
-            showCancel: true,
-            initialPreviewAsData: true,
-            overwriteInitial: false,
-            theme: 'fas',
+    
+    $(document).ready( () => {
+        // thêm class active vào phần tử đầu tiên của ảnh
+        $(".carousel-item:nth-child(1)").addClass("active");
+
+        // ẩn nút search khi không có tìm kiếm
+        $('.btn-search').prop('disabled', true);
+        $('.search-box').keyup(function() {
+            if($(this).val().length != 0) {
+                $('.btn-search').prop('disabled', false);
+            }
+            else {
+                $('.btn-search').prop('disabled', true);
+            }
         });
+
+        // Upload ảnh
+        $( function() {
+            $("#productImage").fileinput({
+                uploadUrl: "/images",
+                maxFileCount: 5,
+                allowedFileTypes: ['image'],    // allow only images
+                showCancel: true,
+                initialPreviewAsData: true,
+                overwriteInitial: false,
+                theme: 'fas',
+            });
+        });
+        // Kiểm tra ràng buộc các ô được nhập
+        function alert(message, type, element) {
+            $(`.check${element}Edit`).html('<div class="alert alert-' + type + ' d-flex align-items-center mt-1 alert-dismissible" role="alert"> <i class="fas fa-exclamation-triangle"></i> <div>' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+        }
+
+        function alertAdd(message, type, element) {
+            $(`.check${element}Add`).html('<div class="alert alert-' + type + ' d-flex align-items-center mt-1 alert-dismissible" role="alert"> <i class="fas fa-exclamation-triangle"></i> <div>' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+        }
+
+        // Kiêm tra ràng buộc ở chỉnh sửa
+        var checkName = 1, checkPrice = 1, checkUnit = 1;
+        $('.productNameEdit').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkName = 1;
+                $('.checkNameEdit').html('');
+                if(checkName == 1 && checkPrice == 1 && checkUnit == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkName = 0;
+                alert('Vui lòng điền tên sản phẩm!', 'danger', 'Name');
+                $('.btn-edit').prop('disabled', true);
+            }
+        });
+        $('.productPriceEdit').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkPrice = 1;
+                $('.checkPriceEdit').html('');
+                if(checkName == 1 && checkPrice == 1 && checkUnit == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkPrice = 0;
+                alert('Vui lòng điền số tiền của sản phẩm!', 'danger', 'Price');
+                $('.btn-edit').prop('disabled', true);
+            }   
+        });
+        $('.productUnitEdit').keyup(function() {          
+            if($(this).val().length != 0)
+            {
+                checkUnit = 1;
+                $('.checkUnitEdit').html('');
+                if(checkName == 1 && checkPrice == 1 && checkUnit == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkUnit = 0;
+                alert('Vui lòng điền đơn vị định lượng của sản phẩm!', 'danger', 'Unit');
+                $('.btn-edit').prop('disabled', true);
+            }
+        });
+
+        // Kiểm tra ràng buộc khi thêm sản phẩm
+        var checkNameAdd = 0, checkImageAdd = 0, checkPriceAdd = 0, checkUnitAdd = 0;
+        $('.btn-add').prop('disabled', true);
+        $('.productNameAdd').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkNameAdd = 1;
+                $('.checkNameAdd').html('');
+                if(checkNameAdd == 1 && checkPriceAdd == 1 && checkUnitAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkNameAdd = 0;
+                alertAdd('Vui lòng điền tên sản phẩm!', 'danger', 'Name');
+                $('.btn-add').prop('disabled', true);
+            }
+        });
+        $('.productPriceAdd').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkPriceAdd = 1;
+                $('.checkPriceAdd').html('');
+                if(checkNameAdd == 1 && checkPriceAdd == 1 && checkUnitAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkPriceAdd = 0;
+                alertAdd('Vui lòng điền số tiền của sản phẩm!', 'danger', 'Price');
+                $('.btn-add').prop('disabled', true);
+            }   
+        });
+        $('.productUnitAdd').keyup(function() {           
+            if($(this).val().length != 0)
+            {
+                checkUnitAdd = 1;
+                $('.checkUnitAdd').html('');
+                if(checkNameAdd == 1 && checkPriceAdd == 1 && checkUnitAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkUnitAdd = 0;
+                alertAdd('Vui lòng điền đơn vị định lượng của sản phẩm!', 'danger', 'Unit');
+                $('.btn-add').prop('disabled', true);
+            }
+        });        
     });
+      
 </script>
 {{/section}}
