@@ -32,8 +32,8 @@
                                 <li><a class="dropdown-item" href="/manager/packets/sort/byLimitTime">Sắp xếp theo thời gian giới hạn</a></li>
                             </ul>
                         </div>
-                        <input class="form-control me-2" type="search" placeholder="Search" name="search" aria-label="Search">
-                        <button class="btn btn-outline-light" type="submit" formaction="/manager/packets/search"><i class="fas fa-search"
+                        <input class="form-control me-2 search-box" type="text" placeholder="Search" name="search">
+                        <button class="btn btn-outline-light btn-search" type="submit" formaction="/manager/packets/search"><i class="fas fa-search"
                                 aria-hidden="true"></i></button>
                     </form>
                 </div>
@@ -158,7 +158,8 @@
                     <div class="modal-body">
                         <div class="form-group mb-2">
                             <label for="packetName">Tên gói: </label>
-                            <input class="form-control" type="text" name="packetName" id="packetName">
+                            <input class="form-control packetNameAdd" type="text" name="packetName">
+                            <div class="checkNameAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productOfPacket">Danh sách các sản phẩm: </label>
@@ -166,29 +167,32 @@
                             <ul style="list-style-type: none;">
                                 {{#each allProducts}}
                                 <li>
-                                    <input type="checkbox" id="product1" name="options[]" value="{{Id}}">
+                                    <input type="checkbox" class="packetCheckboxAdd" name="options[]" value="{{Id}}">
                                     <label class="text-capitalize"> {{NameProduct}}</label><br>
                                 </li>
                                 {{/each}}
                             </ul>
+                            <div class="checkOptionAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="packetLimitProduct">Mức giới hạn số lượng mỗi sản phẩm trong gói: </label>
-                            <input class="form-control" type="number" name="packetLimitProducts"
-                                id="packetLimitProduct">
+                            <input class="form-control packetProductAdd" type="number" name="packetLimitProducts">
+                            <div class="checkProductAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="packetLimitPacket">Mức giới hạn gói cho mỗi người theo thời gian: </label>
-                            <input class="form-control" type="number" name="packetLimitPacket" id="packetLimitPacket">
+                            <input class="form-control packetAdd" type="number" name="packetLimitPacket">
+                            <div class="checkPacketAdd"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="limitTime">Thời gian giới hạn (tính theo ngày): </label>
-                            <input class="form-control" type="text" name="limitTime" id="limitTime">
+                            <input class="form-control packetTimeAdd" type="number" name="limitTime" >
+                            <div class="checkTimeAdd"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <input type="submit" class="btn btn-primary btn-add" value="Save" />
                     </div>
                 </form>
             </div>
@@ -207,7 +211,8 @@
                     <div class="modal-body">
                         <div class="form-group mb-2">
                             <label for="packetName">Tên gói: </label>
-                            <input class="form-control" type="text" name="packetName" id="packetName" value="{{NamePackage}}">
+                            <input class="form-control packetNameEdit" type="text" name="packetName" value="{{NamePackage}}">
+                            <div class="checkNameEdit"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="productOfPacket">Danh sách các sản phẩm: </label>
@@ -215,7 +220,7 @@
                             <ul style="list-style-type: none;">
                                 {{#each products}}
                                 <li>
-                                    <input type="checkbox" id="product1" name="options[]" value="{{Id}}" checked>
+                                    <input type="checkbox" name="options[]" value="{{Id}}" checked>
                                     <label class="text-capitalize"> {{NameProduct}}</label><br>
                                 </li>
                                 {{/each}}
@@ -225,7 +230,7 @@
                             <ul style="list-style-type: none;">
                                 {{#each uncheckedProducts}}
                                 <li>
-                                    <input type="checkbox" id="product1" name="options[]" value="{{Id}}">
+                                    <input type="checkbox" name="options[]" value="{{Id}}">
                                     <label class="text-capitalize"> {{NameProduct}}</label><br>
                                 </li>
                                 {{/each}}
@@ -233,21 +238,23 @@
                         </div>
                         <div class="form-group mb-2">
                             <label for="packetLimitProduct">Mức giới hạn số lượng mỗi sản phẩm trong gói: </label>
-                            <input class="form-control" type="number" name="packetLimitProducts"
-                                id="packetLimitProduct" value="{{LimitProducts}}">
+                            <input class="form-control packetProductEdit" type="number" name="packetLimitProducts" value="{{LimitProducts}}">
+                            <div class="checkProductEdit"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="packetLimitPacket">Mức giới hạn gói cho mỗi người theo thời gian: </label>
-                            <input class="form-control" type="number" name="packetLimitPacket" id="packetLimitPacket" value="{{LimitPeople}}">
+                            <input class="form-control packetEdit" type="number" name="packetLimitPacket" value="{{LimitPeople}}">
+                            <div class="checkPacketEdit"></div>
                         </div>
                         <div class="form-group mb-2">
                             <label for="limitTime">Thời gian giới hạn (tính theo ngày): </label>
-                            <input class="form-control" type="text" name="limitTime" id="limitTime" value="{{LimitTime}}">
+                            <input class="form-control packetTimeEdit" type="number" name="limitTime" value="{{LimitTime}}">
+                            <div class="checkTimeEdit"></div>
                         </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Save" />
+                        <input type="submit" class="btn btn-primary btn-edit" value="Save" />
                     </div>
                 </form>
             </div>
@@ -303,6 +310,154 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 <script>
-    $(".carousel-item:nth-child(1)").addClass("active");
+    $(document).ready(function() {
+        $(".carousel-item:nth-child(1)").addClass("active");
+        // ẩn nút search khi không có tìm kiếm
+        $('.btn-search').prop('disabled', true);
+        $('.search-box').keyup(function() {
+            if($(this).val().length != 0) {
+                $('.btn-search').prop('disabled', false);
+            }
+            else {
+                $('.btn-search').prop('disabled', true);
+            }
+        });
+
+        // Kiểm tra ràng buộc các ô được nhập
+        function alert(message, type, element) {
+            $(`.check${element}Edit`).html('<div class="alert alert-' + type + ' d-flex align-items-center mt-1 alert-dismissible" role="alert"> <i class="fas fa-exclamation-triangle"></i> <div>' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+        }
+
+        function alertAdd(message, type, element) {
+            $(`.check${element}Add`).html('<div class="alert alert-' + type + ' d-flex align-items-center mt-1 alert-dismissible" role="alert"> <i class="fas fa-exclamation-triangle"></i> <div>' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+        }
+
+        // Kiêm tra ràng buộc ở chỉnh sửa
+        var checkName = 1, checkProduct = 1, checkPacket = 1, checkTime = 1;
+        $('.packetNameEdit').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkName = 1;
+                $('.checkNameEdit').html('');
+                if(checkName == 1 && checkProduct == 1 && checkPacket == 1 && checkTime == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkName = 0;
+                alert('Vui lòng điền tên gói sản phẩm!', 'danger', 'Name');
+                $('.btn-edit').prop('disabled', true);
+            }
+        });
+        $('.packetProductEdit').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkProduct = 1;
+                $('.checkProductEdit').html('');
+                if(checkName == 1 && checkProduct == 1 && checkPacket == 1 && checkTime == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkProduct = 0;
+                alert('Vui lòng điền mức giới hạn số lượng mỗi sản phẩm trong gói!', 'danger', 'Product');
+                $('.btn-edit').prop('disabled', true);
+            }   
+        });
+        $('.packetEdit').keyup(function() {          
+            if($(this).val().length != 0)
+            {
+                checkPacket = 1;
+                $('.checkPacketEdit').html('');
+                if(checkName == 1 && checkProduct == 1 && checkPacket == 1 && checkTime == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkPacket = 0;
+                alert('Vui lòng điền mức giới hạn gói cho mỗi người theo thời gian!', 'danger', 'Packet');
+                $('.btn-edit').prop('disabled', true);
+            }
+        });
+        $('.packetTimeEdit').keyup(function() {          
+            if($(this).val().length != 0)
+            {
+                checkTime = 1;
+                $('.checkTimeEdit').html('');
+                if(checkName == 1 && checkProduct == 1 && checkPacket == 1 && checkTime == 1)
+                    $('.btn-edit').prop('disabled', false);
+            }
+            else
+            {
+                checkTime = 0;
+                alert('Vui lòng điền thời gian giới hạn của gói!', 'danger', 'Time');
+                $('.btn-edit').prop('disabled', true);
+            }
+        });
+
+        // Kiểm tra ràng buộc khi thêm sản phẩm
+        var checkNameAdd = 0, checkProductAdd = 0, checkPacketAdd = 0, checkTimeAdd = 0;
+        $('.btn-add').prop('disabled', true);
+        $('.packetNameAdd').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkNameAdd = 1;
+                $('.checkNameAdd').html('');
+                if(checkNameAdd == 1 && checkProductAdd == 1 && checkPacketAdd == 1 && checkTimeAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkNameAdd = 0;
+                alertAdd('Vui lòng điền tên gói sản phẩm!', 'danger', 'Name');
+                $('.btn-add').prop('disabled', true);
+            }
+        });
+        $('.packetProductAdd').keyup(function() {
+            if($(this).val().length != 0)
+            {
+                checkProductAdd = 1;
+                $('.checkProductAdd').html('');
+                if(checkNameAdd == 1 && checkProductAdd == 1 && checkPacketAdd == 1 && checkTimeAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkProductAdd = 0;
+                alertAdd('Vui lòng điền mức giới hạn số lượng mỗi sản phẩm trong gói!', 'danger', 'Product');
+                $('.btn-add').prop('disabled', true);
+            }   
+        });
+        $('.packetAdd').keyup(function() {          
+            if($(this).val().length != 0)
+            {
+                checkPacketAdd = 1;
+                $('.checkPacketAdd').html('');
+                if(checkNameAdd == 1 && checkProductAdd == 1 && checkPacketAdd == 1 && checkTimeAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkPacketAdd = 0;
+                alertAdd('Vui lòng điền mức giới hạn gói cho mỗi người theo thời gian!', 'danger', 'Packet');
+                $('.btn-add').prop('disabled', true);
+            }
+        });
+        $('.packetTimeAdd').keyup(function() {          
+            if($(this).val().length != 0)
+            {
+                checkTimeAdd = 1;
+                $('.checkTimeAdd').html('');
+                if(checkNameAdd == 1 && checkProductAdd == 1 && checkPacketAdd == 1 && checkTimeAdd == 1)
+                    $('.btn-add').prop('disabled', false);
+            }
+            else
+            {
+                checkTimeAdd = 0;
+                alertAdd('Vui lòng điền thời gian giới hạn của gói!', 'danger', 'Time');
+                $('.btn-add').prop('disabled', true);
+            }
+        }); 
+    });
 </script>
 {{/section}}

@@ -12,7 +12,7 @@ const cors = require('cors');
 // const paymentApi = require('./src/apis/payment.api');
 const changePassApi = require('./src/apis/changePass.api');
 const rechargeApi = require('./src/apis/recharge.api');
-
+const payment = require('./src/apis/payment.api');
 // Configurations
 const app = express();
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
@@ -36,4 +36,5 @@ app.listen(process.env.PORT, () => {
 app.use('/changePass', changePassApi);
 //app.use('/payment', paymentApi); 
 app.use('/recharge', rechargeApi);
+app.use('/payment', payment);
 app.use('/login', loginApi);
