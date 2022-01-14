@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -22,7 +23,7 @@
     }
 
     .banner-sec {
-      background: url(assets/login/images/logo_pay.jpg);
+      background: url(/assets/login/images/logo_pay.jpg);
       background-size: auto;
       background-repeat: no-repeat;
       min-height: 650px;
@@ -137,16 +138,25 @@
 
             <div class="form-check">
               <label class="form-check-label">
-                <a href="http://localhost:5000/changePass">Thay đổi mật khẩu</a>
+                <a href="http://localhost:3000/user/pay/changePass">Thay đổi mật khẩu</a>
               </label>
-              <button type="submit" class="btn btn-login float-right"
-              formaction="/payment">Login</button>
+              <button type="submit" class="btn btn-login float-right" formaction="/user/pay/payment">Login</button>
             </div>
           </form>
         </div>
         <div class="col-md-7 banner-sec">
+          <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+              <div class="carousel-item">
+                <img class="d-block img-fluid" src="assets/login/images/logo_pay.jpg" width="100px" alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
   </section>
 </body>
+
 </html>
