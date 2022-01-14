@@ -1,15 +1,20 @@
 const db = require('../db');
 
-const tbName = 'User';
+const  tbName = 'ProductPackage';
 const idFieldName = 'Id';
-const fieldName = ['Id', 'Name', 'Year', 'Address', 'Status', 'Debt', 'IdNumber'];
+const fieldName = ['IdPackage', 'IdProduct'];
 module.exports = {
-    all: async () => {
+    all: async () =>{
         const res = await db.load(tbName, idFieldName);
         return res;
     },
-    allByCat: async CatID => {
-        const condition = ` WHERE "CatID" = ${CatID} `;
+    allByIdPackage: async CatID => {
+        const condition = ` WHERE "IdPackage" = ${CatID} `;
+        const res = await db.loadCondition(tbName, idFieldName, condition);
+        return res;
+    },
+    allById: async CatID => {
+        const condition = ` WHERE "IdPackage" = ${CatID} `;
         const res = await db.loadCondition(tbName, idFieldName, condition);
         return res;
     },
@@ -18,13 +23,12 @@ module.exports = {
         return res;
     },
     countByCat: async (CatID) => {
-        const condition = ` WHERE "CatID" = ${CatID} `;
+        const condition = ` WHERE "Id" = ${CatID} `;
         const res = await db.count(tbName, idFieldName, CatID, condition);
         return res;
     },
-    updateUser: async (user, id) => {
-        const condition = `WHERE "id" = ${id}`;
-        const res = await db.patch(tbName, fieldName, user, condition);
+    add: async managerH =>{
+        const res = await db.add(tbName, managerH);
         return res;
     },
 }

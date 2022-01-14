@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{title}}</title>
+  <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style>
+    @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
+
+    .login-block {
+      background: #DE6262;
+      background: -webkit-linear-gradient(to bottom, #FFB88C, #DE6262);
+      background: linear-gradient(to bottom, #FFB88C, #DE6262);
+      float: left;
+      width: 100%;
+      width: 100%;
+      padding: 50px 0;
+    }
+
+    .banner-sec {
+      background: url(assets/login/images/logo_pay.jpg);
+      background-size: auto;
+      background-repeat: no-repeat;
+      min-height: 650px;
+      border-radius: 0 10px 10px 0;
+      padding: 0;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 10px;
+      box-shadow: 15px 20px 0px rgba(0, 0, 0, 0.1);
+    }
+
+    .carousel-inner {
+      border-radius: 0 10px 10px 0;
+    }
+
+    .carousel-caption {
+      text-align: left;
+      left: 5%;
+    }
+
+    .login-sec {
+      padding: 50px 70px;
+      position: relative;
+    }
+
+    .login-sec .copy-text {
+      position: absolute;
+      width: 80%;
+      bottom: 20px;
+      font-size: 13px;
+      text-align: center;
+    }
+
+    .login-sec .copy-text i {
+      color: #FEB58A;
+    }
+
+    .login-sec .copy-text a {
+      color: #E36262;
+    }
+
+    .login-sec h2 {
+      margin-bottom: 30px;
+      font-weight: 800;
+      font-size: 30px;
+      color: #DE6262;
+    }
+
+    .login-sec h2:after {
+      content: " ";
+      width: 100px;
+      height: 5px;
+      background: #FEB58A;
+      display: block;
+      margin-top: 20px;
+      border-radius: 3px;
+      margin-left: auto;
+      margin-right: auto
+    }
+
+    .btn-login {
+      background: #DE6262;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .banner-text {
+      width: 70%;
+      position: absolute;
+      bottom: 40px;
+      padding-left: 20px;
+    }
+
+    .banner-text h2 {
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .banner-text h2:after {
+      content: " ";
+      width: 100px;
+      height: 5px;
+      background: #FFF;
+      display: block;
+      margin-top: 20px;
+      border-radius: 3px;
+    }
+
+    .banner-text p {
+      color: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <section class="login-block">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-5 login-sec">
+          <h2 class="text-center">Login Now</h2>
+          <form class="login-form" method="get">
+            <div class="form-group">
+              <label for="exampleID">ID:</label>
+              <input type="text" class="form-control" placeholder="ID">
+            </div>
+            <div class="form-group">
+              <label for="exampleInputPassword1">Mật khẩu:</label>
+              <input type="password" class="form-control" placeholder="Password">
+            </div>
+
+            <div class="form-check">
+              <label class="form-check-label">
+                <a href="http://localhost:5000/changePass">Thay đổi mật khẩu</a>
+              </label>
+              <button type="submit" class="btn btn-login float-right"
+              formaction="/payment">Login</button>
+            </div>
+          </form>
+        </div>
+        <div class="col-md-7 banner-sec">
+        </div>
+      </div>
+  </section>
+</body>
+</html>
