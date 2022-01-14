@@ -1,148 +1,117 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <title>Login Pc covid</title>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <link rel="icon" type="image/png" href="login/images/icons/favicon.ico" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css"
-    />
-    <link rel="stylesheet" type="text/css" href="assets/login/css/util.css" />
-    <link rel="stylesheet" type="text/css" href="assets/login/css/main.css" />
-  </head>
-  <body>
-    <div class="limiter">
-      <div class="container-login100">
-        <div class="wrap-login100">
-          <div class="login100-pic js-tilt">
-            <img src="assets/login/images/img-01.png" alt="IMG" />
-          </div>
-          <form method="POST" active="/signin" class="login100-form validate-form">
-            <span class="login100-form-title">
-                {{#if firstSignin}}
-                    Đăng kí Admin
-                {{else}} 
-                    Đăng nhập PC Covid
-                 {{/if}}
-            </span>
-           
-            {{#if errorSystem}}
-                 <div class="page-hero d-flex align-items-center justify-content-center"><h5 style="font-family: Poppins-Medium; color:red;">{{message}}</h5></div>
-            {{/if}}
-            <div
-              class="wrap-input100 validate-input{{#if errorUser}} alert-validate{{/if}}"
-              data-validate="{{message}}"
-            >
-              <input
-                class="input100"
-                type="text"
-                name="username"
-                placeholder="Tên tài khoản"
-              />
-              <span class="symbol-input100">
-               <i class="fa fa-user" aria-hidden="true"></i>
-              </span>
-              
-            </div>
 
-            <div
-              class="wrap-input100 validate-input{{#if errorPass}} alert-validate{{/if}}"
-              data-validate="{{message}}"
-            >
-              <input
-                class="input100"
-                type="password"
-                name="password"
-                placeholder="Mật khẩu"
-              />
-              <span class="symbol-input100">
-                <i class="fa fa-lock" aria-hidden="true"></i>
-              </span>
-            </div>
-             {{#if firstSignin}}
-                <div
-                class="wrap-input100 validate-input{{#if errorVerifyPass}} alert-validate{{/if}}"
-                data-validate="{{message}}"
-                >
-                <input
-                    class="input100"
-                    type="password"
-                    name="verifyPass"
-                    placeholder="Xác nhận mật khẩu"
-                />
-                <span class="symbol-input100">
-                    <i class='fas fa-check' aria-hidden='true'></i>
-                </span>
-                </div>
-                <div class="container-login100-form-btn">
-                    <button class="login100-form-btn" formaction="/register">Đăng kí</button>
-                </div>
-                {{else}} 
-                <div class="d-flex justify-content-center">
-                    <fieldset class="form-group">
-                        <div class="row">
-                            <div class="form-check mr-3">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="1" checked>
-                                <label class="form-check-label" for="gridRadios">
-                                    Người dùng
-                                </label>
-                            </div>
-                            <div class="form-check ml-2">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="2">
-                                <label class="form-check-label" for="gridRadios">
-                                    Quản trị
-                                </label>
-                            </div>
-                            <div class="form-check ml-3">
-                                <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="3">
-                                <label class="form-check-label" for="gridRadios">
-                                    Quản lí
-                                </label>
-                            </div>
-                        </div>
-                    </fieldset>
-                </div>
-                {{#if errorRole}}
-                     <div class="wrap-input100 validate-input alert-validate"
-                    data-validate="{{message}}"></div>
-                {{/if}}
-               
-                <div class="container-login100-form-btn" >
-                <button class="login100-form-btn">Đăng nhập</button>
-                </div>
-            {{/if}}
-            
+<head>
+  <title>Login Pc covid</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <link rel="icon" type="image/png" href="login/images/icons/favicon.ico" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/css/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/hamburgers/1.1.3/hamburgers.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" />
+  <link rel="stylesheet" type="text/css" href="assets/login/css/util.css" />
+  <link rel="stylesheet" type="text/css" href="assets/login/css/main.css" />
+</head>
 
-            <div class="text-center p-t-100">
-            </div>
-          </form>
+<body>
+  <div class="limiter">
+    <div class="container-login100">
+      <div class="wrap-login100">
+        <div class="login100-pic js-tilt">
+          <img src="assets/login/images/img-01.png" alt="IMG" />
         </div>
+        <form method="POST" active="/signin" class="login100-form validate-form">
+          <span class="login100-form-title">
+            {{#if firstSignin}}
+            Đăng kí Admin
+            {{else}}
+            Đăng nhập PC Covid
+            {{/if}}
+          </span>
+
+          {{#if errorSystem}}
+          <div class="page-hero d-flex align-items-center justify-content-center">
+            <h5 style="font-family: Poppins-Medium; color:red;">{{message}}</h5>
+          </div>
+          {{/if}}
+          <div class="wrap-input100 validate-input{{#if errorUser}} alert-validate{{/if}}" data-validate="{{message}}">
+            <input class="input100" type="text" name="username" placeholder="Tên tài khoản" />
+            <span class="symbol-input100">
+              <i class="fa fa-user" aria-hidden="true"></i>
+            </span>
+
+          </div>
+
+          <div class="wrap-input100 validate-input{{#if errorPass}} alert-validate{{/if}}" data-validate="{{message}}">
+            <input class="input100" type="password" name="password" placeholder="Mật khẩu" />
+            <span class="symbol-input100">
+              <i class="fa fa-lock" aria-hidden="true"></i>
+            </span>
+          </div>
+          {{#if firstSignin}}
+          <div class="wrap-input100 validate-input{{#if errorVerifyPass}} alert-validate{{/if}}"
+            data-validate="{{message}}">
+            <input class="input100" type="password" name="verifyPass" placeholder="Xác nhận mật khẩu" />
+            <span class="symbol-input100">
+              <i class='fas fa-check' aria-hidden='true'></i>
+            </span>
+          </div>
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn" formaction="/register">Đăng kí</button>
+          </div>
+          {{else}}
+          <div class="d-flex justify-content-center">
+            <fieldset class="form-group">
+              <div class="row">
+                <div class="form-check mr-3">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="1" checked>
+                  <label class="form-check-label" for="gridRadios">
+                    Người dùng
+                  </label>
+                </div>
+                <div class="form-check ml-2">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="2">
+                  <label class="form-check-label" for="gridRadios">
+                    Quản trị
+                  </label>
+                </div>
+                <div class="form-check ml-3">
+                  <input class="form-check-input" type="radio" name="gridRadios" id="gridRadios" value="3">
+                  <label class="form-check-label" for="gridRadios">
+                    Quản lí
+                  </label>
+                </div>
+              </div>
+            </fieldset>
+          </div>
+          {{#if errorRole}}
+          <div class="wrap-input100 validate-input alert-validate" data-validate="{{message}}"></div>
+          {{/if}}
+
+          <div class="container-login100-form-btn">
+            <button class="login100-form-btn">Đăng nhập</button>
+          </div>
+          {{/if}}
+
+
+          <div class="text-center p-t-100">
+          </div>
+        </form>
       </div>
     </div>
-    <!--===============================================================================================-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
-    <script>
-      $(".js-tilt").tilt({
-        scale: 1.1,
-      });
-    </script>
-  </body>
+  </div>
+  <!--===============================================================================================-->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+  <script>
+    $(".js-tilt").tilt({
+      scale: 1.1,
+    });
+  </script>
+</body>
+
 </html>

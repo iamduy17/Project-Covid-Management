@@ -8,4 +8,11 @@ router.get('/', (req, res) => {
   });
 });
 
+router.get('/payDetail', (req, res) => {
+  res.render('user/pay/payDetail', {
+    title: 'Thanh toán chi phí',
+    active: { pay: true },
+  });
+});
+
 module.exports = router;

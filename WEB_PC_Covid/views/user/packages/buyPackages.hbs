@@ -1,107 +1,112 @@
 <div id="content">
-    <form>
-        <link rel="stylesheet" href="/assets/css/tooplate-main.css">
-        <!-- Items Starts Here -->
-        <div class="featured-page">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                        <div class="section-heading">
-                            <div class="line-dec"></div>
-                            <h1>GÓI NHU YẾU PHẨM</h1>
+    <div class="card" style="margin-top: -120px;">
+        <div class="card-header">
+            <link rel="stylesheet" href="/assets/css/tooplate-main.css">
+            <!-- Items Starts Here -->
+            <div class="featured-page">
+                <div class="container">
+                    <div class="row navbar navbar-expand-lg bg-linear">
+                        <div class="col-md-4 col-sm-12">
+                            <div class="section-heading">
+                                <div class="line-dec"></div>
+                                <h1>GÓI NHU YẾU PHẨM</h1>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-8 col-sm-12">
-                        <div id="filters" class="button-group">
-                            <button type="menu" class="btn btn-outline-success" data-filter="*" id="btnDefault"
-                                name="sortPrice" value="0">All
-                                Products</button>
-                            <button class="btn btn-outline-success" data-filter=".new">Newest</button>
-                            <button type="menu" class="btn btn-outline-success" data-filter=".low" id="btnLowPrice"
-                                name="sortPrice" value="1">Low Price</button>
-                            <button class="btn btn-outline-success" data-filter=".high" id="btnHightPrice"
-                                name="sortPrice" value="-1">Hight Price</button>
+                        <div class="col-md-4 col-sm-12">
+                        </div>
+                        <div class="col-md-4 col-sm-12">
+                            <form class="d-flex" method="get">
+                                <input class="form-control me-2" type="search" placeholder="Search" name="search"
+                                    aria-label="Search">
+                                <button class="btn btn-outline-light" type="submit"
+                                    formaction="/user/buyPackages/search"><i class="fas fa-search"
+                                        aria-hidden="true"></i></button>
+                            </form>
                         </div>
                     </div>
                 </div>
                 <hr>
-                <div class="row">
-                    <div class="col-md-4 col-sm-12">
-                    </div>
-                    <div id="flexdisplay" class="col-md-8 col-sm-12">
-                        <div>
-                            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                        </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="row d-flex flex-row">
+                <!-- **#each this.products ** -->
+                {{#each this.Package}}
+                <div class="col-lg-4 mb-3">
+                    <a href="/user/buyPackages/{{Id}}">
+                        <div class="card h-100 w-20 edit-card" style="width: 23rem;">
+                            <div id="carousel{{Id}}" class="carousel slide card-img-top" data-bs-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src='https://satbabau.vn/wp-content/uploads/2018/08/trong-thang-dau-ba-bau-an-gi-de-dam-bao-cung-cap-day-du-duong-chat-cho-thai-nhi.jpeg'
+                                            class="d-block w-100 edit-image" alt="...">
+                                    </div>
+                                    <div class="carousel-item">
+                                        <img src="https://admin.thethaohcm.vn/resize_x500x/js/tiny_mce/plugins/imagemanager/files/thuc-pham-giau-protein.jpg"
+                                            class="d-block w-100 edit-image" alt="...">
+                                    </div>
 
-                        <div class="dropdown" style="margin-left: 10px;">
-                            <select name="roomType" class="dropdown-select">
-                                <option value="{{type}}">Type</option>
-                                <option value="0">All</option>
-                                <option value="1">1</option>
-                                <option value="2">2</option>
-                                <option value="3">3</option>
-                                <option value="4">4</option>
-                            </select>
-                        </div>
-                        <button id="btnFilter" style="margin-left: 10px;">
-                            <p id="btnText">Filter</p>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="featured container no-gutter">
-            <div class="row posts">
-                <div id="1" class="item new col-md-4">
-                    <a href="/user/buyPackages/packageDetail">
-                        <div class="featured-item">
-                            <img src="https://png.pngtree.com/png-vector/20190826/ourlarge/pngtree-our-services-medical-png-image_1697055.jpg"
-                                alt="" width="80">
-                            <h4>Y Te</h4>
-                            <h6>1.000.000 VND</h6>
-                        </div>
-                    </a>
-                </div>
-                <div id="1" class="item new col-md-4">
-                    <a href="/user/buyPackages/packageDetail">
-                        <div class="featured-item">
-                            <img src="https://png.pngtree.com/png-vector/20190826/ourlarge/pngtree-our-services-medical-png-image_1697055.jpg"
-                                alt="" width="80">
-                            <h4>Y Te</h4>
-                            <h6>1.000.000 VND</h6>
-                        </div>
-                    </a>
-                </div>
-                <div id="1" class="item new col-md-4">
-                    <a href="/user/packets/packageDetail">
-                        <div class="featured-item">
-                            <img src="https://png.pngtree.com/png-vector/20190826/ourlarge/pngtree-our-services-medical-png-image_1697055.jpg"
-                                alt="" width="80">
-                            <h4>Y Te</h4>
-                            <h6>1.000.000 VND</h6>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </div>
-        <div class="page-navigation">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <ul>
-                            <li class="current-page"><input type="submit" name="page" value="1"></input></li>
-                            <li><input type="submit" name="page" value="2"></input></li>
-                            <li><input type="submit" name="page" value="3"></input></li>
-                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
+                                    {{!-- {{#each images}}
+                                    <div class="carousel-item">
+                                        <img src="{{Img}}" class="d-block w-100 edit-image" alt="...">
+                                    </div>
+                                    {{/each}} --}}
+                                </div>
+                                <button class="carousel-control-prev" type="button" data-bs-target="#carousel{{Id}}"
+                                    data-bs-slide="prev">
+                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                                <button class="carousel-control-next" type="button" data-bs-target="#carousel{{Id}}"
+                                    data-bs-slide="next">
+                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                    <span class="visually-hidden"></span>
+                                </button>
+                            </div>
 
-        <script src="/public/assets/js/jquery.min.js"></script>
-        <!-- Featred Page Ends Here -->
-    </form>
+                            <div class="card-body">
+                                <h5 class="card-title">{{NamePackage}}</h5>
+                                <p class="card-text">Limit Products: {{LimitProducts}}</p>
+                                <p class="card-text">Limit People: {{LimitPeople}}</p>
+                                <p class="card-text">Limit Time: {{LimitTime}}</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                {{/each}}
+                <!-- **/each** -->
+            </div>
+            <!-- **/Pagenation** -->
+            <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item  {{#unless can_go_prev}} disabled {{/unless}}">
+                        <a class="page-link" href="?page={{prev_value}}" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    {{#each this.page_items }}
+                    {{#if isActive}}
+                    <li class="page-item active" aria-current="page">
+                        <span class="page-link">{{value}}</span>
+                    </li>
+                    {{else}}
+                    <li class="page-item {{#if isDisabled}} disabled {{/if}}"><a class="page-link"
+                            href="?page={{value}}">{{value}}</a></li>
+                    {{/if}}
+                    {{/each}}
+                    <li class="page-item  {{#unless can_go_next}} disabled {{/unless}}">
+                        <a class="page-link" href="?page={{next_value}}" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <script src="/public/assets/js/jquery.min.js"></script>
+    <!-- Featred Page Ends Here -->
 </div>
 
 {{#section 'css'}}
@@ -117,7 +122,7 @@
 {{/section}}
 
 {{#section 'nav'}}
-    {{> navbarUser }}
+{{> navbarUser }}
 {{/section}}
 
 {{#section 'script'}}

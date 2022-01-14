@@ -1,10 +1,10 @@
 const db = require('../db');
 
-const tbName = 'User';
-const idFieldName = 'Id';
-const fieldName = ['Id', 'Name', 'Year', 'Address', 'Status', 'Debt', 'IdNumber'];
+const  tbName = 'HistoryManager';
+const idFieldName = 'IdHistory';
+const fieldName = ['IdHistory', 'IdManager', 'TimeStart', 'TimeEnd'];
 module.exports = {
-    all: async () => {
+    all: async () =>{
         const res = await db.load(tbName, idFieldName);
         return res;
     },
@@ -22,9 +22,8 @@ module.exports = {
         const res = await db.count(tbName, idFieldName, CatID, condition);
         return res;
     },
-    updateUser: async (user, id) => {
-        const condition = `WHERE "id" = ${id}`;
-        const res = await db.patch(tbName, fieldName, user, condition);
+    add: async managerH =>{
+        const res = await db.add(tbName, managerH);
         return res;
     },
 }
