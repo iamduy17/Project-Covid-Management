@@ -19,7 +19,7 @@
     }
 
     .banner-sec {
-        background: url(assets/login/images/logo_pay.jpg);
+        background: url(/assets/login/images/logo_pay.jpg);
         background-size: auto;
         background-repeat: no-repeat;
         min-height: 650px;
@@ -133,14 +133,20 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="exampleInputPassword1" class="text2">Số dư tài khoản:</label>
+                        <label class="text2">Số dư tài khoản:</label>
                         <input type="text" readonly class="form-control-plaintext" class="form-control"
                             value="1,000,000 VNĐ">
                     </div>
+
+                    <div class="form-group">
+                        <label class="text2">Số tiền thanh toán:</label>
+                        <input type="number" class="form-control" class="form-control">
+                    </div>
+                    <button type="submit" class="btn btn-login btn-right">Thanh toán</button>
                     <br><br>
                     <hr>
                     <br><br>
-                    <button type="submit" class="btn btn-login" formaction="/recharge">Nạp tiền</button>
+                    <button type="submit" class="btn btn-login" formaction="/user/pay/recharge">Nạp tiền</button>
                 </form>
             </div>
             <div class="col-md-7 banner-sec">

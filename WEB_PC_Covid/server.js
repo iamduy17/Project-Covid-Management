@@ -32,33 +32,3 @@ app.use('/user', require('./controllers/user/main.C'));
 app.listen(port, () => {
     console.log(`Example app listening on port http://localhost:${port}`);
 });
-
-// PAYMENT
-const expressPay = require('express'),  
-    appPay = expressPay(),
-    portPay = 5000,
-    pathPay = require('path');
-
-//hbs
-require('./middlewares/handlebars')(appPay);
-//session
-require('./middlewares/session')(appPay);
-
-appPay.use(expressPay.json());
-appPay.use(
-    expressPay.urlencoded({
-        extended: true,
-    })
-);
-
-appPay.use(cookieParser());
-require('./middlewares/passport')(appPay);
-
-appPay.use(expressPay.static(pathPay.join(__dirname, 'public')));
-appPay.use(expressPay.static(pathPay.join(__dirname, 'images')));
-
-appPay.use('/', require('./controllers/payment.C'));
-
-appPay.listen(portPay, () => {
-  console.log(`Example app listening at http://localhost:${portPay}`)
-})

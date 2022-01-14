@@ -20,54 +20,34 @@
         <div class="card-body">
             <div class="row d-flex justify-content-between">
                 <!-- **#each this.products ** -->
-                <table class="table">
-                    <thead>
-                        <tr>
-                            <th scope="col">#</th>
-                            <th scope="col">ID</th>
-                            <th scope="col">Hóa đơn</th>
-                            <th scope="col">Số tiền</th>
-                            <th scope="col">Ngày thanh toán</th>
-                            <th </th>
-                        </tr>
-
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <th scope="row">1</th>
-                            <td>1</td>
-                            <td>Otto</td>
-                            <td>1.000.000VND</td>
-                            <td>20/12/2021</td>
-                            <td>
-                                <a href="http://localhost:5000/signin" class="btn btn-success btn" role="button">Thanh toán</a>
-                            </td>
-                        </tr>
-                        <a href="#">
+                <form method="get">
+                    <table class="table">
+                        <thead>
                             <tr>
-                                <th scope="row">2</th>
-                                <td>2</td>
-                                <td>Thornton</td>
+                                <th scope="col">#</th>
+                                <th scope="col">ID</th>
+                                <th scope="col">Hóa đơn</th>
+                                <th scope="col">Số tiền</th>
+                                <th scope="col">Ngày thanh toán</th>
+                                <th </th>
+                            </tr>
+
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>1</td>
+                                <td>Otto</td>
                                 <td>1.000.000VND</td>
                                 <td>20/12/2021</td>
                                 <td>
-                                    <a href="http://localhost:5000/signin" class="btn btn-success btn" role="button">Thanh
-                                        toán</a>
+                                    <button type="submit" class="btn btn-success float-right"
+                                        formaction="pay/payDetail">Thanh toán</button>
                                 </td>
                             </tr>
-                        </a>
-                        <tr>
-                            <th scope="row">3</th>
-                            <td>3</td>
-                            <td>the Bird</td>
-                            <td>1.000.000VND</td>
-                            <td>20/12/2021</td>
-                            <td>
-                                <a href="http://localhost:5000/signin" class="btn btn-success btn" role="button">Thanh toán</a>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
+                </form>
             </div>
         </div>
     </div>
