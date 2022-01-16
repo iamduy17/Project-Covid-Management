@@ -40,7 +40,7 @@
                 </div>
                 {{#each this.Package}}
                 <div class="col-md-6">
-                    <div class="right-content">
+                    <div class="right-content" id="{{Id}}" name="{{Id}}">
                         <h2>{{NamePackage}}</h2>
                         <h6>Thành phần bao gồm: </h6>
                         <br><br>
@@ -50,23 +50,23 @@
                         </div>
                         {{/each}}
 
-                        <span><h4>Tổng tiền: {{../totalPrice}} VNĐ</h4></span>
-                       
+                        <span>
+                            <h4>Tổng tiền: {{../totalPrice}} VNĐ</h4>
+                        </span>
+
                         <div style="margin-top: 0px">
                             <p>{{introduce}}</p>
-                        <span>packets available </span>
+                            <span>packets available </span>
                         </div>
-                        <form action="" method="get">
+                        <form method="get">
                             <label for="quantity">Quantity:</label>
                             <input name="quantity" type="quantity" class="quantity-text" id="quantity"
                                 onfocus="if(this.value == '1') { this.value = ''; }"
                                 onBlur="if(this.value == '') { this.value = '1';}" value="1">
-                            <input type="submit" class="button" value="Mua ngay!">
+                            <button type="button" class="btn btn-info" data-bs-toggle="modal" style="margin-left: 20px;"
+                                data-bs-target="#exampleBuy" data-target="#exampleBuy">Mua ngay!</button>
                         </form>
                         <div class="down-content">
-                            <div class="categories">
-                                <h6>Category: <span><a href="#">thực phẩm</a>,<a href="#">Classic</a></span></h6>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -77,25 +77,28 @@
 
     <!-- Single Page Ends Here -->
 
-    <!-- Similar Starts Here -->
-    <div class="featured-items">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="section-heading">
-                        <div class="line-dec"></div>
-                        <h1>You May Also Like</h1>
-                    </div>
-                </div>
-                <div class="col-md-12">
-                    <div class="owl-carousel owl-theme">
+    <!-- Similar Ends Here -->
 
-                    </div>
+    <div class="modal fade" id="exampleBuy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">CHỌN HÌNH THỨC THANH TOÁN</h4>
                 </div>
+                <form align="center">
+                    <div class="modal-body">
+                        <button type="submit" class="btn btn-info" formmethod="post" style="margin-right: 50px;"
+                            formaction="/paynow">Thanh toán ngay</button>
+
+                        <button type="submit" class="btn btn-info" formmethod="post"
+                            formaction="/user/buyPackages/paylater">Thanh toán sau</button>
+                    </div>
+                    <div class="modal-footer">
+                    </div>
+                </form>
             </div>
         </div>
     </div>
-    <!-- Similar Ends Here -->
 </div>
 
 {{#section 'css'}}

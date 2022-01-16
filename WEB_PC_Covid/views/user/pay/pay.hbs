@@ -24,28 +24,27 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col">#</th>
                                 <th scope="col">ID</th>
-                                <th scope="col">Hóa đơn</th>
-                                <th scope="col">Số tiền</th>
-                                <th scope="col">Ngày thanh toán</th>
-                                <th </th>
+                                <th scope="col">Tên người mua</th>
+                                <th scope="col">Tên gói nhu yếu phẩm</th>
+                                <th scope="col">Ngày mua</th>
+                                <th> </th>
                             </tr>
-
                         </thead>
+                        {{#each this.consume}}
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>1</td>
-                                <td>Otto</td>
-                                <td>1.000.000VND</td>
-                                <td>20/12/2021</td>
+                                <th scope="row">{{Id}}</th>
+                                <td>{{IdUser}}</td>
+                                <td>{{IdPackage}}</td>
+                                <td>{{Time}}</td>
                                 <td>
                                     <button type="submit" class="btn btn-success float-right"
                                         formaction="pay/payDetail">Thanh toán</button>
                                 </td>
                             </tr>
                         </tbody>
+                        {{/each}}
                     </table>
                 </form>
             </div>

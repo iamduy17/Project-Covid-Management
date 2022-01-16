@@ -170,24 +170,13 @@
                 <div class="text-center" style="margin-top: 10px;">
                     <h5 class="modal-title" id="exampleModalLabel">XEM DƯ NỢ</h5>
                 </div>
-                <form method="post" action="/add">
+                <br>
+                <form>
+                    {{#each this.profile}}
                     <div class="modal-body">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th scope="col">Số tiền nợ: </th>
-                                    <th scope="col">Số dư hiện tại: </th>
-                                </tr>
-
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <th scope="row">1.000.000 VND</th>
-                                    <td>800.000 VND</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                        <p>Số dư nợ: {{Debt}}</p>
                     </div>
+                    {{/each}}
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>

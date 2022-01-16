@@ -3,6 +3,9 @@ const express = require('express'),
 const Package = require('../../models/user/buyPackage.M');
 const PackageDetail = require('../../models/user/packageDetail.M');
 const Product = require('../../models/user/product.M');
+const Consume = require('../../models/user/consume.M');
+
+let IdPackage = 0;
 
 router.get('/', async (req, res) => {
   const limit = 3;
@@ -31,6 +34,8 @@ router.get('/', async (req, res) => {
     };
     page_items.push(item);
   };
+
+  //console.log(list);
   res.render('user/packages/buyPackages', {
     Package: list,
     title: 'Mua gói nhu yếu phẩm',
@@ -45,6 +50,7 @@ router.get('/', async (req, res) => {
 
 router.get('/:Id', async (req, res) => {
   const data = await PackageDetail.allByIdPackage(req.params.Id);
+  IdPackage = req.params.Id;
   const p = await Package.allByCat(req.params.Id);
 
   const list = await PackageDetail.allById(req.params.Id);
@@ -69,9 +75,60 @@ router.get('/:Id', async (req, res) => {
   });
 });
 
-router.get('/search', (req, res) => {
-  const search = req.query.search;
-  console.log(search);
+router.post('/search', async (req, res) => {
+  const search = req.body.search;
+  const limit = 3;
+  const page = +req.query.page || 1;
+  if (page < 0)
+    page = 1;
+  const offset = (page - 1) * limit;
+  const [total, list] = await Promise.all([
+    Package.countSearch(search),
+    Package.loadSearch(search, limit, offset)
+  ]);
+
+  const nPages = Math.ceil(total[0].Size / 3);
+
+  const page_items = [];
+  for (let i = 1; i <= nPages; i++) {
+    const item = {
+      value: i,
+      isActive: i === page
+    };
+    page_items.push(item);
+  };
+
+  res.render('user/packages/buyPackages', {
+    Package: list,
+    title: 'Mua gói nhu yếu phẩm',
+    active: { buyPackages: true },
+    page_items: page_items,
+    prev_value: page - 1,
+    next_value: page + 1,
+    can_go_prev: page > 1,
+    can_go_next: page < nPages
+  });
+});
+
+router.post('/paynow', (req, res) => {
+
+
+  res.redirect('/user/pay/payDetail');
+});
+
+router.post('/paylater', async (req, res) => {
+  //console.log(IdPackage);
+  let consume = {
+    Id: 2,
+    IdUser: 2,
+    IdPackage: IdPackage,
+    Time: '2010-10-10 00:00:00+07'
+  };
+
+  var c = await Consume.add(consume);
+  console.log('consume', c);
+
+  res.redirect('/user/pay');
 });
 
 module.exports = router;
