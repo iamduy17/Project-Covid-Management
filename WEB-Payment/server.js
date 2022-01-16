@@ -8,11 +8,11 @@ const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 // Local
- const loginApi = require('./src/apis/login.api');
-// const paymentApi = require('./src/apis/payment.api');
+const loginApi = require('./src/apis/login.api');
 const changePassApi = require('./src/apis/changePass.api');
 const rechargeApi = require('./src/apis/recharge.api');
 const payment = require('./src/apis/payment.api');
+
 // Configurations
 const app = express();
 app.use(bodyParser.json({ limit: '30mb', extended: true }));
@@ -32,9 +32,7 @@ app.listen(process.env.PORT, () => {
 });
 
 // APIs
-//app.use('/signin', loginApi);
 app.use('/changePass', changePassApi);
-//app.use('/payment', paymentApi); 
 app.use('/recharge', rechargeApi);
 app.use('/payment', payment);
 app.use('/login', loginApi);

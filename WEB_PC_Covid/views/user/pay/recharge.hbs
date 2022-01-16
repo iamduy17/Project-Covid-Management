@@ -2,6 +2,9 @@
 <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
 <title>Internet Banking</title>
+<!-- Font Awesome JS -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
 <style>
   @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
 
@@ -117,20 +120,35 @@
 <section class="login-block">
   <div class="container">
     <div class="row">
-      <div class="col-md-5 login-sec">
-        <h2 class="text-center">Nạp tiền</h2>
-      </div>
-      <div class="col-md-7 banner-sec">
-        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
-          <div class="carousel-inner" role="listbox">
-            <div class="carousel-item">
-              <img class="d-block img-fluid" src="assets/login/images/logo_pay.jpg" width="100px"
-                alt="First slide">
-              <div class="carousel-caption d-none d-md-block">
-              </div>
-            </div>
-          </div>
+        <div class="col-md-5 login-sec" style="margin-top: 150px;">
+            <h2 class="text-center">Nạp tiền</h2>
+           <form method="POST">
+                <label class="sr-only" for="money"></label>
+                 {{#if error}} <h5 style="color:red;"> Nhập số tiền không được để trống!</h5> {{/if}}
+                 {{!-- {{#if errorSystem }} <h5 style="color:red;"> Nhập số tiền không được để trống!</h5> {{/if}} --}}
+                 {{errorSystem }}
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-dollar-sign"></i></div>
+                    </div>
+                    <input type="number" class="form-control" id="money" name="money" min="10000" max="10000000" placeholder="Nhập số tiền">
+                </div>
+                 <div class="text-center">
+                    <button type="submit" class="btn btn-primary mx-auto">Nạp tiền</button>
+                </div>
+           </form>
         </div>
-      </div>
+        <div class="col-md-7 banner-sec">
+            <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+            <div class="carousel-inner" role="listbox">
+                <div class="carousel-item">
+                <img class="d-block img-fluid" src="assets/login/images/logo_pay.jpg" width="100px"
+                    alt="First slide">
+                <div class="carousel-caption d-none d-md-block">
+                </div>
+                </div>
+            </div>
+            </div>
+        </div>
     </div>
 </section>

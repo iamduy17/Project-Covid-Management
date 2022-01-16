@@ -1,12 +1,12 @@
 <div id="account">
     <div class="card" style="border: black solid 2px;">
-        <div class="card-header text-center">
+        <div class="card-header text-center bg-linear">
             <div class="row align-items-center">
-                <div class="col-md-10">
+                <div class="mx-auto pl-5">
                     <i class="fa fa-user" aria-hidden="true" style="font-size: 25px;"></i>
                     <b style="font-size: 25px;">Quản lí tài khoản</b>
                 </div>
-                <div class="col-md-2">
+                <div class="float-right">
                     <a class="btn btn-primary float-right" style="color:white;" id="create-user" href="javascript:;"
                         role="button" title="Add">
                         <i class="fa fa-plus" aria-hidden="true"></i> Thêm
@@ -77,27 +77,24 @@
     </div>
 </div>
 
-{{#section 'dialog'}}
-   <div id="dialog-form" title="Tạo tài khoản mới">
-        <p class="validateTips">Điền tất cả các trường được yêu cầu.</p>     
-        <form method="POST">
-            <fieldset>
-           <div class="input-group mb-3">
-                <span class="input-group-text"> <i class="fa fa-user" aria-hidden="true"></i></span>
-                <input type="text" class="form-control" name="username" id="username" placeholder="Tên tài khoản">
-            </div>
-             <div class="input-group mb-3">
-                <span class="input-group-text"> <i class="fa fa-lock" aria-hidden="true"></i></span>
-                <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu"/>
-            </div>
-            <!-- Allow form submission with keyboard without duplicating the dialog button -->
-            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+<div id="dialog-form" title="Tạo tài khoản mới">
+    <p class="validateTips">Điền tất cả các trường được yêu cầu.</p>     
+    <form method="POST">
+        <fieldset>
+        <div class="input-group mb-3">
+            <span class="input-group-text"> <i class="fa fa-user" aria-hidden="true"></i></span>
+            <input type="text" class="form-control" name="username" id="username" placeholder="Tên tài khoản">
+        </div>
+            <div class="input-group mb-3">
+            <span class="input-group-text"> <i class="fa fa-lock" aria-hidden="true"></i></span>
+            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu"/>
+        </div>
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 
-            </fieldset>
-        </form>
-    </div>
-{{/section}}
-
+        </fieldset>
+    </form>
+</div>
 
 {{#section 'css'}}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.13.0/themes/base/jquery-ui.css">

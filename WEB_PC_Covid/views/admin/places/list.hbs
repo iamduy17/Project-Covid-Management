@@ -1,12 +1,12 @@
 <div id="content" style="margin:25px 50px 25px;">
     <div class="card" style="border: black solid 2px;">
-        <div class="card-header text-center">
+        <div class="card-header text-center bg-linear">
             <div class="row align-items-center">
-                <div class="col-md-10">
-                    <i class="fas fa-clinic-medical" aria-hidden="true" style="font-size: 25px;"></i>
+                <div class="mx-auto pl-5">
+                   <i class="fas fa-clinic-medical" aria-hidden="true" style="font-size: 25px;"></i>
                     <b style="font-size: 25px;">Quản lí địa điểm</b>
                 </div>
-                <div class="col-md-2">
+                <div class="float-right">
                     <a class="btn btn-primary float-right" style="color: white;" id="create-place" href="javascript:;"
                         role="button" title="Add">
                         <i class="fa fa-plus" aria-hidden="true"></i> Thêm
@@ -75,7 +75,6 @@
     </div>
     
 </div>
-{{#section 'dialog'}}
 <div id="dialog-form" title="Tạo địa điểm mới">
         <p class="validateTips">Điền các trường được yêu cầu</p>
         <form method="POST">
@@ -104,9 +103,12 @@
             <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
             </fieldset>
         </form>
-    </div>
-{{/section}}
-
+</div>
+<script>
+     dialog = $("#dialog-form").dialog({
+                autoOpen: false,
+            });
+</script>
 
 {{#section 'css'}}
   <!-- Jquery ui CSS -->
@@ -120,6 +122,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
     {{> css/placeCss }}
+
 {{/section}}
 
 {{#section 'nav'}}
@@ -133,13 +136,13 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
 
+     <!-- Popper.JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
+
     <!-- Jquety ui and Jquery JS -->
     <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 
     <script>
         $(document).ready(function () {

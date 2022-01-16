@@ -36,8 +36,8 @@ router.get('/', async (req, res) => {
     for (let i = 0; i < list.length; i++) 
         list[i].Stt = i + 1 + (page - 1) * limit;
 
-    req.session.pathCur = `/admin/accounts?page=${page}`;
-    
+    req.session.pathCur = `${process.env.PORT_ABC}/admin/accounts?page=${page}`;
+    console.log(req.session.pathCur);
     res.render('admin/accounts/list', {
         title: 'Quản lí tài khoản',
         active: { accounts: true },
@@ -61,7 +61,7 @@ router.post('/add', async (req, res) => {
         return res.send({
             success: false,
         });
-    
+
     const pwdHashed = await bcrypt.hash(pwd, saltRounds);
     let account = {
         Username: username,

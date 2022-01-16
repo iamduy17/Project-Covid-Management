@@ -11,13 +11,11 @@ router.get('/', (req, res) => {
 
 router.get('/signin', async (req, res) => {
     //Khi tài khoản đăng nhập sẽ không chuyển tới đăng nhập được.
-    if (req.user) 
-        return res.redirect(req.session.pathCur);
+    if (req.user) return res.redirect(req.session.pathCur);
 
     //Kiểm tra phải lần đầu đăng nhập web hay không??
     const size = await userModel.countAccount();
-    if (parseInt(size[0].Size) === 0) 
-        return res.redirect('/register');
+    if (parseInt(size[0].Size) === 0) return res.redirect('/register');
 
     res.render('signin/signin', {
         layout: false,
@@ -26,14 +24,20 @@ router.get('/signin', async (req, res) => {
 
 router.post('/signin', async (req, res, next) => {
     passport.authenticate('local', function (err, user, info) {
+        if (!user)
+            return res.render('signin/signin', {
+                layout: false,
+                message: 'Nhập đầy đủ dữ liệu!',
+                errorSystem: true,
+            });
         //Tài khoản không tồn tại trong database
-        if (err) 
+        if (err)
             return res.render('signin/signin', {
                 layout: false,
                 message: 'Tài khoản không tồn tại!',
                 errorSystem: true,
             });
-        
+
         if (info) {
             //Account locked
             if (info.err === 0)
@@ -86,9 +90,9 @@ router.post('/signin', async (req, res, next) => {
             }
 
             //Admin: gridRadios = 2
-            if (parseInt(req.body.gridRadios) === 2) 
+            if (parseInt(req.body.gridRadios) === 2)
                 return res.redirect('/admin');
-            
+
             const today = new Date();
             const date =
                 today.getFullYear() +
@@ -113,8 +117,7 @@ router.post('/signin', async (req, res, next) => {
 });
 
 router.get('/register', async (req, res) => {
-    if (req.user) 
-        return res.redirect(req.session.pathCur);
+    if (req.user) return res.redirect(req.session.pathCur);
 
     res.render('signin/signin', {
         layout: false,
@@ -128,25 +131,23 @@ router.post('/register', async (req, res) => {
     const verifyPass = req.body.verifyPass;
 
     //Kiểm tra độ dài tên tài khoản
-    if (username.length < 3 || username.length > 16) 
+    if (username.length < 3 || username.length > 16)
         return res.render('signin/signin', {
             layout: false,
             firstSignin: true,
             message: 'Tên tài khoản có độ dài từ [3, 16]',
             errorUser: true,
         });
-    
 
     //Dùng để kiểm tra tên tài khoản
     const regexp = /^[a-z]([0-9a-z_\s])+$/i;
-    if (!regexp.test(username)) 
+    if (!regexp.test(username))
         return res.render('signin/signin', {
             layout: false,
             firstSignin: true,
             message: 'Tên tài khoản bắt đầu bằng chữ cái, gồm [a-z], [0-9]',
             errorUser: true,
         });
-    
 
     //Kiểm tra độ dài pass
     if (pwd.length < 5 || pwd.length > 16)
@@ -181,7 +182,8 @@ router.post('/register', async (req, res) => {
 
 router.get('/changePass', async (req, res) => {
     //Kiểm tra login, lần  đầu đăng nhập, có phải là user hay không???
-    if (!req.user || req.user.Role != 1 || req.user.FirstActive != 0) return res.redirect('/');
+    if (!req.user || req.user.Role != 1 || req.user.FirstActive != 0)
+        return res.redirect('/');
 
     let account = {
         Username: req.query.user,
@@ -232,7 +234,7 @@ router.post('/changePass', async (req, res) => {
             message: 'Mật khẩu trùng với mật khẩu cũ',
         });
 
-    //2 pass trùng nhau và khác pass hiện tại  
+    //2 pass trùng nhau và khác pass hiện tại
     const pwdHashed = await bcrypt.hash(req.body.password, saltRounds);
     let account = {
         Username: req.query.user,

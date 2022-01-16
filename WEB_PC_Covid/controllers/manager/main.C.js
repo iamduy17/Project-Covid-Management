@@ -48,8 +48,6 @@ router.get('/signout', async (req, res) => {
     res.redirect('/');
 });
 
-router.use('/accounts', require('./accounts.C'));
-
 router.use('/packets', require('./packets.C'));
 
 router.use('/patients', require('./patients.C'));
