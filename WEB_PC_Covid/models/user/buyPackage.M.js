@@ -8,6 +8,24 @@ module.exports = {
         const res = await db.load(tbName, idFieldName);
         return res;
     },
+    allProduct: async () => {
+        const res = await db.load('Product', idFieldName);
+        return res;
+    },
+    getListIdProductsOfPacket: async (PacketId) => {
+        const condition = ` WHERE "IdPackage" = ${PacketId} `;
+        const res = await db.loadCondition('ProductPackage', idFieldName, condition);
+        return res;
+    },
+    getNameProducts: async (ProductId) => {
+        const res = await db.get('Product', 'Id', ProductId);
+        return res;
+    },
+    loadImage: async ProId => {
+        const condition = ` WHERE "IdPackage" = ${ProId} `;
+        const res = await db.loadCondition('PackageImg', idFieldName, condition);
+        return res;
+    },
     allByCat: async CatID => {
         const condition = ` WHERE "Id" = ${CatID} `;
         const res = await db.loadCondition(tbName, idFieldName, condition);
@@ -50,9 +68,4 @@ module.exports = {
         const res = await db.loadCondition(tbName, idFieldName, condition);
         return res;
     },
-    // loadImage: async ProId => {
-    //     const condition = ` WHERE "IdPackage" = ${ProId} `;
-    //     const res = await db.loadCondition('PackageImg', idFieldName, condition);
-    //     return res;
-    // },
 }
