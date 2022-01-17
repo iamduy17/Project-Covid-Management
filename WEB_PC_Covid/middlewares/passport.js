@@ -12,7 +12,7 @@ module.exports = (app) => {
                 passReqToCallback: true,
             },
             async (req, username, password, done) => {
-                const role = parseInt(req.body.gridRadios);
+                //const role = parseInt(req.body.gridRadios);
                 let user;
                 try {
                     user = await userM.get(username);
@@ -30,12 +30,12 @@ module.exports = (app) => {
                         });
                     }
 
-                    if (role != parseInt(user.Role)) {
-                        return done(null, false, {
-                            message: 'Nhập sai phần quyền!',
-                            err: 2,
-                        });
-                    }
+                    // if (role != parseInt(user.Role)) {
+                    //     return done(null, false, {
+                    //         message: 'Nhập sai phần quyền!',
+                    //         err: 2,
+                    //     });
+                    // }
 
                     const challengeResult = await bcrypt.compare(
                         password,
@@ -44,7 +44,7 @@ module.exports = (app) => {
                     if (!challengeResult) {
                         return done(null, false, {
                             message: 'Nhập sai mật khẩu!',
-                            err: 3,
+                            err: 2,//
                         });
                     }
 
