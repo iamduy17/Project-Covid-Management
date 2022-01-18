@@ -80,7 +80,7 @@ router.post('/add', async (req, res) => {
     });
 });
 
-router.get('/lockup', async (req, res) => {
+router.get('/lock', async (req, res) => {
     //Kiểm tra login
     if (!req.user || req.user.Role != 2) return res.redirect('/');
 
@@ -105,7 +105,6 @@ router.get('/history', async (req, res) => {
     if (!req.user || req.user.Role != 2) return res.redirect('/');
 
     const id = parseInt(req.query.id) || 1;
-    console.log(id);
     const limit = 6;
     const page = +req.query.page || 1;
 

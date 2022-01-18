@@ -23,15 +23,7 @@ router.get('/signin', async (req, res) => {
 });
 
 router.post('/signin', async (req, res, next) => {
-    passport.authenticate('local', function (err, user, info) {
-        if (!user)
-            return res.render('signin/signin', {
-                layout: false,
-                message: 'Nhập đầy đủ dữ liệu!',
-                errorSystem: true,
-            });
-        delete user.Password;
-        
+    passport.authenticate('local', function (err, user, info) {    
         //Tài khoản không tồn tại trong database
         if (err)
             return res.render('signin/signin', {
@@ -81,6 +73,7 @@ router.post('/signin', async (req, res, next) => {
                     errorSystem: true,
                 });
             }
+            delete user.Password;
 
             //User: user.Role = 1
             if (parseInt(user.Role) === 1) {
@@ -193,7 +186,7 @@ router.get('/changePass', async (req, res) => {
     //Thay đổi pass và firstActive của người dùng
     const rs = await userModel.patchActive(account);
 
-    req.session.pathCur = `${process.env.PATH}/changePass?user=${req.query.user}`;
+    req.session.pathCur = `/changePass?user=${req.query.user}`;
 
     res.render('signin/changePass', {
         layout: false,
