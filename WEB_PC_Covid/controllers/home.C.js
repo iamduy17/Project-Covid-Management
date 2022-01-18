@@ -3,7 +3,7 @@ const express = require('express'),
     userModel = require('../models/home.M'),
     bcrypt = require('bcrypt'),
     passport = require('passport'),
-    saltRounds = 10;
+    saltRounds = parseInt(process.env.SALT_ROUND);
 
 router.get('/', (req, res) => {
     res.redirect('/signin');
@@ -23,13 +23,7 @@ router.get('/signin', async (req, res) => {
 });
 
 router.post('/signin', async (req, res, next) => {
-    passport.authenticate('local', function (err, user, info) {
-        if (!user)
-            return res.render('signin/signin', {
-                layout: false,
-                message: 'Nhập đầy đủ dữ liệu!',
-                errorSystem: true,
-            });
+    passport.authenticate('local', function (err, user, info) {    
         //Tài khoản không tồn tại trong database
         if (err)
             return res.render('signin/signin', {
@@ -56,14 +50,14 @@ router.post('/signin', async (req, res, next) => {
                 });
 
             //Error role
-            if (info.err === 2)
-                return res.render('signin/signin', {
-                    layout: false,
-                    message: info.message,
-                    errorRole: true,
-                });
+            // if (info.err === 2)
+            //     return res.render('signin/signin', {
+            //         layout: false,
+            //         message: info.message,
+            //         errorRole: true,
+            //     });
 
-            //Error Pass
+            //Error Pass (info.err === 2)
             return res.render('signin/signin', {
                 layout: false,
                 message: info.message,
@@ -79,9 +73,10 @@ router.post('/signin', async (req, res, next) => {
                     errorSystem: true,
                 });
             }
+            delete user.Password;
 
-            //User: gridRadios = 1
-            if (parseInt(req.body.gridRadios) === 1) {
+            //User: user.Role = 1
+            if (parseInt(user.Role) === 1) {
                 //Kiểm tra user phải lần đầu đăng nhập hay không??
                 if (parseInt(user.FirstActive) === 0)
                     return res.redirect(`/changePass?user=${user.Username}`);
@@ -89,9 +84,8 @@ router.post('/signin', async (req, res, next) => {
                 return res.redirect('/user');
             }
 
-            //Admin: gridRadios = 2
-            if (parseInt(req.body.gridRadios) === 2)
-                return res.redirect('/admin');
+            //Admin: user.Role = 2
+            if (parseInt(user.Role) === 2) return res.redirect('/admin');
 
             const today = new Date();
             const date =
@@ -110,7 +104,7 @@ router.post('/signin', async (req, res, next) => {
             req.session.startTime = dateTime; //lưu thời gian lúc mới đăng nhập(biến toàn cục)
             req.session.activities = []; //Khởi tạo hoạt động cho manager
 
-            //Manager: gridRadios = 3
+            //Manager: user.Role = 3
             return res.redirect('/manager');
         });
     })(req, res, next);
@@ -192,7 +186,7 @@ router.get('/changePass', async (req, res) => {
     //Thay đổi pass và firstActive của người dùng
     const rs = await userModel.patchActive(account);
 
-    req.session.pathCur = `${process.env.PATH}/changePass?user=${req.query.user}`;
+    req.session.pathCur = `/changePass?user=${req.query.user}`;
 
     res.render('signin/changePass', {
         layout: false,

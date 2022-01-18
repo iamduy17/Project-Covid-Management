@@ -2,7 +2,7 @@ const express = require('express'),
     router = express.Router(),
     accountModel = require('../../models/admin/account.M'),
     bcrypt = require('bcrypt'),
-    saltRounds = 10,
+    saltRounds = parseInt(process.env.SALT_ROUND),
     managerHisActiveModel = require('../../models/admin/historyManager.M'),
     activeManagerModel = require('../../models/admin/activeManager.M');
 
@@ -36,8 +36,8 @@ router.get('/', async (req, res) => {
     for (let i = 0; i < list.length; i++) 
         list[i].Stt = i + 1 + (page - 1) * limit;
 
-    req.session.pathCur = `${process.env.PORT_ABC}/admin/accounts?page=${page}`;
-    console.log(req.session.pathCur);
+    req.session.pathCur = `/admin/accounts?page=${page}`;
+    //console.log(req.session.pathCur);
     res.render('admin/accounts/list', {
         title: 'Quản lí tài khoản',
         active: { accounts: true },
@@ -80,7 +80,7 @@ router.post('/add', async (req, res) => {
     });
 });
 
-router.get('/lockup', async (req, res) => {
+router.get('/lock', async (req, res) => {
     //Kiểm tra login
     if (!req.user || req.user.Role != 2) return res.redirect('/');
 
@@ -105,7 +105,6 @@ router.get('/history', async (req, res) => {
     if (!req.user || req.user.Role != 2) return res.redirect('/');
 
     const id = parseInt(req.query.id) || 1;
-    console.log(id);
     const limit = 6;
     const page = +req.query.page || 1;
 
@@ -183,7 +182,7 @@ router.get('/history/active', async (req, res) => {
     for (let i = 0; i < list.length; i++)
         list[i].Stt = i + 1 + (page - 1) * limit;
 
-    req.session.pathCur = `http://localhost:3000/admin/accounts`;
+    req.session.pathCur = `/admin/accounts`;
     res.render('admin/accounts/managerActivity', {
         title: 'Quản lí tài khoản',
         active: { accounts: true },

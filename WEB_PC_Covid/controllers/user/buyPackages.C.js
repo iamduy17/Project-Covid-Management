@@ -4,6 +4,7 @@ const Package = require('../../models/user/buyPackage.M');
 const PackageDetail = require('../../models/user/packageDetail.M');
 const Product = require('../../models/user/product.M');
 const Consume = require('../../models/user/consume.M');
+const PackageImg = require('../../models/user/packageImg.M');
 
 let IdPackage = 0;
 
@@ -20,9 +21,9 @@ router.get('/', async (req, res) => {
 
   for (var i = 0; i < list.length; i++) {
     var id = list[i].Id;
-    //list[i].images = await Package.loadImage(id);
-    //console.log(list[i].images);
+    list[i].images = await PackageImg.loadImage(id);
   }
+
 
   const nPages = Math.ceil(total[0].Size / 3);
 
@@ -35,7 +36,6 @@ router.get('/', async (req, res) => {
     page_items.push(item);
   };
 
-  //console.log(list);
   res.render('user/packages/buyPackages', {
     Package: list,
     title: 'Mua gói nhu yếu phẩm',
@@ -52,6 +52,8 @@ router.get('/:Id', async (req, res) => {
   const data = await PackageDetail.allByIdPackage(req.params.Id);
   IdPackage = req.params.Id;
   const p = await Package.allByCat(req.params.Id);
+  
+  p[0].images =  await PackageImg.loadImage(IdPackage);
 
   const list = await PackageDetail.allById(req.params.Id);
 
@@ -86,6 +88,11 @@ router.post('/search', async (req, res) => {
     Package.countSearch(search),
     Package.loadSearch(search, limit, offset)
   ]);
+
+  for (var i = 0; i < list.length; i++) {
+    var id = list[i].Id;
+    list[i].images = await PackageImg.loadImage(id);
+  }
 
   const nPages = Math.ceil(total[0].Size / 3);
 

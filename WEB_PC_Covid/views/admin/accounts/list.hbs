@@ -39,8 +39,9 @@
                             <a class="btn btn-primary" href="/admin/accounts/history?id={{Id}}&&page={{../page}}&&username={{Username}}" role="button" title="Watch">
                                 <i class="far fa-eye" aria-hidden="true"></i>
                             </a>
-                            <a class="btn btn-{{#ifStr LockUp 0}}primary{{else}}danger{{/ifStr}}" href="/admin/accounts/lockup?id={{Id}}&&lockUp={{LockUp}}&&page={{../page}}" role="button" title="lock up">
-                                <i class="fa fa-key" aria-hidden="true"></i>
+                            <a class="btn btn-{{#ifStr LockUp 0}}primary{{else}}danger{{/ifStr}}" href="/admin/accounts/lock?id={{Id}}&&lockUp={{LockUp}}&&page={{../page}}" role="button" title="lock up">
+                                {{!-- <i class="fa fa-key" aria-hidden="true"></i> --}}
+                                <img style="width:16px; height:16px" src="https://img.icons8.com/material-outlined/50/000000/lock--v1.png"/>
                             </a>
                         </td>
                     </tr>
@@ -77,20 +78,20 @@
     </div>
 </div>
 
-<div id="dialog-form" title="Tạo tài khoản mới">
+<div id="dialog-form" title="Tạo tài khoản mới" style="display: none;">
     <p class="validateTips">Điền tất cả các trường được yêu cầu.</p>     
     <form method="POST">
         <fieldset>
-        <div class="input-group mb-3">
-            <span class="input-group-text"> <i class="fa fa-user" aria-hidden="true"></i></span>
-            <input type="text" class="form-control" name="username" id="username" placeholder="Tên tài khoản">
-        </div>
             <div class="input-group mb-3">
-            <span class="input-group-text"> <i class="fa fa-lock" aria-hidden="true"></i></span>
-            <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu"/>
-        </div>
-        <!-- Allow form submission with keyboard without duplicating the dialog button -->
-        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+                <span class="input-group-text"> <i class="fa fa-user" aria-hidden="true"></i></span>
+                <input type="text" class="form-control" name="username" id="username" placeholder="Tên tài khoản">
+            </div>
+                <div class="input-group mb-3">
+                <span class="input-group-text"> <i class="fa fa-lock" aria-hidden="true"></i></span>
+                <input type="password" class="form-control" name="password" id="password" placeholder="Mật khẩu"/>
+            </div>
+            <!-- Allow form submission with keyboard without duplicating the dialog button -->
+            <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
 
         </fieldset>
     </form>
@@ -115,15 +116,9 @@
 {{/section}}
 
 {{#section 'script'}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"></script>
-
     <!-- Jquety ui and Jquery JS -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://code.jquery.com/ui/1.13.0/jquery-ui.min.js"></script>
-
-    <!-- Popper.JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.0/umd/popper.min.js"></script>
 
     <script>
         $(document).ready(function () {
@@ -233,5 +228,6 @@
                 dialog.dialog("open");
             });
     });
+
     </script>
 {{/section}}

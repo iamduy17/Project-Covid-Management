@@ -4,7 +4,7 @@ const express = require('express'),
     placeModel = require('../../models/manager/place.M'),
     accountModel = require('../../models/manager/account.M'),
     bcrypt = require('bcrypt'),
-    saltRounds = 10,
+    saltRounds = parseInt(process.env.SALT_ROUND),
     alert = require('alert');
 function generateIdAccountPayment(){
     res = ""

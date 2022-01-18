@@ -75,7 +75,7 @@
     </div>
     
 </div>
-<div id="dialog-form" title="Tạo địa điểm mới">
+<div id="dialog-form" title="Tạo địa điểm mới" style="display: none;">
         <p class="validateTips">Điền các trường được yêu cầu</p>
         <form method="POST">
             <fieldset>
@@ -104,11 +104,6 @@
             </fieldset>
         </form>
 </div>
-<script>
-     dialog = $("#dialog-form").dialog({
-                autoOpen: false,
-            });
-</script>
 
 {{#section 'css'}}
   <!-- Jquery ui CSS -->
