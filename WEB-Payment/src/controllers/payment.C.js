@@ -31,7 +31,10 @@ const postPayment = async (req, res, next) => {
   try {
     const getMoneyCur = await paymentM.get(req.body.ID);
     if (getMoneyCur) {
-      return res.status(200).json({ money: getMoneyCur });
+      return res.status(200).json({ 
+        money: getMoneyCur,
+        message: "success"
+      });
     }
     res.status(400).json({ message: "Cannot get your money" });
    

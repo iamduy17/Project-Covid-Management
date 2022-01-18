@@ -31,6 +31,17 @@ app.use('/admin', require('./controllers/admin/main.C'));
 app.use('/manager', require('./controllers/manager/main.C'));
 app.use('/user', require('./controllers/user/main.C'));
 
-app.listen(port, () => {
-    console.log(`Example app listening on port http://localhost:${port}`);
+//Listening at https
+const fs = require("fs");
+const https = require("https");
+
+const key = fs.readFileSync("server.key", "utf-8");
+const cert = fs.readFileSync("server.cert", "utf-8");
+
+https.createServer({ key, cert }, app).listen(port, () => {
+    console.log(`Example app listening on port https://localhost:${port}`);
 });
+
+// app.listen(port, () => {
+//     console.log(`Example app listening on port http://localhost:${port}`);
+// });
