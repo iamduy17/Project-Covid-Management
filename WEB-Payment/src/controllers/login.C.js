@@ -41,7 +41,8 @@ const login = async (req, res) => {
             message: "Success",
             user: {
                 id: user.ID,
-                role: user.Role
+                role: user.Role,
+                firstActived: user.FirstActived
             },
         });
 

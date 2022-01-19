@@ -37,7 +37,7 @@ router.get('/', async (req, res) => {
         list[i].Stt = i + 1 + (page - 1) * limit;
 
     req.session.pathCur = `/admin/accounts?page=${page}`;
-    //console.log(req.session.pathCur);
+    
     res.render('admin/accounts/list', {
         title: 'Quản lí tài khoản',
         active: { accounts: true },
@@ -154,9 +154,8 @@ router.get('/history', async (req, res) => {
 
 router.get('/history/active', async (req, res) => {
     //Kiểm tra login
-    if (!req.user || req.user.Role != 2) {
+    if (!req.user || req.user.Role != 2) 
         return res.redirect('/');
-    }
 
     const id = parseInt(req.query.id) || 1;
     const limit = 6;

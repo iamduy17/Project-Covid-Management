@@ -15,6 +15,7 @@ const changePass = async (req, res, next) => {
       return res.status(401).json({ message: "Old Password is incorrect" });
     const pwdHashed = await bcrypt.hash(req.body.newPass, saltRounds);
     user.Password = pwdHashed;
+    user.FirstActived = 0;
     await changePassM.patch(user);
     return res.status(200).json({
         message: "Success",

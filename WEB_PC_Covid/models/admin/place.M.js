@@ -12,6 +12,12 @@ module.exports = {
         if (res.length > 0) return res[0];
         return null;
     },
+    getByName: async (placeName) => {
+        const res = await db.get(tbName, 'NamePlace', placeName);
+        if (res.length > 0)
+            return true;
+        return false;
+    },
     add: async (place) => {
         const res = await db.add(tbName, place);
         return res;

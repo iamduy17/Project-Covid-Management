@@ -1,6 +1,6 @@
 <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
 <title>Internet Banking</title>
 <style>
   @import url("//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css");
@@ -120,23 +120,30 @@
       <div class="col-md-5 login-sec">
         <h2 class="text-center">Thay đổi mật khẩu</h2>
         <form class="login-form">
+          {{#if msg}}
+          <div class="form-group col-md-12 mx-auto text-center">
+            <div class="alert alert-danger" role="alert" id="MessageValidate">{{msg}}</div>
+          </div>
+          {{/if}}
           <div class="form-group">
             <label for="exampleInputPassword1">Mật khẩu cũ:</label>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control box-input" id="oldPass" placeholder="Password" name="oldPass">
           </div>
 
           <div class="form-group">
             <label for="exampleInputNewPassword">Mật khẩu mới:</label>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control box-input" id="newPass" placeholder="Password" name="newPass">
           </div>
 
           <div class="form-group">
             <label for="exampleInputNewPassword2">Xác nhận mật khẩu:</label>
-            <input type="password" class="form-control" placeholder="Password">
+            <input type="password" class="form-control box-input" id="verifyPass" placeholder="Password"
+              name="verifyPass">
           </div>
 
           <div class="form-check">
-            <button type="submit" class="btn btn-login float-right">Change</button>
+            <button type="submit" class="btn btn-login float-right" id="change-btn" formaction="/user/pay/changePass"
+              formmethod="post">Change</button>
           </div>
         </form>
       </div>
@@ -144,8 +151,7 @@
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
           <div class="carousel-inner" role="listbox">
             <div class="carousel-item">
-              <img class="d-block img-fluid" src="/assets/login/images/logo_pay.jpg" width="100px"
-                alt="First slide">
+              <img class="d-block img-fluid" src="/assets/login/images/logo_pay.jpg" width="100px" alt="First slide">
               <div class="carousel-caption d-none d-md-block">
               </div>
             </div>
@@ -153,4 +159,50 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header text-center mx-auto">
+            <h1 class="fa fa-check-circle-o" style="color: green; width: 100px" aria-hidden="true"></h1>
+          </div>
+          <div class="modal-body">
+            <h3 class="text-center">Đổi mật khẩu thành công!</h3>
+          </div>
+          <div class="modal-footer">
+            <form action="/user/pay/payment" method="get">
+              <button class="btn btn-success btn-block" type="submit">OK</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
 </section>
+
+<script>
+  function isValidate() {
+    if ($('#oldPass').val().length == 0 || $('#newPass').val().length == 0 || $('#verifyPass').val().length == 0) {
+      return false;
+    }
+    return true;
+  }
+  $('#change-btn').prop('disabled', true);
+  $('.box-input').each(() => {
+    $(this).keyup(function () {
+      if (isValidate()) {
+        $('#change-btn').prop('disabled', false);
+      }
+      else {
+        $('#change-btn').prop('disabled', true);
+      }
+    });
+  })
+  $('#oldPass').focus(() => {
+    $('#MessageValidate').hide();
+  });
+  {{#if alert }}
+  $("#exampleModal").modal('show');
+  {{/if}}
+
+
+</script>

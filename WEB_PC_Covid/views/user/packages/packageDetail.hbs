@@ -62,7 +62,7 @@
                         <div style="margin-top: 0px">
                             <span>packets available </span>
                         </div>
-                        <form method="get">
+                        <form method="post">
                             <label for="quantity">Quantity:</label>
                             <input name="quantity" type="quantity" class="quantity-text" id="quantity"
                                 onfocus="if(this.value == '1') { this.value = ''; }"
@@ -92,7 +92,7 @@
                 <form align="center">
                     <div class="modal-body">
                         <button type="submit" class="btn btn-info" formmethod="post" style="margin-right: 50px;"
-                            formaction="/paynow">Thanh toán ngay</button>
+                            formaction="/user/buyPackages/paynow">Thanh toán ngay</button>
 
                         <button type="submit" class="btn btn-info" formmethod="post"
                             formaction="/user/buyPackages/paylater">Thanh toán sau</button>

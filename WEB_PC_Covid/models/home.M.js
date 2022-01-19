@@ -16,16 +16,9 @@ module.exports = {
         const res = await db.add(tbName, data);
         return res;
     },
-    patchPass: async (account) => {
-        const fieldName = ['Password'];
+    patchPassAndActive: async (account) => {
+        const fieldName = ['Password', 'FirstActive'];
         const username = account.Username;
-        const condition = ` WHERE "${idFieldName}" = ` + `'${username}'`;
-        const res = await db.patch(tbName, fieldName, account, condition);
-        return res;
-    },
-    patchActive: async (account) => {
-        const fieldName = ['FirstActive'];
-        const username = String(account.Username);
         const condition = ` WHERE "${idFieldName}" = ` + `'${username}'`;
         const res = await db.patch(tbName, fieldName, account, condition);
         return res;

@@ -51,13 +51,23 @@ router.post('/add', async (req, res) => {
         Amount: parseInt(req.body.number),
         Role: parseInt(req.body.option),
     };
-
-    const add = await placeModel.add(place);
+    const data = await placeModel.all();
+    let check = false;
+    for(let i = 0; i < data.length; i++)
+        if((data[i].NamePlace).toLowerCase() === (req.body.placeName).toLowerCase())
+            check = true;
+    if (check)
+        return res.send({
+            success: false,
+        });
+    
+    await placeModel.add(place);
     const total = await placeModel.countList();
     const page = Math.ceil(total[0].Size / 6);
 
     res.send({
         redirect: `/admin/places?page=${page}`,
+        success: true
     });
 });
 
@@ -72,6 +82,7 @@ router.get('/edit', async (req, res) => {
     if (!data) {
         return res.send('Invalid parameter');
     }
+    
     req.session.pathCur = `/admin/places/edit?id=${ID}&&page=${page}`;
     res.render('admin/places/edit', {
         title: 'Quản lí đại điểm',
@@ -83,6 +94,7 @@ router.get('/edit', async (req, res) => {
 
 router.post('/update', async (req, res) => {
     const page = +req.query.page || 1;
+
     let place = {
         Id: parseInt(req.body.txtPlaceID),
         NamePlace: req.body.txtNamePlace,
@@ -90,6 +102,15 @@ router.post('/update', async (req, res) => {
         Amount: parseInt(req.body.txtAmount),
         Role: parseInt(req.body.txtRole),
     };
+    
+    if (parseInt(req.body.txtSize) < parseInt(req.body.txtAmount))
+        return res.render('admin/places/edit', {
+            title: 'Quản lí đại điểm',
+            active: { places: true },
+            place,
+            page,
+            error: true
+        });
     const rs = await placeModel.patch(place);
 
     res.redirect(`/admin/places?page=${page}`);
