@@ -13,4 +13,11 @@ module.exports = {
         const res = await db.loadCondition(tbName, idFieldName, condition);
         return res;
     },
+    changePass: async (account) => {
+        const fieldName = ['Password'];
+        const accountID = account.Id;
+        const condition = ` WHERE "${idFieldName}" = ` + accountID;
+        const res = await db.patch(tbName, fieldName, account, condition);
+        return res;
+    }
 }

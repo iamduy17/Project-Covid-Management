@@ -48,6 +48,7 @@ app.get('/', async (req, res) => {
 
   res.render('payment/payment', {
     layout: false,
+    Id: ID,
     balance: bal,
   });
 });
