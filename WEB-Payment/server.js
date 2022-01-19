@@ -2,10 +2,18 @@
 require("dotenv").config();
 
 // Third-party packages
-const express = require("express");
+
+const express = require("express"),
+  app = express(),
+  port = 5000,
+  path = require('path');
+
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
+
+require('./src/middlewares/handlebars')(app);
+require('./src/middlewares/session')(app);
 
 // Local
 const loginApi = require("./src/apis/login.api");
@@ -14,7 +22,6 @@ const rechargeApi = require("./src/apis/recharge.api");
 const payment = require("./src/apis/payment.api");
 
 // Configurations
-const app = express();
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
 app.use(cookieParser());
@@ -23,10 +30,27 @@ app.use(
     credentials: "true",
   })
 );
-app.get("/", (req, res) => {
-  res.status(200).send("abcd");
-});
 
+app.use(express.static(path.join(__dirname, 'src/public')));
+
+app.use(express.json());
+app.use(
+  express.urlencoded({
+    extended: true,
+  })
+);
+
+const account = require('./src/models/payment.M');
+
+app.get('/', async (req, res) => {
+  const ID = 9999999999;
+  const bal = await account.get(ID);
+
+  res.render('payment/payment', {
+    layout: false,
+    balance: bal,
+  });
+});
 // APIs
 app.use("/changePass", changePassApi);
 app.use("/recharge", rechargeApi);

@@ -3,17 +3,32 @@ const numeral = require('numeral');
 const express = require('express'),
   router = express.Router(),
   payModel = require('../../models/user/pay.M'),
-  Consume = require('../../models/user/consume.M');
+  Consume = require('../../models/user/consume.M'),
+  User = require('../../models/user/profile.M'),
+  Package = require('../../models/user/buyPackage.M');
 
 router.get('/', async (req, res) => {
-  const cs = await Consume.all();
+  const cs = await Consume.allById(req.user.Id);
+  const u = await User.allByCat(req.user.Id);
+
+  for (i = 0; i < cs.length; i++) {
+    const NamePackage = await Package.allByCat(cs[i].IdPackage);
+    cs[i].NamePackage = NamePackage[0].NamePackage;
+  }
+
+  for (j = 0; j < cs.length; j++) {
+    cs[j].NameUser = u[0].Name;
+  }
+
   console.log(cs);
+
   res.render('user/pay/pay', {
     title: 'Internet Banking',
     active: { pay: true },
     consume: cs,
   });
 });
+
 router.post('/login', async (req, res) => {
   const data = {
     id: req.body.id,
@@ -71,7 +86,7 @@ router.post('/changePass', async (req, res) => {
     alert: 'Đổi password thành công!',
     layout: false,
   });
-  
+
   // req.session.idPayment = rs.user.id;
   // console.log(rs.user)
   // if (rs.message == 'Success'){
@@ -96,7 +111,6 @@ router.get('/changePass', (req, res) => {
     active: { pay: true },
   });
 });
-
 
 
 router.get('/payment', async (req, res) => {
