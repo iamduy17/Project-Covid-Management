@@ -53,6 +53,9 @@
         }
     }
     $(document).ready(async function () {
+        {{#if alert}}
+            $('#informAddPatientModal').modal('show');
+        {{/if}}
         $('#dtBasicExample').DataTable({
             searching: false,
             paging: false,
@@ -161,6 +164,7 @@
             loadPlace(status, {{Id}});
         });
         {{/each}}
+
 
 
         });
