@@ -5,7 +5,7 @@ const schema = 'public';
 const cn = {
     user: 'postgres',
     host: 'localhost',
-    database: 'payment', // điền tên db trên máy của mình vào
+    database: 'ThanhToan', // điền tên db trên máy của mình vào
     password: '0927022304', // điền cái password master
     port: 5432,
     max: 30,
