@@ -9,6 +9,7 @@ const PackageImg = require('../../models/user/packageImg.M');
 let IdPackage = 0;
 
 router.get('/', async (req, res) => {
+  console.log(req.user);
   const limit = 3;
   const page = +req.query.page || 1;
   if (page < 0)
@@ -117,19 +118,23 @@ router.post('/search', async (req, res) => {
   });
 });
 
-router.post('/paynow', (req, res) => {
-
+router.post('/paynow', async(req, res) => {
 
   res.redirect('/user/pay/payDetail');
 });
 
 router.post('/paylater', async (req, res) => {
-  //console.log(IdPackage);
+  const cs = await Consume.all();
+  var time = new Date();
+  const nowtime = time.toISOString()
+  .replace(/T/, ' ')
+  .replace(/\..+/, '');
+
   let consume = {
-    Id: 2,
-    IdUser: 2,
+    Id: cs.length + 1,
+    IdUser: req.user.Id,
     IdPackage: IdPackage,
-    Time: '2010-10-10 00:00:00+07'
+    Time: nowtime
   };
 
   var c = await Consume.add(consume);

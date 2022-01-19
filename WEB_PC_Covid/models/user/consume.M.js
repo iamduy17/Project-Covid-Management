@@ -9,7 +9,7 @@ module.exports = {
         return res;
     },
     allById: async CatID => {
-        const condition = ` WHERE "Id" = ${CatID} `;
+        const condition = ` WHERE "IdUser" = ${CatID} `;
         const res = await db.loadCondition(tbName, idFieldName, condition);
         return res;
     },

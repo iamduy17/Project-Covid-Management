@@ -13,10 +13,10 @@ router.get('/', async (req, res) => {
     console.log(listMana[i].IdManager);
     listMana[i].Username = await account.allById(listMana[i].IdManager);
   }
-
-  console.log(listMana);
+  //console.log(listMana);
   
-  const listProfile = await profile.all();
+  const listProfile = await profile.allByCat(req.user.Id);
+  //console.log(listProfile);
 
   res.render('user/profile/infor', {
     HistoryManager: listMana,
