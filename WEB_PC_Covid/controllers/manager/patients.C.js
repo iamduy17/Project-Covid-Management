@@ -215,7 +215,8 @@ router.post('/addF0', async (req, res) => {
         ID: accountId,
         Password: passwordHashed,
         Balance: 0,
-        Role: 0
+        Role: 0,
+        FirstActived: 1
     }
     console.log(accountPayment);
     await patientModel.addPaymentAccount(accountPayment);

@@ -126,21 +126,21 @@
       <div class="row">
         <div class="col-md-5 login-sec">
           <h2 class="text-center">Login Now</h2>
-          <form class="login-form" method="get">
+          <form class="login-form" method="post">
             <div class="form-group">
               <label for="exampleID">ID:</label>
-              <input type="text" class="form-control" placeholder="ID">
+              <input type="text" class="form-control box-input" placeholder="ID" name="id" id="id">
             </div>
             <div class="form-group">
               <label for="exampleInputPassword1">Mật khẩu:</label>
-              <input type="password" class="form-control" placeholder="Password">
+              <input type="password" class="form-control box-input" placeholder="Password" id="password" name="password" >
             </div>
 
             <div class="form-check">
               <label class="form-check-label">
-                <a href="http://localhost:3000/user/pay/changePass">Thay đổi mật khẩu</a>
+                <a href="https://localhost:3000/user/pay/changePass">Thay đổi mật khẩu</a>
               </label>
-              <button type="submit" class="btn btn-login float-right" formaction="/user/pay/payment">Login</button>
+              <button type="submit" class="btn btn-login float-right" id="login-btn" formaction="/user/pay/login">Login</button>
             </div>
           </form>
         </div>
@@ -158,5 +158,24 @@
       </div>
   </section>
 </body>
-
+<script>
+    // ẩn nút search khi không có tìm kiếm
+    $('#login-btn').prop('disabled', true);
+    $('#id').keyup(function() {
+        if($(this).val().length != 0 && $('#password').val().length != 0) {
+            $('#login-btn').prop('disabled', false);
+        }
+        else {
+            $('#login-btn').prop('disabled', true);
+        }
+    });
+    $('#password').keyup(function() {
+        if($(this).val().length != 0 && $('#id').val().length != 0) {
+            $('#login-btn').prop('disabled', false);
+        }
+        else {
+            $('#login-btn').prop('disabled', true);
+        }
+    });
+</script>
 </html>

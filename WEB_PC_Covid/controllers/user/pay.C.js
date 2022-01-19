@@ -1,41 +1,60 @@
 const numeral = require('numeral');
 
 const express = require('express'),
-    router = express.Router(),
-    payModel = require('../../models/user/pay.M'),
-    Consume = require('../../models/user/consume.M');
+  router = express.Router(),
+  payModel = require('../../models/user/pay.M'),
+  Consume = require('../../models/user/consume.M');
 
 router.get('/', async (req, res) => {
-    const cs = await Consume.all();
-    console.log(cs);
+  const cs = await Consume.all();
+  console.log(cs);
+  res.render('user/pay/pay', {
+    title: 'Internet Banking',
+    active: { pay: true },
+    consume: cs,
+  });
+});
+router.post('/login', async (req, res) => {
+  const data = {
+    id: req.body.id,
+    password: req.body.password,                          
+  };
+  const rs = await payModel.login(data);
+  req.session.idPayment = rs.user.id;
+  console.log(rs.user)
+  if (rs.message == 'Success'){
+    if(rs.user.firstActived == 1){
+      return res.redirect('/user/pay/changePass');
+    }
+    return res.redirect('/user/pay/payment');
 
-    res.render('user/pay/pay', {
-        title: 'Internet Banking',
-        active: { pay: true },
-        consume: cs,
-    });
+  }
 });
 
 router.get('/payDetail', (req, res) => {
-    res.render('user/pay/payDetail', {
-        title: 'Internet Banking',
-        active: { pay: true },
-        layout: false,
-    });
+  res.render('user/pay/payDetail', {
+    title: 'Internet Banking',
+    active: { pay: true },
+    layout: false,
+  });
 });
 
 router.get('/changePass', (req, res) => {
-    res.render('user/pay/changePass', {
-        title: 'Internet Banking',
-        active: { pay: true },
-    });
+  res.render('user/pay/changePass', {
+    title: 'Internet Banking',
+    active: { pay: true },
+  });
 });
 
+
+
 router.get('/payment', async (req, res) => {
+  console.log(req.session.idPayment);
   const data = {
-    ID: 1234567890,                           // TODO: need to be change with suitable data
+    ID: req.session.idPayment                          // TODO: need to be change with suitable data
   };
   const rs = await payModel.paymentPost(data);
+  console.log(rs);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
@@ -58,28 +77,27 @@ router.post('/payment', async (req, res) => {
   var payment = req.body.payment;
 
   // lấy số dư hiện tại
-  var balance = req.body.balance; 
+  var balance = req.body.balance;
   var newbalance = ""
-  for(var i = 0; i < balance.length; i++) {
-      if(balance[i] == ',')
-          continue;  
-      newbalance += balance[i];
+  for (var i = 0; i < balance.length; i++) {
+    if (balance[i] == ',')
+      continue;
+    newbalance += balance[i];
   }
 
   // lấy tiền thanh toán
   var newpayment = ""
-  for(var i = 0; i < payment.length; i++) {
-      if(payment[i] == ',')
-          continue;  
-      newpayment += payment[i];
+  for (var i = 0; i < payment.length; i++) {
+    if (payment[i] == ',')
+      continue;
+    newpayment += payment[i];
   }
   console.log(parseInt(newpayment))
   console.log(parseInt(req.body.paymentMoney))
   // Nếu tiền nhập lớn hơn hoặc bằng tiền thanh toán thì lấy tiền thanh toán
-  if(parseInt(newpayment) <= parseInt(req.body.paymentMoney))
+  if (parseInt(newpayment) <= parseInt(req.body.paymentMoney))
     money = parseInt(newpayment);
-  else
-  {
+  else {
     money = parseInt(req.body.paymentMoney);
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
@@ -104,12 +122,12 @@ router.post('/payment', async (req, res) => {
     });
 
   // TODO below this line: Thực hiện xóa dữ liệu trong bảng Consume
-  const rs1 = await payModel.paymentPost({ID: data.ID});
+  const rs1 = await payModel.paymentPost({ ID: data.ID });
   if (rs1.message !== "success")
-  return res.render('user/pay/payment', {
-    title: 'Internet Banking',
-    message: rs1.message,
-  });
+    return res.render('user/pay/payment', {
+      title: 'Internet Banking',
+      message: rs1.message,
+    });
   return res.render('user/pay/payment', {
     title: 'Internet Banking',
     active: { pay: true },
@@ -120,33 +138,33 @@ router.post('/payment', async (req, res) => {
 });
 
 router.get('/recharge', (req, res) => {
-    //Kiểm tra login
-    //if (!req.user || req.user.Role != 1) return res.redirect('/');
-    
-    req.session.pathCur = '/user/pay/recharge';
-    res.render('user/pay/recharge', {
-        title: 'Internet Banking',
-    });
+  //Kiểm tra login
+  //if (!req.user || req.user.Role != 1) return res.redirect('/');
+
+  req.session.pathCur = '/user/pay/recharge';
+  res.render('user/pay/recharge', {
+    title: 'Internet Banking',
+  });
 
 });
 
 router.post('/recharge', async (req, res) => {
-    if (!req.body.money)
-        return res.render('user/pay/recharge', {
-            title: 'Internet Banking',
-            error: true,
-        });
-    const data = {
-        ID: 1234567890,
-        money: parseInt(req.body.money),
-    };
-    const rs = await payModel.recharge(data);
-    if (rs.message !== 'success')
-        return res.render('user/pay/recharge', {
-            title: 'Internet Banking',
-            message: rs.message,
-        });
+  if (!req.body.money)
+    return res.render('user/pay/recharge', {
+      title: 'Internet Banking',
+      error: true,
+    });
+  const data = {
+    ID: 1234567890,
+    money: parseInt(req.body.money),
+  };
+  const rs = await payModel.recharge(data);
+  if (rs.message !== 'success')
+    return res.render('user/pay/recharge', {
+      title: 'Internet Banking',
+      message: rs.message,
+    });
 
-    res.redirect('/user/pay/payment');
+  res.redirect('/user/pay/payment');
 });
 module.exports = router;

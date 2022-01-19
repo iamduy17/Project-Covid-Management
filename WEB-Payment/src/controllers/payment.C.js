@@ -29,7 +29,10 @@ const putPayment = async (req, res, next) => {
 
 const postPayment = async (req, res, next) => {
   try {
+    console.log(req.body);
     const getMoneyCur = await paymentM.get(req.body.ID);
+    console.log(getMoneyCur);
+    console.log('post-payment');
     if (getMoneyCur) {
       return res.status(200).json({ 
         money: getMoneyCur,
