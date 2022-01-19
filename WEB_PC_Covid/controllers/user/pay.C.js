@@ -17,18 +17,69 @@ router.get('/', async (req, res) => {
 router.post('/login', async (req, res) => {
   const data = {
     id: req.body.id,
-    password: req.body.password,                          
+    password: req.body.password,
   };
   const rs = await payModel.login(data);
-  req.session.idPayment = rs.user.id;
-  console.log(rs.user)
-  if (rs.message == 'Success'){
-    if(rs.user.firstActived == 1){
-      return res.redirect('/user/pay/changePass');
+  //account existed
+  if (rs) {
+    req.session.idPayment = rs.user.id;
+    console.log(rs.user)
+    if (rs.message == 'Success') {
+      if (rs.user.firstActived == 1) {
+        return res.redirect('/user/pay/changePass');
+      }
+      return res.redirect('/user/pay/payment');
     }
-    return res.redirect('/user/pay/payment');
-
   }
+  else {
+    res.render('user/pay/payDetail', {
+      title: 'Internet Banking',
+      msg: 'Sai tên đăng nhập hoặc mật khẩu',
+      layout: false,
+    });
+  }
+
+});
+
+router.post('/changePass', async (req, res) => {
+  let oldPass = req.body.oldPass;
+  let newPass = req.body.newPass;
+  let verifyPass = req.body.verifyPass;
+  if (verifyPass != newPass) {
+    return res.render('user/pay/changePass', {
+      title: 'Internet Banking',
+      msg: 'Password nhập lại không khớp với password mới',
+      layout: false,
+    });
+  }
+  const data = {
+    id: req.session.idPayment,
+    oldPass: oldPass,
+    newPass: newPass,
+  };
+
+  const rs = await payModel.changePass(data);
+  if (!rs) {
+    return res.render('user/pay/changePass', {
+      title: 'Internet Banking',
+      msg: 'Password cũ không đúng!',
+      layout: false,
+    });
+  }
+  res.render('user/pay/changePass', {
+    title: 'Internet Banking',
+    alert: 'Đổi password thành công!',
+    layout: false,
+  });
+  
+  // req.session.idPayment = rs.user.id;
+  // console.log(rs.user)
+  // if (rs.message == 'Success'){
+  //   if(rs.user.firstActived == 1){
+  //     return res.redirect('/user/pay/changePass');
+  //   }
+  //   return res.redirect('/user/pay/payment');
+  // }
 });
 
 router.get('/payDetail', (req, res) => {
@@ -110,7 +161,7 @@ router.post('/payment', async (req, res) => {
     });
   }
   const data = {
-    ID: 1234567890,                         // TODO: need to be change with suitable data
+    ID: req.session.idPayment,                         // TODO: need to be change with suitable data
     money: parseInt(money),
   };
   const rs = await payModel.paymentPut(data);
@@ -137,34 +188,34 @@ router.post('/payment', async (req, res) => {
 });
 
 router.get('/recharge', (req, res) => {
-    //Kiểm tra login
-    if (!req.user || req.user.Role != 1) return res.redirect('/');
-    
-    req.session.pathCur = '/user/pay/recharge';
-    res.render('user/pay/recharge', {
-        title: 'Internet Banking',
-    });
+  //Kiểm tra login
+  if (!req.user || req.user.Role != 1) return res.redirect('/');
+
+  req.session.pathCur = '/user/pay/recharge';
+  res.render('user/pay/recharge', {
+    title: 'Internet Banking',
+  });
 
 });
 
 router.post('/recharge', async (req, res) => {
-    if (!req.body.money)
-        return res.render('user/pay/recharge', {
-            title: 'Internet Banking',
-            error: true,
-        });
+  if (!req.body.money)
+    return res.render('user/pay/recharge', {
+      title: 'Internet Banking',
+      error: true,
+    });
 
-    const data = {
-        ID: 1234567890,
-        money: parseInt(req.body.money),
-    };
+  const data = {
+    ID: 1234567890,
+    money: parseInt(req.body.money),
+  };
 
-    const rs = await payModel.recharge(data);
-    if (rs.message !== 'success')
-        return res.render('user/pay/recharge', {
-            title: 'Internet Banking',
-            errorSystem: rs.message,
-        });
+  const rs = await payModel.recharge(data);
+  if (rs.message !== 'success')
+    return res.render('user/pay/recharge', {
+      title: 'Internet Banking',
+      errorSystem: rs.message,
+    });
 
   res.redirect('/user/pay/payment');
 });

@@ -9,7 +9,7 @@ module.exports = {
     return null;
   },
   patch: async (account) => {
-    const fieldName = ["Password"];
+    const fieldName = ["Password", "FirstActived"];
     const accountID = account.ID;
     const condition = ` WHERE "${idFieldName}" = '${accountID}'`;
     const res = await db.patch(tbName, fieldName, account, condition);

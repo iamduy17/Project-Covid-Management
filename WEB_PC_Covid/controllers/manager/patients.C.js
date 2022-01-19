@@ -166,7 +166,7 @@ router.post('/addF0', async (req, res) => {
         .replace(/[\u0300-\u036f]/g, '')
         .replace(/đ/g, 'd')
         .replace(/Đ/g, 'D')
-        .replace(' ', '');
+        .replace(/ /g, '');
     let account = {
         Username: username + req.body.idNumber,
         Password: passwordHashed,
@@ -220,7 +220,26 @@ router.post('/addF0', async (req, res) => {
     }
     console.log(accountPayment);
     await patientModel.addPaymentAccount(accountPayment);
-    res.redirect('/manager/patients');
+    res.render('manager/patients/list', {
+        title: 'Danh sách người liên quan',
+        active: { patients: true },
+        patients: [],
+        provinces: [],
+        places: [],
+        hospitals: [],
+        isolation: [],
+        empty: true,
+        page_items: [],
+        prev_value: 0,
+        next_value: 0,
+        can_go_prev: false,
+        can_go_next: false,
+        alert: "Thêm F0 thành công!",
+        username: account.Username,
+        password: req.body.idNumber,
+        idPayment: accountId
+    });
+    //res.redirect('/manager/patients');
 });
 router.post('/addRelated/:id', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
@@ -284,8 +303,41 @@ router.post('/addRelated/:id', async (req, res) => {
     };
     await patientModel.addHistory(history);
     // req.session.activities.push(`${req.user.name} thêm F${req.body.status}: ${req.body.name}`);
-
-    res.redirect('/manager/patients');
+    await patientModel.addHistory(history);
+    // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
+    let accountId = ""
+    do{
+        accountId = generateIdAccountPayment();
+    }while(await patientModel.getOnePaymentAccount(accountId));
+    let accountPayment = {
+        ID: accountId,
+        Password: passwordHashed,
+        Balance: 0,
+        Role: 0,
+        FirstActived: 1
+    }
+    console.log(accountPayment);
+    await patientModel.addPaymentAccount(accountPayment);
+    res.render('manager/patients/list', {
+        title: 'Danh sách người liên quan',
+        active: { patients: true },
+        patients: [],
+        provinces: [],
+        places: [],
+        hospitals: [],
+        isolation: [],
+        empty: true,
+        page_items: [],
+        prev_value: 0,
+        next_value: 0,
+        can_go_prev: false,
+        can_go_next: false,
+        alert: `Thêm F${req.body.status} thành công!`,
+        username: account.Username,
+        password: req.body.idNumber,
+        idPayment: accountId
+    });
+    //res.redirect('/manager/patients');
     // console.log("abcd");
     // console.log(req.params.id);
     // console.log('reqBody', req.body);

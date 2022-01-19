@@ -11,6 +11,17 @@ module.exports = {
             return;
         }
     },
+    changePass: async (data) => {
+        try {
+            const url = `${process.env.URL_API}/changePass`;
+            const rs = await axios.post(url, data);
+            
+            return rs.data;
+        } catch (error) {
+            console.log(error);
+            return;
+        }
+    },
     recharge: async (data) => {
         try {
             const url = `${process.env.URL_API}/recharge`;
