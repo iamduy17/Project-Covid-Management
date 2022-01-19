@@ -155,17 +155,6 @@
                 }, 500);
             }
         
-           function checkLength(o, n, min, max) {
-                if (o.val().length > max || o.val().length < min) {
-                    o.addClass( "ui-state-error" );
-                    updateTips( "Độ dài " + n + "[" +
-                    min + ", " + max + "]." );
-                    return false;
-                } else {
-                    return true;
-                }
-            }
-        
             function checkRegexp(o, regexp, n) {
                 if (!(regexp.test(o.val()))) {
                     o.addClass("ui-state-error");
@@ -191,8 +180,7 @@
                 var valid = true;
                 allFields.removeClass("ui-state-error");
 
-                valid = valid && checkLength(placeName, "tên địa điểm", 3, 16); 
-                valid = valid && checkRegexp(placeName, /^[a-z]([0-9a-z_\s])+$/i, "Tên địa điểm bao gồm a-z, 0-9, dấu gạch dưới, dấu cách và phải bắt đầu bằng một chữ cái.");
+                valid = valid && checkRegexp(placeName, /^\S*[AĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴAĂÂÁẮẤÀẰẦẢẲẨÃẴẪẠẶẬĐEÊÉẾÈỀẺỂẼỄẸỆIÍÌỈĨỊOÔƠÓỐỚÒỒỜỎỔỞÕỖỠỌỘỢUƯÚỨÙỪỦỬŨỮỤỰYÝỲỶỸỴA-Z]+\S*/i, "Tên địa điểm có thể bao gồm a-z, 0-9, dấu cách và phải bắt đầu bằng một chữ cái.");
 
                 valid = valid && checkRegexp(capacity, /\d/, "Điền thông tin sức chứa.");
                 valid = valid && checkRegexp(number, /\d/, "Điền thông tin số lượng hiện tại.");
@@ -210,8 +198,14 @@
                             option: option.val()
                         }),
                         success: function(res){
-                            dialog.dialog( "close" );
-                            window.location.href = res.redirect;
+                            if(res.success){
+                                dialog.dialog("close");
+                                window.location.href = res.redirect;
+                            }
+                            else{
+                                placeName.addClass("ui-state-error");
+                                updateTips("Địa điểm đã tồn tại.");
+                            }
                         }                
                     });
                 }

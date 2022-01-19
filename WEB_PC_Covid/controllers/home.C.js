@@ -180,13 +180,6 @@ router.get('/changePass', async (req, res) => {
     if (!req.user || req.user.Role != 1 || req.user.FirstActive != 0)
         return res.redirect('/');
 
-    let account = {
-        Username: req.query.user,
-        FirstActive: 1,
-    };
-    //Thay đổi pass và firstActive của người dùng
-    const rs = await userModel.patchActive(account);
-
     req.session.pathCur = `/changePass?user=${req.query.user}`;
 
     res.render('signin/changePass', {
@@ -220,6 +213,7 @@ router.post('/changePass', async (req, res) => {
         req.body.password,
         user.Password
     );
+    
     //Trùng pass hiện tại
     if (challengeResult)
         return res.render('signin/changePass', {
@@ -234,8 +228,10 @@ router.post('/changePass', async (req, res) => {
     let account = {
         Username: req.query.user,
         Password: pwdHashed,
+        FirstActive: 1
     };
-    const rs = await userModel.patchPass(account);
+
+    const rs = await userModel.patchPassAndActive(account);
     res.redirect('/user');
 });
 

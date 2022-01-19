@@ -165,7 +165,7 @@
                 valid = valid && checkLength(username, "username", 3, 16);
                 valid = valid && checkLength(password, "password", 5, 16);
             
-                valid = valid && checkRegexp(username, /^[a-z]([0-9a-z_\s])+$/i, "Tên tài khoản bao gồm a-z, 0-9, dấu gạch dưới, dấu cách và phải bắt đầu bằng một chữ cái.");
+                valid = valid && checkRegexp(username, /^[a-z]([0-9a-z_\s])+$/i, "Tên tài khoản có thể bao gồm a-z, 0-9, dấu gạch dưới, dấu cách và phải bắt đầu bằng một chữ cái.");
                 valid = valid && checkRegexp(password, /^([0-9a-zA-Z])+$/, "Mật khẩu chỉ gồm a-z, 0-9");
                 
                 if (valid) {
