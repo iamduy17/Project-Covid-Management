@@ -6,7 +6,7 @@ const cn = {
     user: 'postgres',
     host: 'localhost',
     database: 'payment', // điền tên db trên máy của mình vào
-    password: '0927022304', // điền cái password master
+    password: '123456', // điền cái password master
     port: 5432,
     max: 30,
 };

@@ -53,7 +53,7 @@ module.exports = {
             return rs.data;
         } catch (error) {
             console.log(error);
-            return;
+            return error;
         }
         
     },
