@@ -189,7 +189,6 @@
   $('#change-btn').prop('disabled', true);
   $('.box-input').each(() => {
     $(this).keyup(function () {
-      console.log(isValidate());
       if (isValidate()) {
         $('#change-btn').prop('disabled', false);
       }

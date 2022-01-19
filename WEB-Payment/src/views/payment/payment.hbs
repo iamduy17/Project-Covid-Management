@@ -138,19 +138,21 @@
           <label class="sr-only" for="money"></label>
           <div class="input-group mb-2">
             <div class="form-group">
+              <label class="text2">Số tài khoản hệ thống:</label>
+              <div class="input-group">
+                <input type="text" readonly class="form-control balance" name="balance" value="{{Id}}">
+              </div>
+            </div>
+            <div class="form-group">
               <label class="text2">Số dư tài khoản:</label>
               <div class="input-group">
-                <input type="text" readonly class="form-control balance" name="balance"
-                  value="{{balance}}">
+                <input type="text" readonly class="form-control balance" name="balance" value="{{balance}}">
                 <span class="input-group-text">VNĐ</span>
               </div>
             </div>
           </div>
           <div class="checkRecharge mb-2 mt-2"></div>
           <br>
-          <div class="text-center">
-            <button type="submit" class="btn btn-primary mx-auto" id="recharge">Rút tiền</button>
-          </div>
         </form>
       </div>
       <div class="col-md-7 banner-sec">
