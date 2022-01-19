@@ -189,13 +189,46 @@ router.get('/changePass', async (req, res) => {
 });
 
 router.post('/changePass', async (req, res) => {
+    const user = await userModel.get(req.query.user);
+   
+    const challengeResultPassOld = await bcrypt.compare(
+        req.body.passOld,
+        user.Password
+    );
+    //Nhập pass cũ không khớp
+    if(!challengeResultPassOld)
+        return res.render('signin/changePass', {
+            layout: false,
+            User: req.query.user,
+            error: true,
+            errorPassOld: true,
+            message: 'Mật khẩu cũ không khớp!',
+        });
+
+    const challengeResult = await bcrypt.compare(
+        req.body.password,
+        user.Password
+    );
+
+    //Trùng pass hiện tại
+    if (challengeResult)
+        return res.render('signin/changePass', {
+            layout: false,
+            User: req.query.user,
+            error: true,
+            errorPassNew: true,
+            message: 'Mật khẩu trùng với mật khẩu cũ!',
+        });
+
+
     //Kiểm tra độ dài pass
     if (req.body.password.length < 5 || req.body.password.length > 16)
         return res.render('signin/changePass', {
             layout: false,
             User: req.query.user,
             error: true,
-            message: 'Độ dài của pass thuộc đoạn [5, 16]',
+            errorPassNew: true,
+            message: 'Độ dài của pass thuộc đoạn [5, 16]!',
         });
 
     //2 pass không khớp
@@ -204,24 +237,10 @@ router.post('/changePass', async (req, res) => {
             layout: false,
             User: req.query.user,
             error: true,
-            message: 'Mật khẩu không khớp',
+            errorVerifyPass: true,
+            message: 'Mật khẩu mới không khớp!',
         });
     }
-
-    const user = await userModel.get(req.query.user);
-    const challengeResult = await bcrypt.compare(
-        req.body.password,
-        user.Password
-    );
-    
-    //Trùng pass hiện tại
-    if (challengeResult)
-        return res.render('signin/changePass', {
-            layout: false,
-            User: req.query.user,
-            error: true,
-            message: 'Mật khẩu trùng với mật khẩu cũ',
-        });
 
     //2 pass trùng nhau và khác pass hiện tại
     const pwdHashed = await bcrypt.hash(req.body.password, saltRounds);
