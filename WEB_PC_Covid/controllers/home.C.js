@@ -23,7 +23,7 @@ router.get('/signin', async (req, res) => {
 });
 
 router.post('/signin', async (req, res, next) => {
-    passport.authenticate('local', function (err, user, info) {    
+    passport.authenticate('local', function (err, user, info) {
         //Tài khoản không tồn tại trong database
         if (err)
             return res.render('signin/signin', {
@@ -189,14 +189,22 @@ router.get('/changePass', async (req, res) => {
 });
 
 router.post('/changePass', async (req, res) => {
+
+    if (!req.body.password || !req.body.VerifyPass || !req.body.passOld)
+        return res.render('signin/changePass', {
+            layout: false,
+            User: req.query.user,
+            error: true,
+            message: 'Nhập đầy đủ thông tin!'
+        });
     const user = await userModel.get(req.query.user);
-   
+
     const challengeResultPassOld = await bcrypt.compare(
         req.body.passOld,
         user.Password
     );
     //Nhập pass cũ không khớp
-    if(!challengeResultPassOld)
+    if (!challengeResultPassOld)
         return res.render('signin/changePass', {
             layout: false,
             User: req.query.user,

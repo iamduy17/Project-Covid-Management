@@ -5,7 +5,7 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2022-01-19 15:34:25
+-- Started on 2022-01-19 21:20:28
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 209 (class 1259 OID 19163)
+-- TOC entry 209 (class 1259 OID 16995)
 -- Name: Account; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -40,7 +40,7 @@ CREATE TABLE public."Account" (
 ALTER TABLE public."Account" OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 19166)
+-- TOC entry 210 (class 1259 OID 16998)
 -- Name: Account_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -55,7 +55,7 @@ ALTER TABLE public."Account" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 211 (class 1259 OID 19167)
+-- TOC entry 211 (class 1259 OID 16999)
 -- Name: Consume; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -64,14 +64,15 @@ CREATE TABLE public."Consume" (
     "IdUser" integer NOT NULL,
     "IdPackage" integer NOT NULL,
     "Time" timestamp with time zone NOT NULL,
-    "CreditLimit" integer NOT NULL
+    "CreditLimit" integer NOT NULL,
+    "Status" character varying(100) DEFAULT 'Chưa thanh toán'::character varying
 );
 
 
 ALTER TABLE public."Consume" OWNER TO postgres;
 
 --
--- TOC entry 243 (class 1259 OID 19361)
+-- TOC entry 212 (class 1259 OID 17002)
 -- Name: Consume_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -86,7 +87,7 @@ ALTER TABLE public."Consume" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 212 (class 1259 OID 19170)
+-- TOC entry 213 (class 1259 OID 17003)
 -- Name: District; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -99,7 +100,7 @@ CREATE TABLE public."District" (
 ALTER TABLE public."District" OWNER TO postgres;
 
 --
--- TOC entry 213 (class 1259 OID 19173)
+-- TOC entry 214 (class 1259 OID 17006)
 -- Name: DistrictWard; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -113,7 +114,7 @@ CREATE TABLE public."DistrictWard" (
 ALTER TABLE public."DistrictWard" OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 19176)
+-- TOC entry 215 (class 1259 OID 17009)
 -- Name: DistrictWard_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -128,7 +129,7 @@ ALTER TABLE public."DistrictWard" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDEN
 
 
 --
--- TOC entry 215 (class 1259 OID 19177)
+-- TOC entry 216 (class 1259 OID 17010)
 -- Name: District_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -143,7 +144,7 @@ ALTER TABLE public."District" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 216 (class 1259 OID 19178)
+-- TOC entry 217 (class 1259 OID 17011)
 -- Name: HistoryManager; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -158,7 +159,7 @@ CREATE TABLE public."HistoryManager" (
 ALTER TABLE public."HistoryManager" OWNER TO postgres;
 
 --
--- TOC entry 217 (class 1259 OID 19181)
+-- TOC entry 218 (class 1259 OID 17014)
 -- Name: HistoryManager_IdHistory_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -173,7 +174,7 @@ ALTER TABLE public."HistoryManager" ALTER COLUMN "IdHistory" ADD GENERATED ALWAY
 
 
 --
--- TOC entry 218 (class 1259 OID 19182)
+-- TOC entry 219 (class 1259 OID 17015)
 -- Name: HistoryUser; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -190,7 +191,7 @@ CREATE TABLE public."HistoryUser" (
 ALTER TABLE public."HistoryUser" OWNER TO postgres;
 
 --
--- TOC entry 219 (class 1259 OID 19187)
+-- TOC entry 220 (class 1259 OID 17020)
 -- Name: HistoryUser_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -205,7 +206,7 @@ ALTER TABLE public."HistoryUser" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENT
 
 
 --
--- TOC entry 220 (class 1259 OID 19188)
+-- TOC entry 221 (class 1259 OID 17021)
 -- Name: ManagerActivity; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -219,7 +220,7 @@ CREATE TABLE public."ManagerActivity" (
 ALTER TABLE public."ManagerActivity" OWNER TO postgres;
 
 --
--- TOC entry 221 (class 1259 OID 19191)
+-- TOC entry 222 (class 1259 OID 17024)
 -- Name: Package; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -236,7 +237,7 @@ CREATE TABLE public."Package" (
 ALTER TABLE public."Package" OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 19196)
+-- TOC entry 223 (class 1259 OID 17029)
 -- Name: Package_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -251,7 +252,7 @@ ALTER TABLE public."Package" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 223 (class 1259 OID 19197)
+-- TOC entry 224 (class 1259 OID 17030)
 -- Name: Place; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -267,7 +268,7 @@ CREATE TABLE public."Place" (
 ALTER TABLE public."Place" OWNER TO postgres;
 
 --
--- TOC entry 224 (class 1259 OID 19200)
+-- TOC entry 225 (class 1259 OID 17033)
 -- Name: Place_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -282,7 +283,7 @@ ALTER TABLE public."Place" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 225 (class 1259 OID 19201)
+-- TOC entry 226 (class 1259 OID 17034)
 -- Name: Product; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -297,7 +298,7 @@ CREATE TABLE public."Product" (
 ALTER TABLE public."Product" OWNER TO postgres;
 
 --
--- TOC entry 226 (class 1259 OID 19204)
+-- TOC entry 227 (class 1259 OID 17037)
 -- Name: ProductImg; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -311,7 +312,7 @@ CREATE TABLE public."ProductImg" (
 ALTER TABLE public."ProductImg" OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 19207)
+-- TOC entry 228 (class 1259 OID 17040)
 -- Name: ProductImg_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -326,7 +327,7 @@ ALTER TABLE public."ProductImg" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTI
 
 
 --
--- TOC entry 228 (class 1259 OID 19208)
+-- TOC entry 229 (class 1259 OID 17041)
 -- Name: ProductPackage; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -340,7 +341,7 @@ CREATE TABLE public."ProductPackage" (
 ALTER TABLE public."ProductPackage" OWNER TO postgres;
 
 --
--- TOC entry 229 (class 1259 OID 19211)
+-- TOC entry 230 (class 1259 OID 17044)
 -- Name: ProductPackage_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -355,7 +356,7 @@ ALTER TABLE public."ProductPackage" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS ID
 
 
 --
--- TOC entry 230 (class 1259 OID 19212)
+-- TOC entry 231 (class 1259 OID 17045)
 -- Name: Product_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -370,7 +371,7 @@ ALTER TABLE public."Product" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 231 (class 1259 OID 19213)
+-- TOC entry 232 (class 1259 OID 17046)
 -- Name: Province; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -383,7 +384,7 @@ CREATE TABLE public."Province" (
 ALTER TABLE public."Province" OWNER TO postgres;
 
 --
--- TOC entry 232 (class 1259 OID 19216)
+-- TOC entry 233 (class 1259 OID 17049)
 -- Name: ProvinceDistrict; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -397,7 +398,7 @@ CREATE TABLE public."ProvinceDistrict" (
 ALTER TABLE public."ProvinceDistrict" OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 19219)
+-- TOC entry 234 (class 1259 OID 17052)
 -- Name: ProvinceDistrict_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -412,7 +413,7 @@ ALTER TABLE public."ProvinceDistrict" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS 
 
 
 --
--- TOC entry 234 (class 1259 OID 19220)
+-- TOC entry 235 (class 1259 OID 17053)
 -- Name: Province_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -427,7 +428,7 @@ ALTER TABLE public."Province" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 235 (class 1259 OID 19221)
+-- TOC entry 236 (class 1259 OID 17054)
 -- Name: RelatedPeople; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -441,7 +442,7 @@ CREATE TABLE public."RelatedPeople" (
 ALTER TABLE public."RelatedPeople" OWNER TO postgres;
 
 --
--- TOC entry 236 (class 1259 OID 19224)
+-- TOC entry 237 (class 1259 OID 17057)
 -- Name: RelatedPeople_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -456,7 +457,7 @@ ALTER TABLE public."RelatedPeople" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDE
 
 
 --
--- TOC entry 237 (class 1259 OID 19225)
+-- TOC entry 238 (class 1259 OID 17058)
 -- Name: User; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -475,7 +476,7 @@ CREATE TABLE public."User" (
 ALTER TABLE public."User" OWNER TO postgres;
 
 --
--- TOC entry 238 (class 1259 OID 19229)
+-- TOC entry 239 (class 1259 OID 17062)
 -- Name: UserPlace; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -489,7 +490,7 @@ CREATE TABLE public."UserPlace" (
 ALTER TABLE public."UserPlace" OWNER TO postgres;
 
 --
--- TOC entry 239 (class 1259 OID 19232)
+-- TOC entry 240 (class 1259 OID 17065)
 -- Name: UserPlace_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -504,7 +505,7 @@ ALTER TABLE public."UserPlace" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTIT
 
 
 --
--- TOC entry 240 (class 1259 OID 19233)
+-- TOC entry 241 (class 1259 OID 17066)
 -- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -519,7 +520,7 @@ ALTER TABLE public."User" ALTER COLUMN "Id" ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- TOC entry 241 (class 1259 OID 19234)
+-- TOC entry 242 (class 1259 OID 17067)
 -- Name: Ward; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -532,7 +533,7 @@ CREATE TABLE public."Ward" (
 ALTER TABLE public."Ward" OWNER TO postgres;
 
 --
--- TOC entry 242 (class 1259 OID 19237)
+-- TOC entry 243 (class 1259 OID 17070)
 -- Name: Ward_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -547,597 +548,633 @@ ALTER TABLE public."Ward" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 3442 (class 0 OID 19163)
+-- TOC entry 3443 (class 0 OID 16995)
 -- Dependencies: 209
 -- Data for Name: Account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."Account" ("Id", "Username", "Password", "Role", "LockUp", "FirstActive") FROM stdin;
+\.
 
 
 --
--- TOC entry 3444 (class 0 OID 19167)
+-- TOC entry 3445 (class 0 OID 16999)
 -- Dependencies: 211
 -- Data for Name: Consume; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."Consume" ("Id", "IdUser", "IdPackage", "Time", "CreditLimit", "Status") FROM stdin;
+\.
 
 
 --
--- TOC entry 3445 (class 0 OID 19170)
--- Dependencies: 212
+-- TOC entry 3447 (class 0 OID 17003)
+-- Dependencies: 213
 -- Data for Name: District; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (1, 'Minh Long');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (2, 'Sơn Tây');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (3, 'Tư Nghĩa');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (4, 'Sơn Tịnh');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (5, 'Trà Bồng');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (6, 'Đại Lộc');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (7, 'Duy Xuyên');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (8, 'Quế Sơn');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (9, 'Phước Sơn');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (10, 'Hiệp Đức');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (11, 'Đồng Phú');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (12, 'Bù Đăng');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (13, 'TP. Đồng Xoài');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (14, 'Thị xã Phước Long');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (15, 'Phú Riềng');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (16, 'TP Thủ Dầu Một');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (17, 'Bàu Bàng');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (18, 'Phú Giáo');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (19, 'TP Dĩ An');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (20, 'Tân Uyên');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (21, 'Vạn Ninh');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (22, 'Ninh Hòa');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (23, 'Diên Khánh');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (24, 'Diên Hồng');
-INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VALUES (25, '’Cam Đức');
+COPY public."District" ("Id", "NameDistrict") FROM stdin;
+1	Minh Long
+2	Sơn Tây
+3	Tư Nghĩa
+4	Sơn Tịnh
+5	Trà Bồng
+6	Đại Lộc
+7	Duy Xuyên
+8	Quế Sơn
+9	Phước Sơn
+10	Hiệp Đức
+11	Đồng Phú
+12	Bù Đăng
+13	TP. Đồng Xoài
+14	Thị xã Phước Long
+15	Phú Riềng
+16	TP Thủ Dầu Một
+17	Bàu Bàng
+18	Phú Giáo
+19	TP Dĩ An
+20	Tân Uyên
+21	Vạn Ninh
+22	Ninh Hòa
+23	Diên Khánh
+24	Diên Hồng
+25	’Cam Đức
+\.
 
 
 --
--- TOC entry 3446 (class 0 OID 19173)
--- Dependencies: 213
+-- TOC entry 3448 (class 0 OID 17006)
+-- Dependencies: 214
 -- Data for Name: DistrictWard; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (1, 1, 1);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (2, 1, 2);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (3, 1, 3);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (4, 1, 4);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (5, 1, 5);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (6, 2, 6);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (7, 2, 7);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (8, 2, 8);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (9, 2, 9);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (10, 2, 10);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (11, 3, 11);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (12, 3, 12);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (13, 3, 13);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (14, 3, 14);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (15, 3, 15);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (16, 4, 16);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (17, 4, 17);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (18, 4, 18);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (19, 4, 19);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (20, 4, 20);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (21, 5, 21);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (22, 5, 22);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (23, 5, 23);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (24, 5, 24);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (25, 5, 25);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (26, 6, 26);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (27, 6, 27);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (28, 6, 28);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (29, 6, 29);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (30, 6, 30);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (31, 7, 31);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (32, 7, 32);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (33, 7, 33);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (34, 7, 34);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (35, 7, 35);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (36, 8, 36);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (37, 8, 37);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (38, 8, 38);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (39, 8, 39);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (40, 8, 40);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (41, 9, 41);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (42, 9, 42);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (43, 9, 43);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (44, 9, 44);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (45, 9, 45);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (46, 10, 46);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (47, 10, 47);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (48, 10, 48);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (49, 10, 49);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (50, 10, 50);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (51, 11, 51);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (52, 11, 52);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (53, 11, 53);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (54, 11, 54);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (55, 11, 55);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (56, 12, 56);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (57, 12, 57);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (58, 12, 58);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (59, 12, 59);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (60, 12, 60);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (61, 13, 61);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (62, 13, 62);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (63, 13, 63);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (64, 13, 64);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (65, 13, 65);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (66, 14, 66);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (67, 14, 67);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (68, 14, 68);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (69, 14, 69);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (70, 14, 70);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (71, 15, 71);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (72, 15, 72);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (73, 15, 73);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (74, 15, 74);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (75, 15, 75);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (76, 16, 76);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (77, 16, 77);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (78, 16, 78);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (79, 16, 79);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (80, 16, 80);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (81, 17, 81);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (82, 17, 82);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (83, 17, 83);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (84, 17, 84);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (85, 17, 85);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (86, 18, 86);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (87, 18, 87);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (88, 18, 88);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (89, 18, 89);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (90, 18, 90);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (91, 19, 91);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (92, 19, 92);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (93, 19, 93);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (94, 19, 94);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (95, 19, 95);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (96, 20, 96);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (97, 20, 97);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (98, 20, 98);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (99, 20, 99);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (100, 20, 100);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (101, 21, 101);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (102, 21, 102);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (103, 21, 103);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (104, 21, 104);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (105, 21, 105);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (106, 22, 106);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (107, 22, 107);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (108, 22, 108);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (109, 22, 109);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (110, 22, 110);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (111, 23, 111);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (112, 23, 112);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (113, 23, 113);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (114, 23, 114);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (115, 23, 115);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (116, 24, 116);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (117, 24, 117);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (118, 24, 118);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (119, 24, 119);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (120, 24, 120);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (121, 25, 121);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (122, 25, 122);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (123, 25, 123);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (124, 25, 124);
-INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYSTEM VALUE VALUES (125, 25, 125);
+COPY public."DistrictWard" ("Id", "IdDistrict", "IdWard") FROM stdin;
+1	1	1
+2	1	2
+3	1	3
+4	1	4
+5	1	5
+6	2	6
+7	2	7
+8	2	8
+9	2	9
+10	2	10
+11	3	11
+12	3	12
+13	3	13
+14	3	14
+15	3	15
+16	4	16
+17	4	17
+18	4	18
+19	4	19
+20	4	20
+21	5	21
+22	5	22
+23	5	23
+24	5	24
+25	5	25
+26	6	26
+27	6	27
+28	6	28
+29	6	29
+30	6	30
+31	7	31
+32	7	32
+33	7	33
+34	7	34
+35	7	35
+36	8	36
+37	8	37
+38	8	38
+39	8	39
+40	8	40
+41	9	41
+42	9	42
+43	9	43
+44	9	44
+45	9	45
+46	10	46
+47	10	47
+48	10	48
+49	10	49
+50	10	50
+51	11	51
+52	11	52
+53	11	53
+54	11	54
+55	11	55
+56	12	56
+57	12	57
+58	12	58
+59	12	59
+60	12	60
+61	13	61
+62	13	62
+63	13	63
+64	13	64
+65	13	65
+66	14	66
+67	14	67
+68	14	68
+69	14	69
+70	14	70
+71	15	71
+72	15	72
+73	15	73
+74	15	74
+75	15	75
+76	16	76
+77	16	77
+78	16	78
+79	16	79
+80	16	80
+81	17	81
+82	17	82
+83	17	83
+84	17	84
+85	17	85
+86	18	86
+87	18	87
+88	18	88
+89	18	89
+90	18	90
+91	19	91
+92	19	92
+93	19	93
+94	19	94
+95	19	95
+96	20	96
+97	20	97
+98	20	98
+99	20	99
+100	20	100
+101	21	101
+102	21	102
+103	21	103
+104	21	104
+105	21	105
+106	22	106
+107	22	107
+108	22	108
+109	22	109
+110	22	110
+111	23	111
+112	23	112
+113	23	113
+114	23	114
+115	23	115
+116	24	116
+117	24	117
+118	24	118
+119	24	119
+120	24	120
+121	25	121
+122	25	122
+123	25	123
+124	25	124
+125	25	125
+\.
 
 
 --
--- TOC entry 3449 (class 0 OID 19178)
--- Dependencies: 216
+-- TOC entry 3451 (class 0 OID 17011)
+-- Dependencies: 217
 -- Data for Name: HistoryManager; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."HistoryManager" ("IdHistory", "IdManager", "TimeStart", "TimeEnd") FROM stdin;
+\.
 
 
 --
--- TOC entry 3451 (class 0 OID 19182)
--- Dependencies: 218
+-- TOC entry 3453 (class 0 OID 17015)
+-- Dependencies: 219
 -- Data for Name: HistoryUser; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."HistoryUser" ("Id", "IdUser", "TimeStart", "TimeEnd", "Status", "Place") FROM stdin;
+\.
 
 
 --
--- TOC entry 3453 (class 0 OID 19188)
--- Dependencies: 220
+-- TOC entry 3455 (class 0 OID 17021)
+-- Dependencies: 221
 -- Data for Name: ManagerActivity; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."ManagerActivity" ("Id", "IdHistoryManager", "Activity") FROM stdin;
+\.
 
 
 --
--- TOC entry 3454 (class 0 OID 19191)
--- Dependencies: 221
+-- TOC entry 3456 (class 0 OID 17024)
+-- Dependencies: 222
 -- Data for Name: Package; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople", "LimitTime", "Introduce") OVERRIDING SYSTEM VALUE VALUES (1, 'Gói 1', 1, 1, 15, NULL);
-INSERT INTO public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople", "LimitTime", "Introduce") OVERRIDING SYSTEM VALUE VALUES (2, 'Gói 2', 1, 1, 15, NULL);
-INSERT INTO public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople", "LimitTime", "Introduce") OVERRIDING SYSTEM VALUE VALUES (3, 'Gói 3', 1, 1, 15, NULL);
-INSERT INTO public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople", "LimitTime", "Introduce") OVERRIDING SYSTEM VALUE VALUES (4, 'Gói 4', 1, 1, 15, NULL);
+COPY public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople", "LimitTime", "Introduce") FROM stdin;
+1	Gói 1	1	1	15	\N
+2	Gói 2	1	1	15	\N
+3	Gói 3	1	1	15	\N
+4	Gói 4	1	1	15	\N
+\.
 
 
 --
--- TOC entry 3456 (class 0 OID 19197)
--- Dependencies: 223
+-- TOC entry 3458 (class 0 OID 17030)
+-- Dependencies: 224
 -- Data for Name: Place; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (2, 'Bệnh viện Chợ Rẫy', 10000, 8345, 1);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (3, 'Bệnh viện Đa Khoa', 9500, 2060, 1);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (4, 'Thuận Kiều Plaza', 20000, 20000, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (5, 'Bệnh viện đại học Y Dược tpHCM', 23000, 15000, 1);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (6, 'Trường Cao đẳng Đường sắt', 27000, 26000, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (7, 'Bệnh viện 22-12', 18000, 15000, 1);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (8, 'Kim cương xanh', 14700, 9999, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (9, 'Bệnh viện Phạm Ngọc Thạch', 22000, 20000, 1);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (10, 'Đồng Hương 5 sao', 5000, 4000, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (11, 'A&EM Art Hotel', 1000, 1000, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (1, 'Bệnh viện dã chiến Củ Chi', 15000, 12003, 1);
+COPY public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") FROM stdin;
+2	Bệnh viện Chợ Rẫy	10000	8345	1
+3	Bệnh viện Đa Khoa	9500	2060	1
+4	Thuận Kiều Plaza	20000	20000	0
+5	Bệnh viện đại học Y Dược tpHCM	23000	15000	1
+6	Trường Cao đẳng Đường sắt	27000	26000	0
+7	Bệnh viện 22-12	18000	15000	1
+8	Kim cương xanh	14700	9999	0
+9	Bệnh viện Phạm Ngọc Thạch	22000	20000	1
+10	Đồng Hương 5 sao	5000	4000	0
+11	A&EM Art Hotel	1000	1000	0
+1	Bệnh viện dã chiến Củ Chi	15000	12003	1
+\.
 
 
 --
--- TOC entry 3458 (class 0 OID 19201)
--- Dependencies: 225
+-- TOC entry 3460 (class 0 OID 17034)
+-- Dependencies: 226
 -- Data for Name: Product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (1, 129000, 'thịt heo', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (2, 130000, 'cá thu', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (3, 9000, 'Bắp cải trắng', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (4, 8000, 'Rau muống', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (5, 28000, 'Rau thơm', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (6, 15000, 'Rau sống', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (7, 45000, 'Ớt sừng đỏ', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (8, 13000, 'Khổ qua', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (9, 8000, 'Đu đủ xanh', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (10, 9000, 'Củ cải trắng', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (11, 50000, 'trái cây các loại', 'giỏ');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (12, 2000, 'trứng gà', 'quả');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (13, 11000, 'trứng cút', 'hộp');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (14, 40000, 'Bánh kẹo', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (15, 4500, 'muối i-ốt', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (16, 7000, 'bột nêm', 'gói');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (17, 19500, 'nước mắm Chinsu', 'chai');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (18, 6000, 'nước tương Tam Thái Tử', 'chai');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (19, 13000, 'đường trắng', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (20, 100000, 'dầu ăn', 'bình');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (21, 25000, 'gạo', 'kg');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (22, 106000, 'Mỳ gói Hảo Hảo', 'thùng');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (23, 30000, 'khẩu trang y tế', 'hộp');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (24, 69000, 'Nước rửa tay Lifebuoy chai 500g', 'chai');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (25, 155000, 'Chai xịt khử mùi', 'chai');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (26, 34000, 'Kem đánh răng Colgate', 'hộp');
-INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING SYSTEM VALUE VALUES (27, 35000, 'giấy vệ sinh', 'bịch');
+COPY public."Product" ("Id", "Price", "NameProduct", "Unit") FROM stdin;
+1	129000	thịt heo	kg
+2	130000	cá thu	kg
+3	9000	Bắp cải trắng	kg
+4	8000	Rau muống	kg
+5	28000	Rau thơm	kg
+6	15000	Rau sống	kg
+7	45000	Ớt sừng đỏ	kg
+8	13000	Khổ qua	kg
+9	8000	Đu đủ xanh	kg
+10	9000	Củ cải trắng	kg
+11	50000	trái cây các loại	giỏ
+12	2000	trứng gà	quả
+13	11000	trứng cút	hộp
+14	40000	Bánh kẹo	kg
+15	4500	muối i-ốt	kg
+16	7000	bột nêm	gói
+17	19500	nước mắm Chinsu	chai
+18	6000	nước tương Tam Thái Tử	chai
+19	13000	đường trắng	kg
+20	100000	dầu ăn	bình
+21	25000	gạo	kg
+22	106000	Mỳ gói Hảo Hảo	thùng
+23	30000	khẩu trang y tế	hộp
+24	69000	Nước rửa tay Lifebuoy chai 500g	chai
+25	155000	Chai xịt khử mùi	chai
+26	34000	Kem đánh răng Colgate	hộp
+27	35000	giấy vệ sinh	bịch
+\.
 
 
 --
--- TOC entry 3459 (class 0 OID 19204)
--- Dependencies: 226
+-- TOC entry 3461 (class 0 OID 17037)
+-- Dependencies: 227
 -- Data for Name: ProductImg; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (1, 1, 'thit_heo_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (2, 1, 'thit_heo_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (3, 1, 'thit_heo_3.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (4, 2, 'ca_thu_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (5, 2, 'ca_thu_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (6, 2, 'ca_thu_3.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (7, 3, 'bap_cai_trang_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (8, 3, 'bap_cai_trang_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (9, 3, 'bap_cai_trang_3.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (10, 4, 'rau_muong_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (11, 4, 'rau_muong_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (12, 5, 'rau_thom_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (13, 5, 'rau_thom_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (14, 6, 'rau_song_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (15, 6, 'rau_song_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (16, 7, 'ot_sung_do_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (17, 7, 'ot_sung_do_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (18, 8, 'kho_qua_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (19, 8, 'kho_qua_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (20, 9, 'du_du_xanh_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (21, 9, 'du_du_xanh_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (22, 10, 'cu_cai_trang_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (23, 10, 'cu_cai_trang_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (24, 11, 'trai_cay_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (25, 11, 'trai_cay_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (26, 12, 'trung_ga_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (27, 12, 'trung_ga_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (28, 13, 'trung_cut_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (29, 13, 'trung_cut_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (30, 14, 'banh_keo_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (31, 14, 'banh_keo_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (32, 15, 'muoi_iot_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (33, 15, 'muoi_iot_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (34, 16, 'bot_nem_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (35, 16, 'bot_nem_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (36, 17, 'chinsu_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (37, 17, 'chinsu_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (38, 18, 'nuoc_tuong_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (39, 18, 'nuoc_tuong_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (40, 19, 'duong_trang_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (41, 19, 'duong_trang_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (42, 20, 'dau_an_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (43, 20, 'dau_an_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (44, 21, 'gao_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (45, 21, 'gao_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (46, 22, 'my_goi_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (47, 22, 'my_goi_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (48, 23, 'khau_trang_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (49, 23, 'khau_trang_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (50, 24, 'nuoc_rua_tay_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (51, 24, 'nuoc_rua_tay_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (52, 25, 'xit_khu_mui_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (53, 25, 'xit_khu_mui_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (54, 26, 'colgate_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (55, 26, 'colgate_2.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (56, 27, 'giay_ve_sinh_1.jpg');
-INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VALUE VALUES (57, 27, 'giay_ve_sinh_2.jpg');
+COPY public."ProductImg" ("Id", "IdProduct", "Img") FROM stdin;
+1	1	thit_heo_1.jpg
+2	1	thit_heo_2.jpg
+3	1	thit_heo_3.jpg
+4	2	ca_thu_1.jpg
+5	2	ca_thu_2.jpg
+6	2	ca_thu_3.jpg
+7	3	bap_cai_trang_1.jpg
+8	3	bap_cai_trang_2.jpg
+9	3	bap_cai_trang_3.jpg
+10	4	rau_muong_1.jpg
+11	4	rau_muong_2.jpg
+12	5	rau_thom_1.jpg
+13	5	rau_thom_2.jpg
+14	6	rau_song_1.jpg
+15	6	rau_song_2.jpg
+16	7	ot_sung_do_1.jpg
+17	7	ot_sung_do_2.jpg
+18	8	kho_qua_1.jpg
+19	8	kho_qua_2.jpg
+20	9	du_du_xanh_1.jpg
+21	9	du_du_xanh_2.jpg
+22	10	cu_cai_trang_1.jpg
+23	10	cu_cai_trang_2.jpg
+24	11	trai_cay_1.jpg
+25	11	trai_cay_2.jpg
+26	12	trung_ga_1.jpg
+27	12	trung_ga_2.jpg
+28	13	trung_cut_1.jpg
+29	13	trung_cut_2.jpg
+30	14	banh_keo_1.jpg
+31	14	banh_keo_2.jpg
+32	15	muoi_iot_1.jpg
+33	15	muoi_iot_2.jpg
+34	16	bot_nem_1.jpg
+35	16	bot_nem_2.jpg
+36	17	chinsu_1.jpg
+37	17	chinsu_1.jpg
+38	18	nuoc_tuong_1.jpg
+39	18	nuoc_tuong_2.jpg
+40	19	duong_trang_1.jpg
+41	19	duong_trang_2.jpg
+42	20	dau_an_1.jpg
+43	20	dau_an_2.jpg
+44	21	gao_1.jpg
+45	21	gao_2.jpg
+46	22	my_goi_1.jpg
+47	22	my_goi_2.jpg
+48	23	khau_trang_1.jpg
+49	23	khau_trang_2.jpg
+50	24	nuoc_rua_tay_1.jpg
+51	24	nuoc_rua_tay_2.jpg
+52	25	xit_khu_mui_1.jpg
+53	25	xit_khu_mui_2.jpg
+54	26	colgate_1.jpg
+55	26	colgate_2.jpg
+56	27	giay_ve_sinh_1.jpg
+57	27	giay_ve_sinh_2.jpg
+\.
 
 
 --
--- TOC entry 3461 (class 0 OID 19208)
--- Dependencies: 228
+-- TOC entry 3463 (class 0 OID 17041)
+-- Dependencies: 229
 -- Data for Name: ProductPackage; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (1, 1, 1);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (2, 1, 2);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (3, 1, 6);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (4, 1, 11);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (5, 1, 12);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (6, 1, 17);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (7, 1, 18);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (8, 1, 21);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (9, 1, 23);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (10, 1, 24);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (11, 2, 1);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (12, 2, 5);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (13, 2, 6);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (14, 2, 7);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (15, 2, 12);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (16, 2, 17);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (17, 2, 22);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (18, 2, 25);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (19, 2, 26);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (20, 2, 27);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (21, 3, 2);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (22, 3, 9);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (23, 3, 10);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (24, 3, 11);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (25, 3, 13);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (26, 3, 14);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (27, 3, 20);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (28, 3, 21);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (29, 3, 24);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (30, 3, 25);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (31, 4, 1);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (32, 4, 11);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (33, 4, 12);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (34, 4, 13);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (35, 4, 15);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (36, 4, 16);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (37, 4, 19);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (38, 4, 20);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (39, 4, 21);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (40, 4, 22);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (41, 4, 26);
-INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING SYSTEM VALUE VALUES (42, 4, 27);
+COPY public."ProductPackage" ("Id", "IdPackage", "IdProduct") FROM stdin;
+1	1	1
+2	1	2
+3	1	6
+4	1	11
+5	1	12
+6	1	17
+7	1	18
+8	1	21
+9	1	23
+10	1	24
+11	2	1
+12	2	5
+13	2	6
+14	2	7
+15	2	12
+16	2	17
+17	2	22
+18	2	25
+19	2	26
+20	2	27
+21	3	2
+22	3	9
+23	3	10
+24	3	11
+25	3	13
+26	3	14
+27	3	20
+28	3	21
+29	3	24
+30	3	25
+31	4	1
+32	4	11
+33	4	12
+34	4	13
+35	4	15
+36	4	16
+37	4	19
+38	4	20
+39	4	21
+40	4	22
+41	4	26
+42	4	27
+\.
 
 
 --
--- TOC entry 3464 (class 0 OID 19213)
--- Dependencies: 231
+-- TOC entry 3466 (class 0 OID 17046)
+-- Dependencies: 232
 -- Data for Name: Province; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VALUES (1, 'Quảng Ngãi');
-INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VALUES (2, 'Quảng Nam');
-INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VALUES (3, 'Bình Phước');
-INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VALUES (4, 'Bình Dương');
-INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VALUES (5, 'Khánh Hòa');
+COPY public."Province" ("Id", "NameProvince") FROM stdin;
+1	Quảng Ngãi
+2	Quảng Nam
+3	Bình Phước
+4	Bình Dương
+5	Khánh Hòa
+\.
 
 
 --
--- TOC entry 3465 (class 0 OID 19216)
--- Dependencies: 232
+-- TOC entry 3467 (class 0 OID 17049)
+-- Dependencies: 233
 -- Data for Name: ProvinceDistrict; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (1, 1, 1);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (2, 1, 2);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (3, 1, 3);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (4, 1, 4);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (5, 1, 5);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (6, 2, 6);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (7, 2, 7);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (8, 2, 8);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (9, 2, 9);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (10, 2, 10);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (11, 3, 11);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (12, 3, 12);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (13, 3, 13);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (14, 3, 14);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (15, 3, 15);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (16, 4, 16);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (17, 4, 17);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (18, 4, 18);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (19, 4, 19);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (20, 4, 20);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (21, 5, 21);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (22, 5, 22);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (23, 5, 23);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (24, 5, 24);
-INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRIDING SYSTEM VALUE VALUES (25, 5, 25);
+COPY public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") FROM stdin;
+1	1	1
+2	1	2
+3	1	3
+4	1	4
+5	1	5
+6	2	6
+7	2	7
+8	2	8
+9	2	9
+10	2	10
+11	3	11
+12	3	12
+13	3	13
+14	3	14
+15	3	15
+16	4	16
+17	4	17
+18	4	18
+19	4	19
+20	4	20
+21	5	21
+22	5	22
+23	5	23
+24	5	24
+25	5	25
+\.
 
 
 --
--- TOC entry 3468 (class 0 OID 19221)
--- Dependencies: 235
+-- TOC entry 3470 (class 0 OID 17054)
+-- Dependencies: 236
 -- Data for Name: RelatedPeople; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."RelatedPeople" ("Id", "IdUser", "IdRelatedUser") FROM stdin;
+\.
 
 
 --
--- TOC entry 3470 (class 0 OID 19225)
--- Dependencies: 237
+-- TOC entry 3472 (class 0 OID 17058)
+-- Dependencies: 238
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."User" ("Id", "Name", "Year", "Address", "Status", "Debt", "Inform", "IdNumber") FROM stdin;
+\.
 
 
 --
--- TOC entry 3471 (class 0 OID 19229)
--- Dependencies: 238
+-- TOC entry 3473 (class 0 OID 17062)
+-- Dependencies: 239
 -- Data for Name: UserPlace; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
+COPY public."UserPlace" ("Id", "IdUser", "IdPlace") FROM stdin;
+\.
 
 
 --
--- TOC entry 3474 (class 0 OID 19234)
--- Dependencies: 241
+-- TOC entry 3476 (class 0 OID 17067)
+-- Dependencies: 242
 -- Data for Name: Ward; Type: TABLE DATA; Schema: public; Owner: postgres
 --
 
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (1, 'Long Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (2, 'Long Mai');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (3, 'Long Môn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (4, 'Long Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (5, 'Thanh An');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (6, 'Sơn Mùa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (7, 'Sơn Liên');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (8, 'Sơn Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (9, 'Sơn Màu');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (10, 'Sơn Dung');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (11, 'Nghĩa Lâm');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (12, 'Nghĩa Thắng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (13, 'Nghĩa Thuận');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (14, 'Nghĩa Kỳ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (15, 'Nghĩa Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (16, 'Tịnh Thọ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (17, 'Tịnh Trà');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (18, 'Tịnh Phong');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (19, 'Tịnh Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (20, 'Tịnh Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (21, 'Trà Lâm');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (22, 'Trà Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (23, 'Trà Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (24, 'Trà Bùi');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (25, 'Trà Thanh');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (26, 'Đại Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (27, 'Đại Lãnh');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (28, 'Đại Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (29, 'Đại Hồng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (30, 'Đại Đồng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (31, 'Duy Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (32, 'Duy Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (33, 'Duy Châu');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (34, 'Duy Trinh');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (35, 'Duy Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (36, 'Quế Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (37, 'Quế Thuận');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (38, 'Quế Mỹ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (39, 'Quế Long');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (40, 'Quế Châu');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (41, 'Phước Xuân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (42, 'Phước Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (43, 'Phước Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (44, 'Phước Đức');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (45, 'Phước Năng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (46, 'Quế Thọ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (47, 'Bình Lâm');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (48, 'Sông Trà');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (49, 'Phước Trà');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (50, 'Phước Gia');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (51, 'Tân Tiến');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (52, 'Tân Phú');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (53, 'Tân Lập');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (54, 'Tân Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (55, 'Tân Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (56, 'Thị trấn Đức Phong');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (57, 'Bình Minh');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (58, 'BomBo');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (59, 'Minh Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (60, 'Đoàn Kết');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (61, 'Tân Phú');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (62, 'Tân Đồng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (63, 'Tân Xuân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (64, 'Tiến Thành');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (65, 'Tiến Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (66, 'Phước Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (67, 'Long Phước');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (68, 'Sơn Giang');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (69, 'Phước Tín');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (70, 'Long Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (71, 'Phước Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (72, 'Bù Nho');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (73, 'Long Hà');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (74, 'Long Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (75, 'Phú Trung');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (76, 'Hiệp Thành');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (77, 'Phú Lợi');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (78, 'Phú Cường');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (79, 'Phú Thọ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (80, 'Chánh Nghĩa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (81, 'Tân Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (82, 'Long Nguyên');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (83, 'Hưng Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (84, 'Lai Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (85, 'Cây Trường');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (86, 'An Thái');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (87, 'An Long');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (88, 'An Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (89, 'Tân Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (90, 'Tam Lập');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (91, 'Dĩ An');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (92, 'Tân Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (93, 'Bình An');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (94, 'Bình Thắng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (95, 'Đông Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (96, 'Tân Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (97, 'Khánh Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (98, 'Phú Chánh');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (99, 'Uyên Hưng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (100, 'Hội Nghĩa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (101, 'Vạn Giã');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (102, 'Vạn Phước');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (103, 'Vạn Long');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (104, 'Vạn Thắng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (105, 'Vạn Bình');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (106, 'Ninh Đa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (107, 'Ninh Diêm');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (108, 'Ninh Hải');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (109, 'Ninh Thủy');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (110, 'Ninh Hà');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (111, 'Diên Lâm');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (112, 'Diên Điền');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (113, 'Diên Xuân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (114, 'Diên Sơn');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (115, 'Diên Đồng');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (116, 'Lộc Thọ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (117, 'Ngọc Hiệp');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (118, 'Phước Hải');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (119, 'Phước Hòa');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (120, 'Phước Tân');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (121, 'Vĩnh Nguyên');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (122, 'Vĩnh Phước');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (123, 'Vĩnh Thọ');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (124, 'Vĩnh Trường');
-INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (125, 'Xương Huân');
+COPY public."Ward" ("Id", "NameWard") FROM stdin;
+1	Long Hiệp
+2	Long Mai
+3	Long Môn
+4	Long Sơn
+5	Thanh An
+6	Sơn Mùa
+7	Sơn Liên
+8	Sơn Tân
+9	Sơn Màu
+10	Sơn Dung
+11	Nghĩa Lâm
+12	Nghĩa Thắng
+13	Nghĩa Thuận
+14	Nghĩa Kỳ
+15	Nghĩa Sơn
+16	Tịnh Thọ
+17	Tịnh Trà
+18	Tịnh Phong
+19	Tịnh Hiệp
+20	Tịnh Bình
+21	Trà Lâm
+22	Trà Tân
+23	Trà Sơn
+24	Trà Bùi
+25	Trà Thanh
+26	Đại Sơn
+27	Đại Lãnh
+28	Đại Hưng
+29	Đại Hồng
+30	Đại Đồng
+31	Duy Tân
+32	Duy Hòa
+33	Duy Châu
+34	Duy Trinh
+35	Duy Sơn
+36	Quế Hiệp
+37	Quế Thuận
+38	Quế Mỹ
+39	Quế Long
+40	Quế Châu
+41	Phước Xuân
+42	Phước Hiệp
+43	Phước Hòa
+44	Phước Đức
+45	Phước Năng
+46	Quế Thọ
+47	Bình Lâm
+48	Sông Trà
+49	Phước Trà
+50	Phước Gia
+51	Tân Tiến
+52	Tân Phú
+53	Tân Lập
+54	Tân Hưng
+55	Tân Hòa
+56	Thị trấn Đức Phong
+57	Bình Minh
+58	BomBo
+59	Minh Hưng
+60	Đoàn Kết
+61	Tân Phú
+62	Tân Đồng
+63	Tân Xuân
+64	Tiến Thành
+65	Tiến Hưng
+66	Phước Bình
+67	Long Phước
+68	Sơn Giang
+69	Phước Tín
+70	Long Hiệp
+71	Phước Tân
+72	Bù Nho
+73	Long Hà
+74	Long Tân
+75	Phú Trung
+76	Hiệp Thành
+77	Phú Lợi
+78	Phú Cường
+79	Phú Thọ
+80	Chánh Nghĩa
+81	Tân Hưng
+82	Long Nguyên
+83	Hưng Hòa
+84	Lai Hưng
+85	Cây Trường
+86	An Thái
+87	An Long
+88	An Bình
+89	Tân Hiệp
+90	Tam Lập
+91	Dĩ An
+92	Tân Bình
+93	Bình An
+94	Bình Thắng
+95	Đông Hòa
+96	Tân Hiệp
+97	Khánh Bình
+98	Phú Chánh
+99	Uyên Hưng
+100	Hội Nghĩa
+101	Vạn Giã
+102	Vạn Phước
+103	Vạn Long
+104	Vạn Thắng
+105	Vạn Bình
+106	Ninh Đa
+107	Ninh Diêm
+108	Ninh Hải
+109	Ninh Thủy
+110	Ninh Hà
+111	Diên Lâm
+112	Diên Điền
+113	Diên Xuân
+114	Diên Sơn
+115	Diên Đồng
+116	Lộc Thọ
+117	Ngọc Hiệp
+118	Phước Hải
+119	Phước Hòa
+120	Phước Tân
+121	Vĩnh Nguyên
+122	Vĩnh Phước
+123	Vĩnh Thọ
+124	Vĩnh Trường
+125	Xương Huân
+\.
 
 
 --
--- TOC entry 3482 (class 0 OID 0)
+-- TOC entry 3483 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: Account_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1146,8 +1183,8 @@ SELECT pg_catalog.setval('public."Account_Id_seq"', 4, true);
 
 
 --
--- TOC entry 3483 (class 0 OID 0)
--- Dependencies: 243
+-- TOC entry 3484 (class 0 OID 0)
+-- Dependencies: 212
 -- Name: Consume_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1155,8 +1192,8 @@ SELECT pg_catalog.setval('public."Consume_Id_seq"', 1, false);
 
 
 --
--- TOC entry 3484 (class 0 OID 0)
--- Dependencies: 214
+-- TOC entry 3485 (class 0 OID 0)
+-- Dependencies: 215
 -- Name: DistrictWard_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1164,8 +1201,8 @@ SELECT pg_catalog.setval('public."DistrictWard_Id_seq"', 125, true);
 
 
 --
--- TOC entry 3485 (class 0 OID 0)
--- Dependencies: 215
+-- TOC entry 3486 (class 0 OID 0)
+-- Dependencies: 216
 -- Name: District_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1173,8 +1210,8 @@ SELECT pg_catalog.setval('public."District_Id_seq"', 25, true);
 
 
 --
--- TOC entry 3486 (class 0 OID 0)
--- Dependencies: 217
+-- TOC entry 3487 (class 0 OID 0)
+-- Dependencies: 218
 -- Name: HistoryManager_IdHistory_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1182,8 +1219,8 @@ SELECT pg_catalog.setval('public."HistoryManager_IdHistory_seq"', 1, false);
 
 
 --
--- TOC entry 3487 (class 0 OID 0)
--- Dependencies: 219
+-- TOC entry 3488 (class 0 OID 0)
+-- Dependencies: 220
 -- Name: HistoryUser_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1191,8 +1228,8 @@ SELECT pg_catalog.setval('public."HistoryUser_Id_seq"', 1, true);
 
 
 --
--- TOC entry 3488 (class 0 OID 0)
--- Dependencies: 222
+-- TOC entry 3489 (class 0 OID 0)
+-- Dependencies: 223
 -- Name: Package_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1200,8 +1237,8 @@ SELECT pg_catalog.setval('public."Package_Id_seq"', 4, true);
 
 
 --
--- TOC entry 3489 (class 0 OID 0)
--- Dependencies: 224
+-- TOC entry 3490 (class 0 OID 0)
+-- Dependencies: 225
 -- Name: Place_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1209,8 +1246,8 @@ SELECT pg_catalog.setval('public."Place_Id_seq"', 11, true);
 
 
 --
--- TOC entry 3490 (class 0 OID 0)
--- Dependencies: 227
+-- TOC entry 3491 (class 0 OID 0)
+-- Dependencies: 228
 -- Name: ProductImg_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1218,8 +1255,8 @@ SELECT pg_catalog.setval('public."ProductImg_Id_seq"', 57, true);
 
 
 --
--- TOC entry 3491 (class 0 OID 0)
--- Dependencies: 229
+-- TOC entry 3492 (class 0 OID 0)
+-- Dependencies: 230
 -- Name: ProductPackage_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1227,8 +1264,8 @@ SELECT pg_catalog.setval('public."ProductPackage_Id_seq"', 42, true);
 
 
 --
--- TOC entry 3492 (class 0 OID 0)
--- Dependencies: 230
+-- TOC entry 3493 (class 0 OID 0)
+-- Dependencies: 231
 -- Name: Product_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1236,8 +1273,8 @@ SELECT pg_catalog.setval('public."Product_Id_seq"', 27, true);
 
 
 --
--- TOC entry 3493 (class 0 OID 0)
--- Dependencies: 233
+-- TOC entry 3494 (class 0 OID 0)
+-- Dependencies: 234
 -- Name: ProvinceDistrict_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1245,8 +1282,8 @@ SELECT pg_catalog.setval('public."ProvinceDistrict_Id_seq"', 25, true);
 
 
 --
--- TOC entry 3494 (class 0 OID 0)
--- Dependencies: 234
+-- TOC entry 3495 (class 0 OID 0)
+-- Dependencies: 235
 -- Name: Province_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1254,8 +1291,8 @@ SELECT pg_catalog.setval('public."Province_Id_seq"', 5, true);
 
 
 --
--- TOC entry 3495 (class 0 OID 0)
--- Dependencies: 236
+-- TOC entry 3496 (class 0 OID 0)
+-- Dependencies: 237
 -- Name: RelatedPeople_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1263,8 +1300,8 @@ SELECT pg_catalog.setval('public."RelatedPeople_Id_seq"', 1, false);
 
 
 --
--- TOC entry 3496 (class 0 OID 0)
--- Dependencies: 239
+-- TOC entry 3497 (class 0 OID 0)
+-- Dependencies: 240
 -- Name: UserPlace_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1272,8 +1309,8 @@ SELECT pg_catalog.setval('public."UserPlace_Id_seq"', 3, true);
 
 
 --
--- TOC entry 3497 (class 0 OID 0)
--- Dependencies: 240
+-- TOC entry 3498 (class 0 OID 0)
+-- Dependencies: 241
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1281,8 +1318,8 @@ SELECT pg_catalog.setval('public."User_id_seq"', 1, false);
 
 
 --
--- TOC entry 3498 (class 0 OID 0)
--- Dependencies: 242
+-- TOC entry 3499 (class 0 OID 0)
+-- Dependencies: 243
 -- Name: Ward_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
@@ -1290,7 +1327,7 @@ SELECT pg_catalog.setval('public."Ward_Id_seq"', 125, true);
 
 
 --
--- TOC entry 3250 (class 2606 OID 19239)
+-- TOC entry 3251 (class 2606 OID 17072)
 -- Name: Account Account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1299,7 +1336,7 @@ ALTER TABLE ONLY public."Account"
 
 
 --
--- TOC entry 3252 (class 2606 OID 19241)
+-- TOC entry 3253 (class 2606 OID 17074)
 -- Name: Consume Consume_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1308,7 +1345,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3256 (class 2606 OID 19243)
+-- TOC entry 3257 (class 2606 OID 17076)
 -- Name: DistrictWard DistrictWard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1317,7 +1354,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3254 (class 2606 OID 19245)
+-- TOC entry 3255 (class 2606 OID 17078)
 -- Name: District District_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1326,7 +1363,7 @@ ALTER TABLE ONLY public."District"
 
 
 --
--- TOC entry 3258 (class 2606 OID 19247)
+-- TOC entry 3259 (class 2606 OID 17080)
 -- Name: HistoryManager HistoryManager_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1335,7 +1372,7 @@ ALTER TABLE ONLY public."HistoryManager"
 
 
 --
--- TOC entry 3260 (class 2606 OID 19249)
+-- TOC entry 3261 (class 2606 OID 17082)
 -- Name: HistoryUser HistoryUser_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1344,7 +1381,7 @@ ALTER TABLE ONLY public."HistoryUser"
 
 
 --
--- TOC entry 3262 (class 2606 OID 19251)
+-- TOC entry 3263 (class 2606 OID 17084)
 -- Name: ManagerActivity ManagerActivity_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1353,7 +1390,7 @@ ALTER TABLE ONLY public."ManagerActivity"
 
 
 --
--- TOC entry 3265 (class 2606 OID 19253)
+-- TOC entry 3266 (class 2606 OID 17086)
 -- Name: Package Package_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1362,7 +1399,7 @@ ALTER TABLE ONLY public."Package"
 
 
 --
--- TOC entry 3267 (class 2606 OID 19255)
+-- TOC entry 3268 (class 2606 OID 17088)
 -- Name: Place Place_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1371,7 +1408,7 @@ ALTER TABLE ONLY public."Place"
 
 
 --
--- TOC entry 3271 (class 2606 OID 19257)
+-- TOC entry 3272 (class 2606 OID 17090)
 -- Name: ProductImg ProductImg_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1380,7 +1417,7 @@ ALTER TABLE ONLY public."ProductImg"
 
 
 --
--- TOC entry 3273 (class 2606 OID 19259)
+-- TOC entry 3274 (class 2606 OID 17092)
 -- Name: ProductPackage ProductPackage_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1389,7 +1426,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3269 (class 2606 OID 19261)
+-- TOC entry 3270 (class 2606 OID 17094)
 -- Name: Product Product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1398,7 +1435,7 @@ ALTER TABLE ONLY public."Product"
 
 
 --
--- TOC entry 3277 (class 2606 OID 19263)
+-- TOC entry 3278 (class 2606 OID 17096)
 -- Name: ProvinceDistrict ProvinceDistrict_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1407,7 +1444,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3275 (class 2606 OID 19265)
+-- TOC entry 3276 (class 2606 OID 17098)
 -- Name: Province Province_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1416,7 +1453,7 @@ ALTER TABLE ONLY public."Province"
 
 
 --
--- TOC entry 3279 (class 2606 OID 19267)
+-- TOC entry 3280 (class 2606 OID 17100)
 -- Name: RelatedPeople RelatedPeople_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1425,7 +1462,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3283 (class 2606 OID 19269)
+-- TOC entry 3284 (class 2606 OID 17102)
 -- Name: UserPlace UserPlace_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1434,7 +1471,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3281 (class 2606 OID 19271)
+-- TOC entry 3282 (class 2606 OID 17104)
 -- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1443,7 +1480,7 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 3285 (class 2606 OID 19273)
+-- TOC entry 3286 (class 2606 OID 17106)
 -- Name: Ward Ward_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1452,7 +1489,7 @@ ALTER TABLE ONLY public."Ward"
 
 
 --
--- TOC entry 3263 (class 1259 OID 19274)
+-- TOC entry 3264 (class 1259 OID 17107)
 -- Name: fki_ID_ManagerActivity_HistoryManager; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1460,7 +1497,7 @@ CREATE INDEX "fki_ID_ManagerActivity_HistoryManager" ON public."ManagerActivity"
 
 
 --
--- TOC entry 3291 (class 2606 OID 19275)
+-- TOC entry 3292 (class 2606 OID 17108)
 -- Name: HistoryUser HistoryUser_IdUser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1469,7 +1506,7 @@ ALTER TABLE ONLY public."HistoryUser"
 
 
 --
--- TOC entry 3288 (class 2606 OID 19280)
+-- TOC entry 3289 (class 2606 OID 17113)
 -- Name: DistrictWard IDDistrict_DistrictWard_District; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1478,7 +1515,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3296 (class 2606 OID 19285)
+-- TOC entry 3297 (class 2606 OID 17118)
 -- Name: ProvinceDistrict IDDistrict_ProvinceDistrict_District; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1487,7 +1524,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3286 (class 2606 OID 19290)
+-- TOC entry 3287 (class 2606 OID 17123)
 -- Name: Consume IDPackage_Consume_Package; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1496,7 +1533,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3294 (class 2606 OID 19295)
+-- TOC entry 3295 (class 2606 OID 17128)
 -- Name: ProductPackage IDPackage_ProductPackage_Package; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1505,7 +1542,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3301 (class 2606 OID 19300)
+-- TOC entry 3302 (class 2606 OID 17133)
 -- Name: UserPlace IDPlace_UserPlace_Place; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1514,7 +1551,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3293 (class 2606 OID 19305)
+-- TOC entry 3294 (class 2606 OID 17138)
 -- Name: ProductImg IDProduct_ProductImg_Product; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1523,7 +1560,7 @@ ALTER TABLE ONLY public."ProductImg"
 
 
 --
--- TOC entry 3295 (class 2606 OID 19310)
+-- TOC entry 3296 (class 2606 OID 17143)
 -- Name: ProductPackage IDProduct_ProductPackage_Product; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1532,7 +1569,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3297 (class 2606 OID 19315)
+-- TOC entry 3298 (class 2606 OID 17148)
 -- Name: ProvinceDistrict IDProvince_ProvinceDistrict_Province; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1541,7 +1578,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3298 (class 2606 OID 19320)
+-- TOC entry 3299 (class 2606 OID 17153)
 -- Name: RelatedPeople IDRelated_Related_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1550,7 +1587,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3287 (class 2606 OID 19325)
+-- TOC entry 3288 (class 2606 OID 17158)
 -- Name: Consume IDUser_Consume_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1559,7 +1596,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3299 (class 2606 OID 19330)
+-- TOC entry 3300 (class 2606 OID 17163)
 -- Name: RelatedPeople IDUser_Related_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1568,7 +1605,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3302 (class 2606 OID 19335)
+-- TOC entry 3303 (class 2606 OID 17168)
 -- Name: UserPlace IDUser_UserPlace_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1577,7 +1614,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3289 (class 2606 OID 19340)
+-- TOC entry 3290 (class 2606 OID 17173)
 -- Name: DistrictWard IDWard_DistrictWard_Ward; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1586,7 +1623,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3290 (class 2606 OID 19345)
+-- TOC entry 3291 (class 2606 OID 17178)
 -- Name: HistoryManager ID_HistoryManager_Account; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1595,7 +1632,7 @@ ALTER TABLE ONLY public."HistoryManager"
 
 
 --
--- TOC entry 3292 (class 2606 OID 19350)
+-- TOC entry 3293 (class 2606 OID 17183)
 -- Name: ManagerActivity ID_ManagerActivity_HistoryManager; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1604,7 +1641,7 @@ ALTER TABLE ONLY public."ManagerActivity"
 
 
 --
--- TOC entry 3300 (class 2606 OID 19355)
+-- TOC entry 3301 (class 2606 OID 17188)
 -- Name: User Id_User_Account; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1612,7 +1649,7 @@ ALTER TABLE ONLY public."User"
     ADD CONSTRAINT "Id_User_Account" FOREIGN KEY ("Id") REFERENCES public."Account"("Id") NOT VALID;
 
 
--- Completed on 2022-01-19 15:34:25
+-- Completed on 2022-01-19 21:20:29
 
 --
 -- PostgreSQL database dump complete

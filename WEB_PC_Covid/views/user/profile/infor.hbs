@@ -273,8 +273,8 @@
                             </div>
                             <hr>
                             <div class="form-check" style="margin-left: 350px;">
-                                <button type="submit" class="btn btn-login float-right"
-                                    formaction="/user/profile/changePassword" formmethod="post">Thay đổi</button>
+                                <button type="submit" class="btn btn-login float-right" formaction="/user/profile"
+                                    formmethod="post">Thay đổi</button>
                             </div>
                         </form>
                     </div>
@@ -329,9 +329,13 @@
         });
     });
     {{#if alert}}
-    $("#exampleChangePwd").show();
+    var myModal = new bootstrap.Modal(document.getElementById("exampleChangePwd"), {});
+    document.onreadystatechange = function () {
+        myModal.show();
+    };
     {{/if}}
 
-    
+
+
 </script>
 {{/section}}
