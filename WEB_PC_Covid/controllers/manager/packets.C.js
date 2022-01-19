@@ -46,7 +46,7 @@ router.get('/', async (req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets`;
+  //req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -153,7 +153,7 @@ router.get('/sort/byName', async(req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo tên`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets/sort/byName`;
+  //req.session.pathCur = `/manager/packets/sort/byName`;
 
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
@@ -202,7 +202,7 @@ router.get('/sort/byLimitProducts', async(req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn số sản phẩm`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets/sort/byLimitProducts`;
+  //req.session.pathCur = `/manager/packets/sort/byLimitProducts`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -251,7 +251,7 @@ router.get('/sort/byLimitPeople', async(req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn mỗi người`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets/sort/byLimitPeople`;
+  //req.session.pathCur = `/manager/packets/sort/byLimitPeople`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -299,7 +299,7 @@ router.get('/sort/byLimitTime', async(req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn thời gian`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets/sort/byLimitTime`;
+  //req.session.pathCur = `/manager/packets/sort/byLimitTime`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -347,7 +347,7 @@ router.get('/search', async(req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} tìm kiếm gói nhu yếu có từ khóa ${search}`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets/search?search=${search}`;
+  //req.session.pathCur = `/manager/packets/search?search=${search}`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -402,7 +402,7 @@ router.get('/filter/byCountMore5', async (req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm lớn hơn 5`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets`;
+  //req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -457,7 +457,7 @@ router.get('/filter/byCountLess5', async (req, res) => {
   }
   
   //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm nhỏ hơn 5`);
-  //req.session.pathCur = `http://localhost:3000/manager/packets`;
+  //req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },

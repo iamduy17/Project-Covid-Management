@@ -23,7 +23,15 @@ router.get('/signin', async (req, res) => {
 });
 
 router.post('/signin', async (req, res, next) => {
-    passport.authenticate('local', function (err, user, info) {    
+    passport.authenticate('local', function (err, user, info) {   
+        // Nhập thông tin chưa đầy đủ
+        if (!user && info && info.message === 'Missing credentials')
+            return res.render('signin/signin', {
+                layout: false,
+                message: 'Nhập đầy đủ thông tin!',
+                errorSystem: true,
+            });
+ 
         //Tài khoản không tồn tại trong database
         if (err)
             return res.render('signin/signin', {
