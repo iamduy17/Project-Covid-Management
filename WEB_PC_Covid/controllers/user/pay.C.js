@@ -26,6 +26,7 @@ router.get('/', async (req, res) => {
     title: 'Internet Banking',
     active: { pay: true },
     consume: cs,
+    empty: cs.length === 0
   });
 });
 
