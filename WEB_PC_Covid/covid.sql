@@ -1592,4 +1592,3 @@ ALTER TABLE ONLY public."User"
 --
 -- PostgreSQL database dump complete
 --
-

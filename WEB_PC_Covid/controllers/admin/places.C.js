@@ -72,6 +72,7 @@ router.get('/edit', async (req, res) => {
     if (!data) {
         return res.send('Invalid parameter');
     }
+    
     req.session.pathCur = `/admin/places/edit?id=${ID}&&page=${page}`;
     res.render('admin/places/edit', {
         title: 'Quản lí đại điểm',

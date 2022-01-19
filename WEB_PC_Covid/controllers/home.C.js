@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
 });
 
 router.get('/signin', async (req, res) => {
-    //Khi tài khoản đăng nhập sẽ không chuyển tới đăng nhập được.
+    //Khi tài khoản đăng nhập sẽ không chuyển tới trang đăng nhập được.
     if (req.user) return res.redirect(req.session.pathCur);
 
     //Kiểm tra phải lần đầu đăng nhập web hay không??
@@ -113,6 +113,7 @@ router.post('/signin', async (req, res, next) => {
 router.get('/register', async (req, res) => {
     if (req.user) return res.redirect(req.session.pathCur);
 
+    req.session.pathCur = '/register';
     res.render('signin/signin', {
         layout: false,
         firstSignin: true,

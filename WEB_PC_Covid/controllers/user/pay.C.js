@@ -92,8 +92,7 @@ router.post('/payment', async (req, res) => {
       continue;
     newpayment += payment[i];
   }
-  console.log(parseInt(newpayment))
-  console.log(parseInt(req.body.paymentMoney))
+
   // Nếu tiền nhập lớn hơn hoặc bằng tiền thanh toán thì lấy tiền thanh toán
   if (parseInt(newpayment) <= parseInt(req.body.paymentMoney))
     money = parseInt(newpayment);
@@ -138,32 +137,34 @@ router.post('/payment', async (req, res) => {
 });
 
 router.get('/recharge', (req, res) => {
-  //Kiểm tra login
-  //if (!req.user || req.user.Role != 1) return res.redirect('/');
-
-  req.session.pathCur = '/user/pay/recharge';
-  res.render('user/pay/recharge', {
-    title: 'Internet Banking',
-  });
+    //Kiểm tra login
+    if (!req.user || req.user.Role != 1) return res.redirect('/');
+    
+    req.session.pathCur = '/user/pay/recharge';
+    res.render('user/pay/recharge', {
+        title: 'Internet Banking',
+    });
 
 });
 
 router.post('/recharge', async (req, res) => {
-  if (!req.body.money)
-    return res.render('user/pay/recharge', {
-      title: 'Internet Banking',
-      error: true,
-    });
-  const data = {
-    ID: 1234567890,
-    money: parseInt(req.body.money),
-  };
-  const rs = await payModel.recharge(data);
-  if (rs.message !== 'success')
-    return res.render('user/pay/recharge', {
-      title: 'Internet Banking',
-      message: rs.message,
-    });
+    if (!req.body.money)
+        return res.render('user/pay/recharge', {
+            title: 'Internet Banking',
+            error: true,
+        });
+
+    const data = {
+        ID: 1234567890,
+        money: parseInt(req.body.money),
+    };
+
+    const rs = await payModel.recharge(data);
+    if (rs.message !== 'success')
+        return res.render('user/pay/recharge', {
+            title: 'Internet Banking',
+            errorSystem: rs.message,
+        });
 
   res.redirect('/user/pay/payment');
 });
