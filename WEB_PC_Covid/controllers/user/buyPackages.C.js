@@ -9,7 +9,6 @@ const PackageImg = require('../../models/user/packageImg.M');
 let IdPackage = 0;
 
 router.get('/', async (req, res) => {
-  console.log(req.user);
   const limit = 3;
   const page = +req.query.page || 1;
   if (page < 0)
@@ -68,6 +67,8 @@ router.get('/:Id', async (req, res) => {
   }
 
   list.totalPrice = totalP;
+  req.session.totalPrice = totalP;
+
   res.render('user/packages/packageDetail', {
     packageDetail: data,
     Package: p,
@@ -119,7 +120,8 @@ router.post('/search', async (req, res) => {
 });
 
 router.post('/paynow', async(req, res) => {
-
+  const quantity = req.body.quantity;
+  
   res.redirect('/user/pay/payDetail');
 });
 
@@ -138,7 +140,6 @@ router.post('/paylater', async (req, res) => {
   };
 
   var c = await Consume.add(consume);
-  console.log('consume', c);
 
   res.redirect('/user/pay');
 });

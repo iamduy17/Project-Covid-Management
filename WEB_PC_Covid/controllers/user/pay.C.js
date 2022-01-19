@@ -20,8 +20,6 @@ router.get('/', async (req, res) => {
     cs[j].NameUser = u[0].Name;
   }
 
-  console.log(cs);
-
   res.render('user/pay/pay', {
     title: 'Internet Banking',
     active: { pay: true },
@@ -38,7 +36,6 @@ router.post('/login', async (req, res) => {
   //account existed
   if (rs) {
     req.session.idPayment = rs.user.id;
-    console.log(rs.user)
     if (rs.message == 'Success') {
       if (rs.user.firstActived == 1) {
         return res.redirect('/user/pay/changePass');
@@ -114,12 +111,11 @@ router.get('/changePass', (req, res) => {
 
 
 router.get('/payment', async (req, res) => {
-  console.log(req.session.idPayment);
   const data = {
     ID: req.session.idPayment                          // TODO: need to be change with suitable data
   };
+  const pricePackage = req.session.totalPrice;
   const rs = await payModel.paymentPost(data);
-  console.log(rs);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
@@ -131,7 +127,7 @@ router.get('/payment', async (req, res) => {
     active: { pay: true },
     balance: rs.money,
     Id: data.ID,
-    payment: 10000,                   // TODO: need to be change with suitable data  
+    payment: pricePackage,                   // TODO: need to be change with suitable data  
     alert: '',
     isDonePayment: false
   });
