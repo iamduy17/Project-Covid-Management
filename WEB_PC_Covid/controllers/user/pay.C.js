@@ -202,7 +202,6 @@ router.post('/payment', async (req, res) => {
       message: rs.message,
     });
 
-  // TODO below this line: Thực hiện xóa dữ liệu trong bảng Consume
   const rs1 = await payModel.paymentPost({ ID: data.ID }, req.session.token);
   if (rs1.message !== "success")
     return res.render('user/pay/payment', {
