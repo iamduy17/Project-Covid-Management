@@ -23,7 +23,14 @@ router.get('/signin', async (req, res) => {
 });
 
 router.post('/signin', async (req, res, next) => {
-    passport.authenticate('local', function (err, user, info) {    
+    passport.authenticate('local', function (err, user, info) {
+        if (!user && info && info.message === 'Missing credentials')
+            return res.render('signin/signin', {
+                layout: false,
+                message: 'Nhập đầy đủ thông tin!',
+                errorSystem: true,
+            });
+
         //Tài khoản không tồn tại trong database
         if (err)
             return res.render('signin/signin', {
@@ -64,6 +71,7 @@ router.post('/signin', async (req, res, next) => {
                 errorPass: true,
             });
         }
+
         req.logIn(user, async function (err) {
             if (err) {
                 //Tài khoản không tồn tại trong database
@@ -105,6 +113,10 @@ router.post('/signin', async (req, res, next) => {
             req.session.activities = []; //Khởi tạo hoạt động cho manager
 
             //Manager: user.Role = 3
+            //Kiểm tra user phải lần đầu đăng nhập hay không??
+            
+            if (parseInt(user.FirstActive) === 0)
+                return res.redirect(`/createSecurity?user=${user.Username}`);
             return res.redirect('/manager');
         });
     })(req, res, next);
@@ -124,7 +136,7 @@ router.post('/register', async (req, res) => {
     const username = req.body.username;
     const pwd = req.body.password;
     const verifyPass = req.body.verifyPass;
-
+    
     //Kiểm tra độ dài tên tài khoản
     if (username.length < 3 || username.length > 16)
         return res.render('signin/signin', {
@@ -164,11 +176,21 @@ router.post('/register', async (req, res) => {
 
     // Chỉ đăng kí khi lần đầu app được mở nên không cần kiểm tra user có tồn tại.
     const pwdHashed = await bcrypt.hash(pwd, saltRounds);
+    const securityQuesHashed = await bcrypt.hash(
+        req.body.securityQuestion,
+        saltRounds
+    );
+    const securityAnswerHashed = await bcrypt.hash(
+        req.body.securityAnswer,
+        saltRounds
+    );
     let account = {
         Username: username,
         Password: pwdHashed,
         Role: 2, //Admin
         LockUp: 0,
+        SecurityQuestion: securityQuesHashed,
+        SecurityAnswer: securityAnswerHashed,
     };
     const add = await userModel.add(account);
 
@@ -189,14 +211,22 @@ router.get('/changePass', async (req, res) => {
 });
 
 router.post('/changePass', async (req, res) => {
+    if (!req.body.password || !req.body.VerifyPass || !req.body.passOld)
+        return res.render('signin/changePass', {
+            layout: false,
+            User: req.query.user,
+            error: true,
+            message: 'Nhập đầy đủ thông tin!',
+        });
+
     const user = await userModel.get(req.query.user);
-   
+
     const challengeResultPassOld = await bcrypt.compare(
         req.body.passOld,
         user.Password
     );
     //Nhập pass cũ không khớp
-    if(!challengeResultPassOld)
+    if (!challengeResultPassOld)
         return res.render('signin/changePass', {
             layout: false,
             User: req.query.user,
@@ -219,7 +249,6 @@ router.post('/changePass', async (req, res) => {
             errorPassNew: true,
             message: 'Mật khẩu trùng với mật khẩu cũ!',
         });
-
 
     //Kiểm tra độ dài pass
     if (req.body.password.length < 5 || req.body.password.length > 16)
@@ -247,11 +276,118 @@ router.post('/changePass', async (req, res) => {
     let account = {
         Username: req.query.user,
         Password: pwdHashed,
-        FirstActive: 1
+        FirstActive: 1,
     };
 
     const rs = await userModel.patchPassAndActive(account);
-    res.redirect('/user');
+    res.redirect(`/createSecurity?user=${req.query.user}`);
 });
 
+router.get('/forgotPass', async (req, res) => {
+    res.render('signin/forgotPass', {
+        layout: false,
+    });
+});
+
+router.post('/forgotPass', async (req, res) => {
+    //Không cần kiểm tra dữ liệu có thiếu hya không vì client có 'required'
+
+    const user = await userModel.get(req.body.username);
+    if (!user)
+        return res.render('signin/forgotPass', {
+            layout: false,
+            errorUser: true,
+            error: true,
+            message: 'Tên tài khoản không tồn tại!',
+        });
+
+    //Kiểm tra câu hỏi
+    const challengeQuestion = await bcrypt.compare(
+        req.body.securityQuestion,
+        user.SecurityQuestion
+    );
+    if (!challengeQuestion)
+        return res.render('signin/forgotPass', {
+            layout: false,
+            error: true,
+            errorQuestion: true,
+            message: 'Sai câu hỏi bảo mật!',
+        });
+
+    //Kiểm tra câu trả lời
+    const challengeAnswer = await bcrypt.compare(
+        req.body.securityAnswer,
+        user.SecurityAnswer
+    );
+    if (!challengeAnswer)
+        return res.render('signin/forgotPass', {
+            layout: false,
+            error: true,
+            errorAnswer: true,
+            message: 'Câu trả lời sai!',
+        });
+
+    //Kiểm tra độ dài pass
+    if (req.body.passNew.length < 5 || req.body.passNew.length > 16)
+        return res.render('signin/forgotPass', {
+            layout: false,
+            error: true,
+            errorPassNew: true,
+            message: 'Độ dài của pass thuộc đoạn [5, 16]!',
+        });
+
+    //2 pass không khớp
+    if (req.body.VerifyPass !== req.body.passNew) {
+        return res.render('signin/forgotPass', {
+            layout: false,
+            error: true,
+            errorVerifyPass: true,
+            message: 'Mật khẩu mới không khớp!',
+        });
+    }
+
+    const pwdHashed = await bcrypt.hash(req.body.passNew, saltRounds);
+    let account = {
+        Username: req.body.username,
+        Password: pwdHashed,
+        FirstActive: 1,
+    };
+
+    const rs = await userModel.patchPassAndActive(account);
+    res.redirect('/');
+});
+
+router.get('/createSecurity', async (req, res) => {
+    res.render('signin/createSecurity', {
+        layout: false,
+        User: req.query.user,
+    });
+});
+
+router.post('/createSecurity', async (req, res) => {
+
+    //Không cần kiểm tra dữ liệu có thiếu hya không vì client có 'required'
+    const securityQuesHashed = await bcrypt.hash(
+        req.body.securityQuestion,
+        saltRounds
+    );
+    const securityAnswerHashed = await bcrypt.hash(
+        req.body.securityAnswer,
+        saltRounds
+    );
+    let account = {
+        Username: req.query.user,
+        SecurityQuestion: securityQuesHashed,
+        SecurityAnswer: securityAnswerHashed,
+        FirstActive: 1,
+    };
+    const rs = await userModel.patchQues_Ans_Active(account);
+    console.log('user: ', req.query.user);
+    const user = await userModel.get(req.query.user);
+    //User: user.Role = 1
+    if (parseInt(user.Role) === 1) return res.redirect('/user');
+
+    //Manager: user.Role = 3
+    res.redirect('/manager');
+});
 module.exports = router;

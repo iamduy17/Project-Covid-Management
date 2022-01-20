@@ -17,7 +17,7 @@ function generateIdAccountPayment(){
 router.get('/', async (req, res) => {
     // if (!req.user || parseInt(req.user.Role) != 3)
     //   return res.redirect('/');
-    console.log(new Date().toLocaleString());
+    //console.log(new Date().toLocaleString());
     const limit = 7;
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
@@ -92,7 +92,7 @@ router.get('/search', async (req, res) => {
         patientModel.countSearch(search),
         patientModel.loadSearch(search, limit, offset),
     ]);
-    console.log(list);
+    //console.log(list);
     // if (list.length == 0) {
     //   alert("Không tìm thấy bệnh nhân");
 
@@ -175,7 +175,7 @@ router.post('/addF0', async (req, res) => {
         FirstActive: 0,
     };
     var acc = await accountModel.add(account);
-    console.log('acc', acc);
+    //console.log('acc', acc);
     let user = {
         Id: acc.Id,
         Name: req.body.name,
@@ -186,7 +186,7 @@ router.post('/addF0', async (req, res) => {
         IdNumber: req.body.idNumber,
     };
     var us = await patientModel.add(user);
-    console.log('us', us);
+    //console.log('us', us);
     let userPlace = {
         IdUser: us.Id,
         IdPlace: req.body.place,
@@ -195,7 +195,7 @@ router.post('/addF0', async (req, res) => {
     //update place
     const place = await patientModel.loadPlace(us.Id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     //add history
     let history = {
@@ -257,7 +257,7 @@ router.post('/addRelated/:id', async (req, res) => {
         FirstActive: 0,
     };
     var acc = await accountModel.add(account);
-    console.log('acc', acc);
+    //console.log('acc', acc);
     let user = {
         Id: acc.Id,
         Name: req.body.name,
@@ -269,7 +269,7 @@ router.post('/addRelated/:id', async (req, res) => {
     };
 
     var us = await patientModel.add(user);
-    console.log('us', us);
+    //console.log('us', us);
     let userPlace = {
         IdUser: us.Id,
         IdPlace: req.body.place,
@@ -292,7 +292,7 @@ router.post('/addRelated/:id', async (req, res) => {
     });
     const place = await patientModel.loadPlace(us.Id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     let history = {
         IdUser: us.Id,
@@ -316,7 +316,7 @@ router.post('/addRelated/:id', async (req, res) => {
         Role: 0,
         FirstActived: 1
     }
-    console.log(accountPayment);
+    //console.log(accountPayment);
     await patientModel.addPaymentAccount(accountPayment);
     res.render('manager/patients/list', {
         title: 'Danh sách người liên quan',
@@ -352,11 +352,11 @@ router.post('/update/:id', async (req, res) => {
     //update Amount
     const place = await patientModel.loadPlace(req.params.id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     //update Status
     const user = await patientModel.getOne(req.params.id);
-    console.log(user);
+    //console.log(user);
     const changeStatus = user.Status - req.body.status;
     user.Status = req.body.status;
     await patientModel.updateUser(user, user.Id);
@@ -367,7 +367,7 @@ router.post('/update/:id', async (req, res) => {
         let userReverse = await patientModel.getOne(relatedReverse[i].IdUser);
         userRelated.push(userReverse);
     }
-    console.log(userRelated);
+    //console.log(userRelated);
     for (let i = 0; i < userRelated.length; i++) {
         let status = userRelated[i].Status - changeStatus;
         if (status < 0) status = 0;
