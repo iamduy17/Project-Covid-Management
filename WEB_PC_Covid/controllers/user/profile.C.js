@@ -2,7 +2,11 @@ const express = require('express'),
   router = express.Router(),
   bcrypt = require('bcrypt'),
   saltRounds = parseInt(process.env.SALT_ROUND),
-  userModel = require('../../models/home.M');
+  userModel = require('../../models/home.M'),
+  userPlace = require('../../models/user/userplace.M'),
+  place = require('../../models/user/place.M'),
+  consume = require('../../models/user/consume.M'),
+  package = require("../../models/user/buyPackage.M");
 
 const managerHistory = require('../../models/user/managerHistory.M');
 const profile = require('../../models/user/profile.M');
@@ -14,25 +18,49 @@ router.get('/', async (req, res) => {
     //console.log(listMana[i].IdManager);
     listMana[i].Username = await account.allById(listMana[i].IdManager);
   }
-  //console.log(listMana);
+
+  const historyPackage = await consume.allById(req.user.Id)
+  for (i = 0; i < historyPackage.length; i++){
+    const pack = await package.allById(historyPackage[i].IdPackage);
+    historyPackage[i].NamePackage = pack[0].NamePackage;
+    historyPackage[i].STT = i + 1;
+  }
+
+  for (t = 0; t < historyPackage.length; t++) {
+    historyPackage[t].Time = historyPackage[t].Time.toISOString()
+    .replace(/T/, ' ')
+    .replace(/\..+/, '');
+  }
+
+  const debt = await consume.allByStatus(req.user.Id, 'Chưa thanh toán');
+  let TotalDebt = 0;
+  for (let i = 0; i  < debt.length; i++){
+    TotalDebt += debt[i].Price;
+  }
 
   const listProfile = await profile.allByCat(req.user.Id);
-  //console.log(listProfile);
+
+  const IdPlace = await userPlace.allById(req.user.Id);
+
+  const Place = await place.allById(IdPlace[0].IdPlace);
+
+  listProfile[0].NamePlace = Place[0].NamePlace;
 
   res.render('user/profile/infor', {
     HistoryManager: listMana,
     profile: listProfile,
     empty: listMana.length === 0,
+    empty1: historyPackage === 0,
     title: 'Thông tin cá nhân',
     active: { profile: true },
+    historyPackage: historyPackage,
+    DebtUser: TotalDebt
   });
 });
 
 router.post('/', async (req, res) => {
-
   const listMana = await managerHistory.all();
   for (i = 0; i < listMana.length; i++) {
-    console.log(listMana[i].IdManager);
     listMana[i].Username = await account.allById(listMana[i].IdManager);
   }
   //console.log(listMana);
