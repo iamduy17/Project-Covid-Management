@@ -15,7 +15,7 @@ const account = require('../../models/user/account.M');
 router.get('/', async (req, res) => {
   const listMana = await managerHistory.all();
   for (i = 0; i < listMana.length; i++) {
-    console.log(listMana[i].IdManager);
+    //console.log(listMana[i].IdManager);
     listMana[i].Username = await account.allById(listMana[i].IdManager);
   }
 

@@ -44,6 +44,10 @@ module.exports = {
     const res = (await db.get('Place', 'Id', idPlace))[0];
     return res;
   },
+  loadPlaceByIdPlace: async (placeId) => {
+    const res = (await db.get('Place', 'Id', placeId))[0];
+    return res;
+  },
   loadProvince: async () => {
     const res = (await db.load('Province', 'Id'));
     return res;
@@ -116,6 +120,11 @@ module.exports = {
   },
   addHistory: async (history) => {
     const res = await db.add("HistoryUser", history);
+    return res;
+  },
+  updateOldHistory: async (history, id) => {
+    const condition = `WHERE "IdUser" = ${id} and "TimeEnd" is null`;
+    const res = await db.patch('HistoryUser', ['IdUser', 'TimeStart', 'TimeEnd', 'Status', 'Place'], history, condition);
     return res;
   },
   getOnePaymentAccount: async (idUser) => {

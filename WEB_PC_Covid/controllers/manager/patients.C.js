@@ -6,9 +6,9 @@ const express = require('express'),
     bcrypt = require('bcrypt'),
     saltRounds = parseInt(process.env.SALT_ROUND),
     alert = require('alert');
-function generateIdAccountPayment(){
+function generateIdAccountPayment() {
     res = ""
-    for(let i = 0; i < 10; i++){
+    for (let i = 0; i < 10; i++) {
         const number = Math.floor(Math.random() * 10);
         res += number;
     }
@@ -17,7 +17,7 @@ function generateIdAccountPayment(){
 router.get('/', async (req, res) => {
     // if (!req.user || parseInt(req.user.Role) != 3)
     //   return res.redirect('/');
-    console.log(new Date().toLocaleString());
+    //console.log(new Date().toLocaleString());
     const limit = 7;
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
@@ -51,11 +51,10 @@ router.get('/', async (req, res) => {
         }
         list[i].history = await patientModel.loadHistory(idUser);
         for (let j = 0; j < list[i].history.length; j++) {
-            list[i].history[j].Place = await patientModel.loadPlace(
-                list[i].history[j].IdUser
+            list[i].history[j].Place = await patientModel.loadPlaceByIdPlace(
+                list[i].history[j].Place
             );
         }
-        //list[i].places = await placeModel.all();
     }
     const places = await placeModel.allAvailable();
     const hospitals = places.filter((place) => place.Role == 1);
@@ -92,7 +91,7 @@ router.get('/search', async (req, res) => {
         patientModel.countSearch(search),
         patientModel.loadSearch(search, limit, offset),
     ]);
-    console.log(list);
+    //console.log(list);
     // if (list.length == 0) {
     //   alert("Không tìm thấy bệnh nhân");
 
@@ -161,21 +160,18 @@ router.get('/getPlace/:status', async (req, res) => {
 });
 router.post('/addF0', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
-    const username = req.body.name
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd')
-        .replace(/Đ/g, 'D')
-        .replace(/ /g, '');
     let account = {
-        Username: username + req.body.idNumber,
+        Username: req.body.idNumber,
         Password: passwordHashed,
         Role: 1,
         LockUp: 0,
         FirstActive: 0,
     };
     var acc = await accountModel.add(account);
-    console.log('acc', acc);
+    let accountId = ""
+    do {
+        accountId = generateIdAccountPayment();
+    } while (await patientModel.getOnePaymentAccount(accountId));
     let user = {
         Id: acc.Id,
         Name: req.body.name,
@@ -184,9 +180,9 @@ router.post('/addF0', async (req, res) => {
         Status: 0,
         Debt: 0,
         IdNumber: req.body.idNumber,
+        IdPayment: accountId
     };
     var us = await patientModel.add(user);
-    console.log('us', us);
     let userPlace = {
         IdUser: us.Id,
         IdPlace: req.body.place,
@@ -195,7 +191,6 @@ router.post('/addF0', async (req, res) => {
     //update place
     const place = await patientModel.loadPlace(us.Id);
     place.Amount = place.Amount + 1;
-    console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     //add history
     let history = {
@@ -207,10 +202,7 @@ router.post('/addF0', async (req, res) => {
     };
     await patientModel.addHistory(history);
     // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
-    let accountId = ""
-    do{
-        accountId = generateIdAccountPayment();
-    }while(await patientModel.getOnePaymentAccount(accountId));
+    
     let accountPayment = {
         ID: accountId,
         Password: passwordHashed,
@@ -243,21 +235,18 @@ router.post('/addF0', async (req, res) => {
 });
 router.post('/addRelated/:id', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
-    const username = req.body.name
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd')
-        .replace(/Đ/g, 'D')
-        .replace(' ', '');
     let account = {
-        Username: username + req.body.idNumber,
+        Username: req.body.idNumber,
         Password: passwordHashed,
         Role: 1,
         LockUp: 0,
         FirstActive: 0,
     };
     var acc = await accountModel.add(account);
-    console.log('acc', acc);
+    let accountId = ""
+    do {
+        accountId = generateIdAccountPayment();
+    } while (await patientModel.getOnePaymentAccount(accountId));
     let user = {
         Id: acc.Id,
         Name: req.body.name,
@@ -266,10 +255,11 @@ router.post('/addRelated/:id', async (req, res) => {
         Status: req.body.status,
         Debt: 0,
         IdNumber: req.body.idNumber,
+        IdPayment: accountId
     };
 
     var us = await patientModel.add(user);
-    console.log('us', us);
+    //console.log('us', us);
     let userPlace = {
         IdUser: us.Id,
         IdPlace: req.body.place,
@@ -292,7 +282,7 @@ router.post('/addRelated/:id', async (req, res) => {
     });
     const place = await patientModel.loadPlace(us.Id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     let history = {
         IdUser: us.Id,
@@ -303,12 +293,8 @@ router.post('/addRelated/:id', async (req, res) => {
     };
     await patientModel.addHistory(history);
     // req.session.activities.push(`${req.user.name} thêm F${req.body.status}: ${req.body.name}`);
-    await patientModel.addHistory(history);
     // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
-    let accountId = ""
-    do{
-        accountId = generateIdAccountPayment();
-    }while(await patientModel.getOnePaymentAccount(accountId));
+    
     let accountPayment = {
         ID: accountId,
         Password: passwordHashed,
@@ -316,7 +302,7 @@ router.post('/addRelated/:id', async (req, res) => {
         Role: 0,
         FirstActived: 1
     }
-    console.log(accountPayment);
+    //console.log(accountPayment);
     await patientModel.addPaymentAccount(accountPayment);
     res.render('manager/patients/list', {
         title: 'Danh sách người liên quan',
@@ -352,11 +338,11 @@ router.post('/update/:id', async (req, res) => {
     //update Amount
     const place = await patientModel.loadPlace(req.params.id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     //update Status
     const user = await patientModel.getOne(req.params.id);
-    console.log(user);
+    //console.log(user);
     const changeStatus = user.Status - req.body.status;
     user.Status = req.body.status;
     await patientModel.updateUser(user, user.Id);
@@ -367,14 +353,55 @@ router.post('/update/:id', async (req, res) => {
         let userReverse = await patientModel.getOne(relatedReverse[i].IdUser);
         userRelated.push(userReverse);
     }
-    console.log(userRelated);
     for (let i = 0; i < userRelated.length; i++) {
         let status = userRelated[i].Status - changeStatus;
         if (status < 0) status = 0;
         userRelated[i].Status = status;
         await patientModel.updateUser(userRelated[i], userRelated[i].Id);
     }
-    //update history
+    //update history user
+    const allHistoryUser = await patientModel.loadHistory(user.Id);
+    let oldHistory = {};
+    for (let i = 0; i < allHistoryUser.length; i++) {
+        if (allHistoryUser[i].TimeEnd == null) {
+            oldHistory = allHistoryUser[i];
+            oldHistory.TimeEnd = new Date().toLocaleString();
+            break;
+        }
+    }
+    await patientModel.updateOldHistory(oldHistory, user.Id);
+    let newHistory = {
+        IdUser: user.Id,
+        TimeStart: new Date().toLocaleString(),
+        TimeEnd: null,
+        Status: req.body.status,
+        Place: place.Id,
+    };
+    await patientModel.addHistory(newHistory);
+    //update history related
+    for (let i = 0; i < userRelated.length; i++) {
+        const allHistoryUser = await patientModel.loadHistory(userRelated[i].Id);
+        let oldHistory = {};
+        for (let i = 0; i < allHistoryUser.length; i++) {
+            if (allHistoryUser[i].TimeEnd == null && allHistoryUser[i] != 0) {
+                oldHistory = allHistoryUser[i];
+                oldHistory.TimeEnd = new Date().toLocaleString();
+                break;
+            }
+        }
+        await patientModel.updateOldHistory(oldHistory, userRelated[i].Id);
+        if (userRelated[i].Status != 0) {
+            let newHistory = {
+                IdUser: userRelated[i].Id,
+                TimeStart: new Date().toLocaleString(),
+                TimeEnd: null,
+                Status: userRelated[i].Status,
+                Place: (await patientModel.loadPlace(userRelated[i].Id)).Id,
+            };
+            await patientModel.addHistory(newHistory);
+        }
+
+    }
     // req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
     res.redirect('/manager/patients');
 });

@@ -8,11 +8,4 @@ module.exports = {
     if (res.length > 0) return res[0];
     return null;
   }
-//   patch: async (account) => {
-//     const fieldName = ["Balance"];
-//     const accountID = account.ID;
-//     const condition = ` WHERE "${idFieldName}" = '${accountID}'`;
-//     const res = await db.patch(tbName, fieldName, account, condition);
-//     return res;
-//   },
 };
