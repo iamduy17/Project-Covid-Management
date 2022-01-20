@@ -166,7 +166,7 @@ router.get('/history/active', async (req, res) => {
         activeManagerModel.countList(id),
         activeManagerModel.pageList(id, limit, offset),
     ]);
-
+    
     const nPages = Math.ceil(total[0].Size / limit);
     const page_items = [];
     for (let i = 1; i <= nPages; i++) {

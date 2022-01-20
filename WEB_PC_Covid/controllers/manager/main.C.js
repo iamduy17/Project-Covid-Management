@@ -35,11 +35,11 @@ router.get('/signout', async (req, res) => {
         if (maxId === null) maxId.Max = 1;
  
         let activity = {
-            IdHistoryManager: maxId.Max+1,
+            IdHistoryManager: maxId.Max,
         };
-        console.log(req)
+        
         for (let i = 0; i < req.session.activities.length; i++) {
-            activity.Activate = req.session.activities[i];
+            activity.Activity = req.session.activities[i];
             const rs = await activeManagerModel.add(activity);
         }
         req.logOut();

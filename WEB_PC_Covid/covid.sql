@@ -5,7 +5,7 @@
 -- Dumped from database version 14.1
 -- Dumped by pg_dump version 14.1
 
--- Started on 2022-01-20 14:40:31
+-- Started on 2022-01-20 21:21:14
 
 SET statement_timeout = 0;
 SET lock_timeout = 0;
@@ -23,7 +23,7 @@ SET default_tablespace = '';
 SET default_table_access_method = heap;
 
 --
--- TOC entry 209 (class 1259 OID 17216)
+-- TOC entry 209 (class 1259 OID 19983)
 -- Name: Account; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -42,7 +42,7 @@ CREATE TABLE public."Account" (
 ALTER TABLE public."Account" OWNER TO postgres;
 
 --
--- TOC entry 210 (class 1259 OID 17222)
+-- TOC entry 210 (class 1259 OID 19989)
 -- Name: Account_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -57,7 +57,7 @@ ALTER TABLE public."Account" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 211 (class 1259 OID 17223)
+-- TOC entry 211 (class 1259 OID 19990)
 -- Name: Consume; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -75,7 +75,7 @@ CREATE TABLE public."Consume" (
 ALTER TABLE public."Consume" OWNER TO postgres;
 
 --
--- TOC entry 212 (class 1259 OID 17228)
+-- TOC entry 212 (class 1259 OID 19995)
 -- Name: Consume_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -90,7 +90,7 @@ ALTER TABLE public."Consume" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 213 (class 1259 OID 17229)
+-- TOC entry 213 (class 1259 OID 19996)
 -- Name: District; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -103,7 +103,7 @@ CREATE TABLE public."District" (
 ALTER TABLE public."District" OWNER TO postgres;
 
 --
--- TOC entry 214 (class 1259 OID 17232)
+-- TOC entry 214 (class 1259 OID 19999)
 -- Name: DistrictWard; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -117,7 +117,7 @@ CREATE TABLE public."DistrictWard" (
 ALTER TABLE public."DistrictWard" OWNER TO postgres;
 
 --
--- TOC entry 215 (class 1259 OID 17235)
+-- TOC entry 215 (class 1259 OID 20002)
 -- Name: DistrictWard_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -132,7 +132,7 @@ ALTER TABLE public."DistrictWard" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDEN
 
 
 --
--- TOC entry 216 (class 1259 OID 17236)
+-- TOC entry 216 (class 1259 OID 20003)
 -- Name: District_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -147,7 +147,7 @@ ALTER TABLE public."District" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 217 (class 1259 OID 17237)
+-- TOC entry 217 (class 1259 OID 20004)
 -- Name: HistoryManager; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -162,7 +162,7 @@ CREATE TABLE public."HistoryManager" (
 ALTER TABLE public."HistoryManager" OWNER TO postgres;
 
 --
--- TOC entry 218 (class 1259 OID 17240)
+-- TOC entry 218 (class 1259 OID 20007)
 -- Name: HistoryManager_IdHistory_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -177,7 +177,7 @@ ALTER TABLE public."HistoryManager" ALTER COLUMN "IdHistory" ADD GENERATED ALWAY
 
 
 --
--- TOC entry 219 (class 1259 OID 17241)
+-- TOC entry 219 (class 1259 OID 20008)
 -- Name: HistoryUser; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -194,7 +194,7 @@ CREATE TABLE public."HistoryUser" (
 ALTER TABLE public."HistoryUser" OWNER TO postgres;
 
 --
--- TOC entry 220 (class 1259 OID 17246)
+-- TOC entry 220 (class 1259 OID 20013)
 -- Name: HistoryUser_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -209,7 +209,7 @@ ALTER TABLE public."HistoryUser" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENT
 
 
 --
--- TOC entry 221 (class 1259 OID 17247)
+-- TOC entry 221 (class 1259 OID 20014)
 -- Name: ManagerActivity; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -223,7 +223,22 @@ CREATE TABLE public."ManagerActivity" (
 ALTER TABLE public."ManagerActivity" OWNER TO postgres;
 
 --
--- TOC entry 222 (class 1259 OID 17250)
+-- TOC entry 244 (class 1259 OID 20187)
+-- Name: ManagerActivity_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
+--
+
+ALTER TABLE public."ManagerActivity" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
+    SEQUENCE NAME public."ManagerActivity_Id_seq"
+    START WITH 1
+    INCREMENT BY 11
+    NO MINVALUE
+    NO MAXVALUE
+    CACHE 1
+);
+
+
+--
+-- TOC entry 222 (class 1259 OID 20017)
 -- Name: Package; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -240,7 +255,7 @@ CREATE TABLE public."Package" (
 ALTER TABLE public."Package" OWNER TO postgres;
 
 --
--- TOC entry 223 (class 1259 OID 17255)
+-- TOC entry 223 (class 1259 OID 20022)
 -- Name: Package_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -255,7 +270,7 @@ ALTER TABLE public."Package" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 224 (class 1259 OID 17256)
+-- TOC entry 224 (class 1259 OID 20023)
 -- Name: Place; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -271,7 +286,7 @@ CREATE TABLE public."Place" (
 ALTER TABLE public."Place" OWNER TO postgres;
 
 --
--- TOC entry 225 (class 1259 OID 17259)
+-- TOC entry 225 (class 1259 OID 20026)
 -- Name: Place_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -286,7 +301,7 @@ ALTER TABLE public."Place" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 226 (class 1259 OID 17260)
+-- TOC entry 226 (class 1259 OID 20027)
 -- Name: Product; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -301,7 +316,7 @@ CREATE TABLE public."Product" (
 ALTER TABLE public."Product" OWNER TO postgres;
 
 --
--- TOC entry 227 (class 1259 OID 17263)
+-- TOC entry 227 (class 1259 OID 20030)
 -- Name: ProductImg; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -315,7 +330,7 @@ CREATE TABLE public."ProductImg" (
 ALTER TABLE public."ProductImg" OWNER TO postgres;
 
 --
--- TOC entry 228 (class 1259 OID 17266)
+-- TOC entry 228 (class 1259 OID 20033)
 -- Name: ProductImg_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -330,7 +345,7 @@ ALTER TABLE public."ProductImg" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTI
 
 
 --
--- TOC entry 229 (class 1259 OID 17267)
+-- TOC entry 229 (class 1259 OID 20034)
 -- Name: ProductPackage; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -344,7 +359,7 @@ CREATE TABLE public."ProductPackage" (
 ALTER TABLE public."ProductPackage" OWNER TO postgres;
 
 --
--- TOC entry 230 (class 1259 OID 17270)
+-- TOC entry 230 (class 1259 OID 20037)
 -- Name: ProductPackage_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -359,7 +374,7 @@ ALTER TABLE public."ProductPackage" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS ID
 
 
 --
--- TOC entry 231 (class 1259 OID 17271)
+-- TOC entry 231 (class 1259 OID 20038)
 -- Name: Product_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -374,7 +389,7 @@ ALTER TABLE public."Product" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY 
 
 
 --
--- TOC entry 232 (class 1259 OID 17272)
+-- TOC entry 232 (class 1259 OID 20039)
 -- Name: Province; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -387,7 +402,7 @@ CREATE TABLE public."Province" (
 ALTER TABLE public."Province" OWNER TO postgres;
 
 --
--- TOC entry 233 (class 1259 OID 17275)
+-- TOC entry 233 (class 1259 OID 20042)
 -- Name: ProvinceDistrict; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -401,7 +416,7 @@ CREATE TABLE public."ProvinceDistrict" (
 ALTER TABLE public."ProvinceDistrict" OWNER TO postgres;
 
 --
--- TOC entry 234 (class 1259 OID 17278)
+-- TOC entry 234 (class 1259 OID 20045)
 -- Name: ProvinceDistrict_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -416,7 +431,7 @@ ALTER TABLE public."ProvinceDistrict" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS 
 
 
 --
--- TOC entry 235 (class 1259 OID 17279)
+-- TOC entry 235 (class 1259 OID 20046)
 -- Name: Province_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -431,7 +446,7 @@ ALTER TABLE public."Province" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY
 
 
 --
--- TOC entry 236 (class 1259 OID 17280)
+-- TOC entry 236 (class 1259 OID 20047)
 -- Name: RelatedPeople; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -445,7 +460,7 @@ CREATE TABLE public."RelatedPeople" (
 ALTER TABLE public."RelatedPeople" OWNER TO postgres;
 
 --
--- TOC entry 237 (class 1259 OID 17283)
+-- TOC entry 237 (class 1259 OID 20050)
 -- Name: RelatedPeople_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -460,7 +475,7 @@ ALTER TABLE public."RelatedPeople" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDE
 
 
 --
--- TOC entry 238 (class 1259 OID 17284)
+-- TOC entry 238 (class 1259 OID 20051)
 -- Name: User; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -480,7 +495,7 @@ CREATE TABLE public."User" (
 ALTER TABLE public."User" OWNER TO postgres;
 
 --
--- TOC entry 239 (class 1259 OID 17288)
+-- TOC entry 239 (class 1259 OID 20055)
 -- Name: UserPlace; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -494,7 +509,7 @@ CREATE TABLE public."UserPlace" (
 ALTER TABLE public."UserPlace" OWNER TO postgres;
 
 --
--- TOC entry 240 (class 1259 OID 17291)
+-- TOC entry 240 (class 1259 OID 20058)
 -- Name: UserPlace_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -509,7 +524,7 @@ ALTER TABLE public."UserPlace" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTIT
 
 
 --
--- TOC entry 241 (class 1259 OID 17292)
+-- TOC entry 241 (class 1259 OID 20059)
 -- Name: User_id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -524,7 +539,7 @@ ALTER TABLE public."User" ALTER COLUMN "Id" ADD GENERATED BY DEFAULT AS IDENTITY
 
 
 --
--- TOC entry 242 (class 1259 OID 17293)
+-- TOC entry 242 (class 1259 OID 20060)
 -- Name: Ward; Type: TABLE; Schema: public; Owner: postgres
 --
 
@@ -537,7 +552,7 @@ CREATE TABLE public."Ward" (
 ALTER TABLE public."Ward" OWNER TO postgres;
 
 --
--- TOC entry 243 (class 1259 OID 17296)
+-- TOC entry 243 (class 1259 OID 20063)
 -- Name: Ward_Id_seq; Type: SEQUENCE; Schema: public; Owner: postgres
 --
 
@@ -552,7 +567,7 @@ ALTER TABLE public."Ward" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 3445 (class 0 OID 17216)
+-- TOC entry 3446 (class 0 OID 19983)
 -- Dependencies: 209
 -- Data for Name: Account; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -560,7 +575,7 @@ ALTER TABLE public."Ward" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 3447 (class 0 OID 17223)
+-- TOC entry 3448 (class 0 OID 19990)
 -- Dependencies: 211
 -- Data for Name: Consume; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -568,7 +583,7 @@ ALTER TABLE public."Ward" ALTER COLUMN "Id" ADD GENERATED ALWAYS AS IDENTITY (
 
 
 --
--- TOC entry 3449 (class 0 OID 17229)
+-- TOC entry 3450 (class 0 OID 19996)
 -- Dependencies: 213
 -- Data for Name: District; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -601,7 +616,7 @@ INSERT INTO public."District" ("Id", "NameDistrict") OVERRIDING SYSTEM VALUE VAL
 
 
 --
--- TOC entry 3450 (class 0 OID 17232)
+-- TOC entry 3451 (class 0 OID 19999)
 -- Dependencies: 214
 -- Data for Name: DistrictWard; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -734,7 +749,7 @@ INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYST
 
 
 --
--- TOC entry 3453 (class 0 OID 17237)
+-- TOC entry 3454 (class 0 OID 20004)
 -- Dependencies: 217
 -- Data for Name: HistoryManager; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -742,7 +757,7 @@ INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYST
 
 
 --
--- TOC entry 3455 (class 0 OID 17241)
+-- TOC entry 3456 (class 0 OID 20008)
 -- Dependencies: 219
 -- Data for Name: HistoryUser; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -750,7 +765,7 @@ INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYST
 
 
 --
--- TOC entry 3457 (class 0 OID 17247)
+-- TOC entry 3458 (class 0 OID 20014)
 -- Dependencies: 221
 -- Data for Name: ManagerActivity; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -758,7 +773,7 @@ INSERT INTO public."DistrictWard" ("Id", "IdDistrict", "IdWard") OVERRIDING SYST
 
 
 --
--- TOC entry 3458 (class 0 OID 17250)
+-- TOC entry 3459 (class 0 OID 20017)
 -- Dependencies: 222
 -- Data for Name: Package; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -770,7 +785,7 @@ INSERT INTO public."Package" ("Id", "NamePackage", "LimitProducts", "LimitPeople
 
 
 --
--- TOC entry 3460 (class 0 OID 17256)
+-- TOC entry 3461 (class 0 OID 20023)
 -- Dependencies: 224
 -- Data for Name: Place; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -784,12 +799,12 @@ INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRID
 INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (9, 'Bệnh viện Phạm Ngọc Thạch', 22000, 20000, 1);
 INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (10, 'Đồng Hương 5 sao', 5000, 4000, 0);
 INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (11, 'A&EM Art Hotel', 1000, 1000, 0);
-INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (1, 'Bệnh viện dã chiến Củ Chi', 15000, 12003, 1);
 INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (3, 'Bệnh viện Đa Khoa', 9500, 2062, 1);
+INSERT INTO public."Place" ("Id", "NamePlace", "Size", "Amount", "Role") OVERRIDING SYSTEM VALUE VALUES (1, 'Bệnh viện dã chiến Củ Chi', 15000, 12007, 1);
 
 
 --
--- TOC entry 3462 (class 0 OID 17260)
+-- TOC entry 3463 (class 0 OID 20027)
 -- Dependencies: 226
 -- Data for Name: Product; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -824,7 +839,7 @@ INSERT INTO public."Product" ("Id", "Price", "NameProduct", "Unit") OVERRIDING S
 
 
 --
--- TOC entry 3463 (class 0 OID 17263)
+-- TOC entry 3464 (class 0 OID 20030)
 -- Dependencies: 227
 -- Data for Name: ProductImg; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -889,7 +904,7 @@ INSERT INTO public."ProductImg" ("Id", "IdProduct", "Img") OVERRIDING SYSTEM VAL
 
 
 --
--- TOC entry 3465 (class 0 OID 17267)
+-- TOC entry 3466 (class 0 OID 20034)
 -- Dependencies: 229
 -- Data for Name: ProductPackage; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -939,7 +954,7 @@ INSERT INTO public."ProductPackage" ("Id", "IdPackage", "IdProduct") OVERRIDING 
 
 
 --
--- TOC entry 3468 (class 0 OID 17272)
+-- TOC entry 3469 (class 0 OID 20039)
 -- Dependencies: 232
 -- Data for Name: Province; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -952,7 +967,7 @@ INSERT INTO public."Province" ("Id", "NameProvince") OVERRIDING SYSTEM VALUE VAL
 
 
 --
--- TOC entry 3469 (class 0 OID 17275)
+-- TOC entry 3470 (class 0 OID 20042)
 -- Dependencies: 233
 -- Data for Name: ProvinceDistrict; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -985,7 +1000,7 @@ INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRID
 
 
 --
--- TOC entry 3472 (class 0 OID 17280)
+-- TOC entry 3473 (class 0 OID 20047)
 -- Dependencies: 236
 -- Data for Name: RelatedPeople; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -993,7 +1008,7 @@ INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRID
 
 
 --
--- TOC entry 3474 (class 0 OID 17284)
+-- TOC entry 3475 (class 0 OID 20051)
 -- Dependencies: 238
 -- Data for Name: User; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1001,7 +1016,7 @@ INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRID
 
 
 --
--- TOC entry 3475 (class 0 OID 17288)
+-- TOC entry 3476 (class 0 OID 20055)
 -- Dependencies: 239
 -- Data for Name: UserPlace; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1009,7 +1024,7 @@ INSERT INTO public."ProvinceDistrict" ("Id", "IdProvince", "IdDistrict") OVERRID
 
 
 --
--- TOC entry 3478 (class 0 OID 17293)
+-- TOC entry 3479 (class 0 OID 20060)
 -- Dependencies: 242
 -- Data for Name: Ward; Type: TABLE DATA; Schema: public; Owner: postgres
 --
@@ -1142,16 +1157,16 @@ INSERT INTO public."Ward" ("Id", "NameWard") OVERRIDING SYSTEM VALUE VALUES (125
 
 
 --
--- TOC entry 3485 (class 0 OID 0)
+-- TOC entry 3487 (class 0 OID 0)
 -- Dependencies: 210
 -- Name: Account_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."Account_Id_seq"', 12, true);
+SELECT pg_catalog.setval('public."Account_Id_seq"', 18, true);
 
 
 --
--- TOC entry 3486 (class 0 OID 0)
+-- TOC entry 3488 (class 0 OID 0)
 -- Dependencies: 212
 -- Name: Consume_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1160,7 +1175,7 @@ SELECT pg_catalog.setval('public."Consume_Id_seq"', 1, false);
 
 
 --
--- TOC entry 3487 (class 0 OID 0)
+-- TOC entry 3489 (class 0 OID 0)
 -- Dependencies: 215
 -- Name: DistrictWard_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1169,7 +1184,7 @@ SELECT pg_catalog.setval('public."DistrictWard_Id_seq"', 125, true);
 
 
 --
--- TOC entry 3488 (class 0 OID 0)
+-- TOC entry 3490 (class 0 OID 0)
 -- Dependencies: 216
 -- Name: District_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1178,25 +1193,34 @@ SELECT pg_catalog.setval('public."District_Id_seq"', 25, true);
 
 
 --
--- TOC entry 3489 (class 0 OID 0)
+-- TOC entry 3491 (class 0 OID 0)
 -- Dependencies: 218
 -- Name: HistoryManager_IdHistory_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."HistoryManager_IdHistory_seq"', 3, true);
+SELECT pg_catalog.setval('public."HistoryManager_IdHistory_seq"', 7, true);
 
 
 --
--- TOC entry 3490 (class 0 OID 0)
+-- TOC entry 3492 (class 0 OID 0)
 -- Dependencies: 220
 -- Name: HistoryUser_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."HistoryUser_Id_seq"', 3, true);
+SELECT pg_catalog.setval('public."HistoryUser_Id_seq"', 7, true);
 
 
 --
--- TOC entry 3491 (class 0 OID 0)
+-- TOC entry 3493 (class 0 OID 0)
+-- Dependencies: 244
+-- Name: ManagerActivity_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
+--
+
+SELECT pg_catalog.setval('public."ManagerActivity_Id_seq"', 12, true);
+
+
+--
+-- TOC entry 3494 (class 0 OID 0)
 -- Dependencies: 223
 -- Name: Package_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1205,7 +1229,7 @@ SELECT pg_catalog.setval('public."Package_Id_seq"', 4, true);
 
 
 --
--- TOC entry 3492 (class 0 OID 0)
+-- TOC entry 3495 (class 0 OID 0)
 -- Dependencies: 225
 -- Name: Place_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1214,7 +1238,7 @@ SELECT pg_catalog.setval('public."Place_Id_seq"', 11, true);
 
 
 --
--- TOC entry 3493 (class 0 OID 0)
+-- TOC entry 3496 (class 0 OID 0)
 -- Dependencies: 228
 -- Name: ProductImg_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1223,7 +1247,7 @@ SELECT pg_catalog.setval('public."ProductImg_Id_seq"', 57, true);
 
 
 --
--- TOC entry 3494 (class 0 OID 0)
+-- TOC entry 3497 (class 0 OID 0)
 -- Dependencies: 230
 -- Name: ProductPackage_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1232,7 +1256,7 @@ SELECT pg_catalog.setval('public."ProductPackage_Id_seq"', 42, true);
 
 
 --
--- TOC entry 3495 (class 0 OID 0)
+-- TOC entry 3498 (class 0 OID 0)
 -- Dependencies: 231
 -- Name: Product_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1241,7 +1265,7 @@ SELECT pg_catalog.setval('public."Product_Id_seq"', 27, true);
 
 
 --
--- TOC entry 3496 (class 0 OID 0)
+-- TOC entry 3499 (class 0 OID 0)
 -- Dependencies: 234
 -- Name: ProvinceDistrict_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1250,7 +1274,7 @@ SELECT pg_catalog.setval('public."ProvinceDistrict_Id_seq"', 25, true);
 
 
 --
--- TOC entry 3497 (class 0 OID 0)
+-- TOC entry 3500 (class 0 OID 0)
 -- Dependencies: 235
 -- Name: Province_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1259,7 +1283,7 @@ SELECT pg_catalog.setval('public."Province_Id_seq"', 5, true);
 
 
 --
--- TOC entry 3498 (class 0 OID 0)
+-- TOC entry 3501 (class 0 OID 0)
 -- Dependencies: 237
 -- Name: RelatedPeople_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1268,16 +1292,16 @@ SELECT pg_catalog.setval('public."RelatedPeople_Id_seq"', 1, false);
 
 
 --
--- TOC entry 3499 (class 0 OID 0)
+-- TOC entry 3502 (class 0 OID 0)
 -- Dependencies: 240
 -- Name: UserPlace_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
 
-SELECT pg_catalog.setval('public."UserPlace_Id_seq"', 5, true);
+SELECT pg_catalog.setval('public."UserPlace_Id_seq"', 9, true);
 
 
 --
--- TOC entry 3500 (class 0 OID 0)
+-- TOC entry 3503 (class 0 OID 0)
 -- Dependencies: 241
 -- Name: User_id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1286,7 +1310,7 @@ SELECT pg_catalog.setval('public."User_id_seq"', 1, false);
 
 
 --
--- TOC entry 3501 (class 0 OID 0)
+-- TOC entry 3504 (class 0 OID 0)
 -- Dependencies: 243
 -- Name: Ward_Id_seq; Type: SEQUENCE SET; Schema: public; Owner: postgres
 --
@@ -1295,7 +1319,7 @@ SELECT pg_catalog.setval('public."Ward_Id_seq"', 125, true);
 
 
 --
--- TOC entry 3253 (class 2606 OID 17298)
+-- TOC entry 3254 (class 2606 OID 20065)
 -- Name: Account Account_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1304,7 +1328,7 @@ ALTER TABLE ONLY public."Account"
 
 
 --
--- TOC entry 3255 (class 2606 OID 17300)
+-- TOC entry 3256 (class 2606 OID 20067)
 -- Name: Consume Consume_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1313,7 +1337,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3259 (class 2606 OID 17302)
+-- TOC entry 3260 (class 2606 OID 20069)
 -- Name: DistrictWard DistrictWard_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1322,7 +1346,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3257 (class 2606 OID 17304)
+-- TOC entry 3258 (class 2606 OID 20071)
 -- Name: District District_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1331,7 +1355,7 @@ ALTER TABLE ONLY public."District"
 
 
 --
--- TOC entry 3261 (class 2606 OID 17306)
+-- TOC entry 3262 (class 2606 OID 20073)
 -- Name: HistoryManager HistoryManager_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1340,7 +1364,7 @@ ALTER TABLE ONLY public."HistoryManager"
 
 
 --
--- TOC entry 3263 (class 2606 OID 17308)
+-- TOC entry 3264 (class 2606 OID 20075)
 -- Name: HistoryUser HistoryUser_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1349,7 +1373,7 @@ ALTER TABLE ONLY public."HistoryUser"
 
 
 --
--- TOC entry 3265 (class 2606 OID 17310)
+-- TOC entry 3266 (class 2606 OID 20077)
 -- Name: ManagerActivity ManagerActivity_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1358,7 +1382,7 @@ ALTER TABLE ONLY public."ManagerActivity"
 
 
 --
--- TOC entry 3268 (class 2606 OID 17312)
+-- TOC entry 3269 (class 2606 OID 20079)
 -- Name: Package Package_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1367,7 +1391,7 @@ ALTER TABLE ONLY public."Package"
 
 
 --
--- TOC entry 3270 (class 2606 OID 17314)
+-- TOC entry 3271 (class 2606 OID 20081)
 -- Name: Place Place_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1376,7 +1400,7 @@ ALTER TABLE ONLY public."Place"
 
 
 --
--- TOC entry 3274 (class 2606 OID 17316)
+-- TOC entry 3275 (class 2606 OID 20083)
 -- Name: ProductImg ProductImg_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1385,7 +1409,7 @@ ALTER TABLE ONLY public."ProductImg"
 
 
 --
--- TOC entry 3276 (class 2606 OID 17318)
+-- TOC entry 3277 (class 2606 OID 20085)
 -- Name: ProductPackage ProductPackage_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1394,7 +1418,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3272 (class 2606 OID 17320)
+-- TOC entry 3273 (class 2606 OID 20087)
 -- Name: Product Product_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1403,7 +1427,7 @@ ALTER TABLE ONLY public."Product"
 
 
 --
--- TOC entry 3280 (class 2606 OID 17322)
+-- TOC entry 3281 (class 2606 OID 20089)
 -- Name: ProvinceDistrict ProvinceDistrict_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1412,7 +1436,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3278 (class 2606 OID 17324)
+-- TOC entry 3279 (class 2606 OID 20091)
 -- Name: Province Province_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1421,7 +1445,7 @@ ALTER TABLE ONLY public."Province"
 
 
 --
--- TOC entry 3282 (class 2606 OID 17326)
+-- TOC entry 3283 (class 2606 OID 20093)
 -- Name: RelatedPeople RelatedPeople_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1430,7 +1454,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3286 (class 2606 OID 17328)
+-- TOC entry 3287 (class 2606 OID 20095)
 -- Name: UserPlace UserPlace_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1439,7 +1463,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3284 (class 2606 OID 17330)
+-- TOC entry 3285 (class 2606 OID 20097)
 -- Name: User User_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1448,7 +1472,7 @@ ALTER TABLE ONLY public."User"
 
 
 --
--- TOC entry 3288 (class 2606 OID 17332)
+-- TOC entry 3289 (class 2606 OID 20099)
 -- Name: Ward Ward_pkey; Type: CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1457,7 +1481,7 @@ ALTER TABLE ONLY public."Ward"
 
 
 --
--- TOC entry 3266 (class 1259 OID 17333)
+-- TOC entry 3267 (class 1259 OID 20100)
 -- Name: fki_ID_ManagerActivity_HistoryManager; Type: INDEX; Schema: public; Owner: postgres
 --
 
@@ -1465,7 +1489,7 @@ CREATE INDEX "fki_ID_ManagerActivity_HistoryManager" ON public."ManagerActivity"
 
 
 --
--- TOC entry 3294 (class 2606 OID 17334)
+-- TOC entry 3295 (class 2606 OID 20101)
 -- Name: HistoryUser HistoryUser_IdUser_fkey; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1474,7 +1498,7 @@ ALTER TABLE ONLY public."HistoryUser"
 
 
 --
--- TOC entry 3291 (class 2606 OID 17339)
+-- TOC entry 3292 (class 2606 OID 20106)
 -- Name: DistrictWard IDDistrict_DistrictWard_District; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1483,7 +1507,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3299 (class 2606 OID 17344)
+-- TOC entry 3300 (class 2606 OID 20111)
 -- Name: ProvinceDistrict IDDistrict_ProvinceDistrict_District; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1492,7 +1516,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3289 (class 2606 OID 17349)
+-- TOC entry 3290 (class 2606 OID 20116)
 -- Name: Consume IDPackage_Consume_Package; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1501,7 +1525,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3297 (class 2606 OID 17354)
+-- TOC entry 3298 (class 2606 OID 20121)
 -- Name: ProductPackage IDPackage_ProductPackage_Package; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1510,7 +1534,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3304 (class 2606 OID 17359)
+-- TOC entry 3305 (class 2606 OID 20126)
 -- Name: UserPlace IDPlace_UserPlace_Place; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1519,7 +1543,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3296 (class 2606 OID 17364)
+-- TOC entry 3297 (class 2606 OID 20131)
 -- Name: ProductImg IDProduct_ProductImg_Product; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1528,7 +1552,7 @@ ALTER TABLE ONLY public."ProductImg"
 
 
 --
--- TOC entry 3298 (class 2606 OID 17369)
+-- TOC entry 3299 (class 2606 OID 20136)
 -- Name: ProductPackage IDProduct_ProductPackage_Product; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1537,7 +1561,7 @@ ALTER TABLE ONLY public."ProductPackage"
 
 
 --
--- TOC entry 3300 (class 2606 OID 17374)
+-- TOC entry 3301 (class 2606 OID 20141)
 -- Name: ProvinceDistrict IDProvince_ProvinceDistrict_Province; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1546,7 +1570,7 @@ ALTER TABLE ONLY public."ProvinceDistrict"
 
 
 --
--- TOC entry 3301 (class 2606 OID 17379)
+-- TOC entry 3302 (class 2606 OID 20146)
 -- Name: RelatedPeople IDRelated_Related_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1555,7 +1579,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3290 (class 2606 OID 17384)
+-- TOC entry 3291 (class 2606 OID 20151)
 -- Name: Consume IDUser_Consume_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1564,7 +1588,7 @@ ALTER TABLE ONLY public."Consume"
 
 
 --
--- TOC entry 3302 (class 2606 OID 17389)
+-- TOC entry 3303 (class 2606 OID 20156)
 -- Name: RelatedPeople IDUser_Related_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1573,7 +1597,7 @@ ALTER TABLE ONLY public."RelatedPeople"
 
 
 --
--- TOC entry 3305 (class 2606 OID 17394)
+-- TOC entry 3306 (class 2606 OID 20161)
 -- Name: UserPlace IDUser_UserPlace_User; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1582,7 +1606,7 @@ ALTER TABLE ONLY public."UserPlace"
 
 
 --
--- TOC entry 3292 (class 2606 OID 17399)
+-- TOC entry 3293 (class 2606 OID 20166)
 -- Name: DistrictWard IDWard_DistrictWard_Ward; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1591,7 +1615,7 @@ ALTER TABLE ONLY public."DistrictWard"
 
 
 --
--- TOC entry 3293 (class 2606 OID 17404)
+-- TOC entry 3294 (class 2606 OID 20171)
 -- Name: HistoryManager ID_HistoryManager_Account; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1600,7 +1624,7 @@ ALTER TABLE ONLY public."HistoryManager"
 
 
 --
--- TOC entry 3295 (class 2606 OID 17409)
+-- TOC entry 3296 (class 2606 OID 20176)
 -- Name: ManagerActivity ID_ManagerActivity_HistoryManager; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1609,7 +1633,7 @@ ALTER TABLE ONLY public."ManagerActivity"
 
 
 --
--- TOC entry 3303 (class 2606 OID 17414)
+-- TOC entry 3304 (class 2606 OID 20181)
 -- Name: User Id_User_Account; Type: FK CONSTRAINT; Schema: public; Owner: postgres
 --
 
@@ -1617,7 +1641,7 @@ ALTER TABLE ONLY public."User"
     ADD CONSTRAINT "Id_User_Account" FOREIGN KEY ("Id") REFERENCES public."Account"("Id") NOT VALID;
 
 
--- Completed on 2022-01-20 14:40:32
+-- Completed on 2022-01-20 21:21:14
 
 --
 -- PostgreSQL database dump complete
