@@ -104,6 +104,7 @@ router.get('/payDetail', (req, res) => {
 });
 
 router.get('/changePass', (req, res) => {
+  if (!req.session.idPayment) return res.redirect('/');
   res.render('user/pay/changePass', {
     title: 'Internet Banking',
     active: { pay: true },
@@ -112,6 +113,7 @@ router.get('/changePass', (req, res) => {
 
 
 router.get('/payment', async (req, res) => {
+  if (!req.session.idPayment) return res.redirect('/');
   const data = {
     ID: req.session.idPayment                          // TODO: need to be change with suitable data
   };
