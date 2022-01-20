@@ -17,7 +17,7 @@ function generateIdAccountPayment() {
 router.get('/', async (req, res) => {
     // if (!req.user || parseInt(req.user.Role) != 3)
     //   return res.redirect('/');
-    console.log(new Date().toLocaleString());
+    //console.log(new Date().toLocaleString());
     const limit = 7;
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
@@ -91,7 +91,7 @@ router.get('/search', async (req, res) => {
         patientModel.countSearch(search),
         patientModel.loadSearch(search, limit, offset),
     ]);
-    console.log(list);
+    //console.log(list);
     // if (list.length == 0) {
     //   alert("Không tìm thấy bệnh nhân");
 
@@ -259,7 +259,7 @@ router.post('/addRelated/:id', async (req, res) => {
     };
 
     var us = await patientModel.add(user);
-    console.log('us', us);
+    //console.log('us', us);
     let userPlace = {
         IdUser: us.Id,
         IdPlace: req.body.place,
@@ -282,7 +282,7 @@ router.post('/addRelated/:id', async (req, res) => {
     });
     const place = await patientModel.loadPlace(us.Id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     let history = {
         IdUser: us.Id,
@@ -302,7 +302,7 @@ router.post('/addRelated/:id', async (req, res) => {
         Role: 0,
         FirstActived: 1
     }
-    console.log(accountPayment);
+    //console.log(accountPayment);
     await patientModel.addPaymentAccount(accountPayment);
     res.render('manager/patients/list', {
         title: 'Danh sách người liên quan',
@@ -338,11 +338,11 @@ router.post('/update/:id', async (req, res) => {
     //update Amount
     const place = await patientModel.loadPlace(req.params.id);
     place.Amount = place.Amount + 1;
-    console.log(place);
+    //console.log(place);
     await placeModel.updateAmountPlace(place, place.Id);
     //update Status
     const user = await patientModel.getOne(req.params.id);
-    console.log(user);
+    //console.log(user);
     const changeStatus = user.Status - req.body.status;
     user.Status = req.body.status;
     await patientModel.updateUser(user, user.Id);

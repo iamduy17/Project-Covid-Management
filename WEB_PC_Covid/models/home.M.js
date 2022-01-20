@@ -27,4 +27,11 @@ module.exports = {
         const res = await db.count(tbName, idFieldName, '');
         return res;
     },
+    patchQues_Ans_Active: async (account) => {
+        const fieldName = ['SecurityQuestion', 'SecurityAnswer', 'FirstActive'];
+        const username = account.Username;
+        const condition = ` WHERE "${idFieldName}" = ` + `'${username}'`;
+        const res = await db.patch(tbName, fieldName, account, condition);
+        return res;
+    },
 };

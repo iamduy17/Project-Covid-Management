@@ -12,7 +12,7 @@ module.exports = (app) => {
                 passReqToCallback: true,
             },
             async (req, username, password, done) => {
-                //const role = parseInt(req.body.gridRadios);
+
                 let user;
                 try {
                     user = await userM.get(username);

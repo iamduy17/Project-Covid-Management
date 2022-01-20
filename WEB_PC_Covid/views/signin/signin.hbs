@@ -56,7 +56,6 @@
               <span class="symbol-input100">
                <i class="fa fa-user" aria-hidden="true"></i>
               </span>
-              
             </div>
 
             <div
@@ -88,10 +87,24 @@
                     <i class='fas fa-check' aria-hidden='true'></i>
                 </span>
                 </div>
+                <label for="securityQuestion">Câu hỏi bảo mật
+                <select id="securityQuestion" name="securityQuestion">
+                    <option value="securityQuestion1">
+                    Chứng minh nhân dân của mẹ bạn???
+                    </option>
+                    <option value="securityQuestion2">
+                    Chứng minh nhân dân của ba bạn???
+                    </option>
+                </select>
+                </label>
+
+                <label for="securityAnswer">Your answer</label>
+                <input type="text" name="securityAnswer" required />
+
                 <div class="container-login100-form-btn">
                     <button class="login100-form-btn" formaction="/register">Đăng kí</button>
                 </div>
-                {{else}} 
+                {{else}}
                 {{!-- <div class="d-flex justify-content-center">
                     <fieldset class="form-group">
                         <div class="row">
@@ -121,8 +134,13 @@
                 {{/if}} --}}
                
                 <div class="container-login100-form-btn" >
-                <button class="login100-form-btn">Đăng nhập</button>
+                    <button class="login100-form-btn">Đăng nhập</button>
                 </div>
+                <div class="text-center p-t-12">
+                    <span class="txt1"> Quên </span>
+                    <a class="txt2" href="/forgotPass"> mật khẩu </a>
+                </div>
+
             {{/if}}
             
             <div class="text-center p-t-100">
@@ -132,11 +150,21 @@
       </div>
     </div>
     <!--===============================================================================================-->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+            <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'
+        ></script>
+        <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js'
+        ></script>
+        <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/bootstrap/4.6.1/js/bootstrap.min.js'
+        ></script>
+        <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js'
+        ></script>
+        <script
+            src='https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js'
+        ></script>
     <script>
       $(".js-tilt").tilt({
         scale: 1.1,
