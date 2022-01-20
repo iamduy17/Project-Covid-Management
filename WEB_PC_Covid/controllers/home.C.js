@@ -359,6 +359,7 @@ router.post('/forgotPass', async (req, res) => {
 });
 
 router.get('/createSecurity', async (req, res) => {
+    req.session.pathCur = `/createSecurity?user=${req.query.user}`;
     res.render('signin/createSecurity', {
         layout: false,
         User: req.query.user,
