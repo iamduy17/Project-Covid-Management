@@ -41,7 +41,7 @@ router.post('/login', async (req, res) => {
     password: req.body.password,
   };
   const rs = await payModel.login(data);
-  console.log(rs);
+  
   req.session.token = rs.refreshToken;
   //account existed
   if (rs) {
@@ -80,7 +80,7 @@ router.post('/changePass', async (req, res) => {
     newPass: newPass,
   };
 
-  console.log(req.session.token)
+  
   const rs = await payModel.changePass(data, req.session.token);
   if (!rs) {
     return res.render('user/pay/changePass', {
@@ -111,7 +111,6 @@ router.get('/payDetail', async(req, res) => {
 
 router.get('/payDetail/:Id', async(req, res) => {
   IdConsume = req.params.Id;
-  //console.log(IdConsume);
   const temp = await Consume.allById1(IdConsume);
   Price = temp[0].Price;
   res.render('user/pay/payDetail', {
@@ -197,7 +196,6 @@ router.post('/payment', async (req, res) => {
     money: parseInt(money),
   };
   const rs = await payModel.paymentPut(data, req.session.token);
-  console.log(rs);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
