@@ -196,7 +196,7 @@ router.post('/payment', async (req, res) => {
     ID: req.session.idPayment,                         // TODO: need to be change with suitable data
     money: parseInt(money),
   };
-  const rs = await payModel.paymentPut(data);
+  const rs = await payModel.paymentPut(data, req.session.token);
   console.log(rs);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
