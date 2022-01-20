@@ -6,6 +6,22 @@ const express = require('express'),
     bcrypt = require('bcrypt'),
     saltRounds = parseInt(process.env.SALT_ROUND),
     alert = require('alert');
+
+const today = new Date();
+const date =
+    today.getFullYear() +
+    '-' +
+    (today.getMonth() + 1) +
+    '-' +
+    today.getDate();
+const time =
+    today.getHours() +
+    ':' +
+    today.getMinutes() +
+    ':' +
+    today.getSeconds();
+const dateTime = date + ' ' + time;
+
 function generateIdAccountPayment() {
     res = ""
     for (let i = 0; i < 10; i++) {
@@ -186,13 +202,13 @@ router.post('/addF0', async (req, res) => {
     //add history
     let history = {
         IdUser: us.Id,
-        TimeStart: new Date().toLocaleString(),
+        TimeStart: dateTime,
         TimeEnd: null,
         Status: 0,
         Place: place.Id,
     };
     await patientModel.addHistory(history);
-    req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
+    req.session.activities.push(`${req.user.Username} thêm F0 ${req.body.name}`);
     req.session.pathCur = `/manager/patients`;
     let accountPayment = {
         ID: accountId,
@@ -273,13 +289,13 @@ router.post('/addRelated/:id', async (req, res) => {
     await placeModel.updateAmountPlace(place, place.Id);
     let history = {
         IdUser: us.Id,
-        TimeStart: new Date().toLocaleString(),
+        TimeStart: dateTime,
         TimeEnd: null,
         Status: req.body.status,
         Place: place.Id,
     };
     await patientModel.addHistory(history);
-    req.session.activities.push(`${req.user.name} thêm F${req.body.status}: ${req.body.name}`);
+    req.session.activities.push(`${req.user.Username} thêm F${req.body.status}: ${req.body.name}`);
     
     let accountPayment = {
         ID: accountId,
@@ -345,14 +361,14 @@ router.post('/update/:id', async (req, res) => {
     for (let i = 0; i < allHistoryUser.length; i++) {
         if (allHistoryUser[i].TimeEnd == null) {
             oldHistory = allHistoryUser[i];
-            oldHistory.TimeEnd = new Date().toLocaleString();
+            oldHistory.TimeEnd = dateTime;
             break;
         }
     }
     await patientModel.updateOldHistory(oldHistory, user.Id);
     let newHistory = {
         IdUser: user.Id,
-        TimeStart: new Date().toLocaleString(),
+        TimeStart: dateTime,
         TimeEnd: null,
         Status: req.body.status,
         Place: place.Id,
@@ -365,7 +381,7 @@ router.post('/update/:id', async (req, res) => {
         for (let i = 0; i < allHistoryUser.length; i++) {
             if (allHistoryUser[i].TimeEnd == null && allHistoryUser[i] != 0) {
                 oldHistory = allHistoryUser[i];
-                oldHistory.TimeEnd = new Date().toLocaleString();
+                oldHistory.TimeEnd = dateTime;
                 break;
             }
         }
@@ -373,7 +389,7 @@ router.post('/update/:id', async (req, res) => {
         if (userRelated[i].Status != 0) {
             let newHistory = {
                 IdUser: userRelated[i].Id,
-                TimeStart: new Date().toLocaleString(),
+                TimeStart: dateTime,
                 TimeEnd: null,
                 Status: userRelated[i].Status,
                 Place: (await patientModel.loadPlace(userRelated[i].Id)).Id,
@@ -382,7 +398,7 @@ router.post('/update/:id', async (req, res) => {
         }
 
     }
-    req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
+    req.session.activities.push(`${req.user.Username} cập nhập trạng thái F${user.Status}: ${user.Name}`);
     res.redirect('/manager/patients');
 });
 module.exports = router;

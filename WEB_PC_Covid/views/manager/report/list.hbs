@@ -6,6 +6,7 @@
                 <div class="alert alert-danger h4" role="alert">
                 Không có dữ liệu
                 </div>
+                <canvas id="myChart"></canvas>
             {{else}}
                 <canvas id="myChart" data-label="{{labelStatus}}" data-data="{{dataStatus}}"></canvas>
             {{/if}}
@@ -16,6 +17,7 @@
                 <div class="alert alert-danger h4" role="alert">
                 Không có dữ liệu
                 </div>
+                <canvas id="myChart1"></canvas>
             {{else}}
                 <canvas id="myChart1" data-label="{{labelPackage}}" data-data="{{dataPackage}}"></canvas>
             {{/if}}
@@ -28,6 +30,7 @@
                 <div class="alert alert-danger h4" role="alert">
                 Không có dữ liệu
                 </div>
+                <canvas id="myChart2"></canvas>
             {{else}}
                 <canvas id="myChart2" data-label="{{labelProductDebt}}" data-data="{{dataProductDebt}}"></canvas>
                 <div>Tổng số dư nợ: {{Debt}}</div>

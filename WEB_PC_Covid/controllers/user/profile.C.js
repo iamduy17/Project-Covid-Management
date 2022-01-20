@@ -17,7 +17,10 @@ const express = require('express'),
 router.get('/', async (req, res) => {
   const listMana = await managerHistory.all();
   for (i = 0; i < listMana.length; i++) {
+    listMana[i].STT = i+1;
     listMana[i].Username = await account.allById(listMana[i].IdManager);
+    listMana[i].TimeStart = listMana[i].TimeStart.toISOString().replace(/T/, ' ').replace(/\..+/, '');
+    listMana[i].TimeEnd = listMana[i].TimeEnd.toISOString().replace(/T/, ' ').replace(/\..+/, '');
   }
 
   // Kiểm tra việc thanh toán đã hoàn thành chưa, nếu đã thanh toán thì sửa Inform

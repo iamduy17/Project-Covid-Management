@@ -91,7 +91,7 @@
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text2">Tài khoản thanh toán:</th>
-                                                <th scope="row">{{IdNumber}}</th>
+                                                <th scope="row">{{IdPayment}}</th>
                                             </tr>
                                             {{/each}}
                                         </tbody>
@@ -120,8 +120,8 @@
                     <table class="table">
                         <thead>
                             <tr>
-                                <th scope="col" class="text-center">IDHistory</th>
-                                <th scope="col">IDManager</th>
+                                <th scope="col" class="text-center">STT</th>
+                                <th scope="col">Tên người quản lý</th>
                                 <th scope="col">TimeStart</th>
                                 <th scope="col">TimeEnd</th>
                             </tr>
@@ -129,7 +129,7 @@
                         <tbody>
                             {{#each this.HistoryManager}}
                             <tr>
-                                <th scope="row" class="text-center">{{IdHistory}}</th>
+                                <th scope="row" class="text-center">{{STT}}</th>
                                 {{#each Username}}
                                 <td>{{Username}}</td>
                                 {{/each}}
