@@ -9,6 +9,10 @@ const express = require('express'),
   managerHistory = require('../../models/user/managerHistory.M'),
   profile = require('../../models/user/profile.M'),
   account = require('../../models/user/account.M');
+  userPlace = require('../../models/user/userplace.M'),
+  place = require('../../models/user/place.M'),
+  consume = require('../../models/user/consume.M'),
+  package = require("../../models/user/buyPackage.M");
 
 router.get('/', async (req, res) => {
   const listMana = await managerHistory.all();
@@ -34,6 +38,33 @@ router.get('/', async (req, res) => {
     isInform = true;
     inform = "Vui lòng thanh toán gói nhu yếu phẩm bạn đã mua";
   }
+  
+  const historyPackage = await consume.allById(req.user.Id)
+  for (i = 0; i < historyPackage.length; i++){
+    const pack = await package.allById(historyPackage[i].IdPackage);
+    historyPackage[i].NamePackage = pack[0].NamePackage;
+    historyPackage[i].STT = i + 1;
+  }
+
+  for (t = 0; t < historyPackage.length; t++) {
+    historyPackage[t].Time = historyPackage[t].Time.toISOString()
+    .replace(/T/, ' ')
+    .replace(/\..+/, '');
+  }
+
+  const debt = await consume.allByStatus(req.user.Id, 'Chưa thanh toán');
+  let TotalDebt = 0;
+  for (let i = 0; i  < debt.length; i++){
+    TotalDebt += debt[i].Price;
+  }
+
+  const listProfile = await profile.allByCat(req.user.Id);
+
+  const IdPlace = await userPlace.allById(req.user.Id);
+
+  const Place = await place.allById(IdPlace[0].IdPlace);
+
+  listProfile[0].NamePlace = Place[0].NamePlace;
 
   // Lịch sử thanh toán
   for (let index = 0; index < consumeOfUser.length; index++) {
@@ -53,17 +84,19 @@ router.get('/', async (req, res) => {
     HistoryManager: listMana,
     profile: listProfile,
     empty: listMana.length === 0,
+    empty1: historyPackage === 0,
     title: 'Thông tin cá nhân',
     active: { profile: true },
     isInform: isInform,
     inform: inform,
     HistoryPayment: consumeOfUser,
     emptyPayment: consumeOfUser.length === 0,
+    historyPackage: historyPackage,
+    DebtUser: TotalDebt
   });
 });
 
 router.post('/', async (req, res) => {
-
   const listMana = await managerHistory.all();
   for (i = 0; i < listMana.length; i++) {
     listMana[i].Username = await account.allById(listMana[i].IdManager);

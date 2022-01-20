@@ -39,70 +39,86 @@
                         </div>
                     </div>
                     <div class="row right-content" style="margin-top: 50px">
-                        <span><h3>Mô tả: </h3></span>
+                        <span>
+                            <h3>Mô tả: </h3>
+                        </span>
                         <span style="font-style: italic;">{{introduce}}</span>
                     </div>
                 </div>
 
                 <div class="col-md-6">
-                    <div class="right-content" id="{{Id}}" name="{{Id}}">
-                        <h2>{{NamePackage}}</h2>
-                        <h6>Thành phần bao gồm: </h6>
-                        <br><br>
-                        {{#each ../this.product}}
-                        <div class="card-body">
-                            <li class="card-text" style="margin-top: -70px;">{{NameProduct}}</li>
-                        </div>
-                        {{/each}}
+                    <form>
+                        <div class="right-content" id="{{Id}}" name="{{Id}}">
+                            <h2>{{NamePackage}}</h2>
+                            <h6>Thành phần bao gồm: </h6>
+                            <ul style="list-style-type: none;">
+                                {{#each ../this.product}}
+                                <li>
+                                    <input type="checkbox" name="options[]" value="{{IdProduct}}" checked>
+                                    <label class="text-capitalize"> {{NameProduct}}</label><br>
+                                </li>
+                                {{/each}}
+                            </ul>
 
-                        <span style="margin-top: -50px;">
-                            <h4>Tổng tiền: {{../totalPrice}} VNĐ</h4>
-                        </span>
+                            <div style="margin-top: 0px">
+                                <span>packets available </span>
+                            </div>
 
-                        <div style="margin-top: 0px">
-                            <span>packets available </span>
-                        </div>
-                        <form method="post">
                             <label for="quantity">Quantity:</label>
-                            <input name="quantity" type="quantity" class="quantity-text" id="quantity"
-                                onfocus="if(this.value == '1') { this.value = ''; }"
-                                onBlur="if(this.value == '') { this.value = '1';}" value="1">
-                            <button type="button" class="btn btn-info" data-bs-toggle="modal" style="margin-left: 20px;"
-                                data-bs-target="#exampleBuy" data-target="#exampleBuy">Mua ngay!</button>
-                        </form>
-                        <div class="down-content">
+                            <input name="quantity" type="quantity" class="quantity-text quantity" id="quantity"
+                                value="{{quantity}}">
+                            <button type="submit" class="btn btn-info" formmethod="post" style="margin-right: 50px;"
+                                data-bs-toggle="modal" data-bs-target="#exampleBuy" data-target="#exampleBuy"
+                                formaction="/user/buyPackages/quantity">Mua ngay!!</button>
                         </div>
+                        <div class="checkQuantity"></div>
+                    </form>
+                    <div class="down-content">
                     </div>
                 </div>
             </div>
             {{/each}}
         </div>
-    </div>
 
-    <!-- Single Page Ends Here -->
-
-    <!-- Similar Ends Here -->
-
-    <div class="modal fade" id="exampleBuy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">CHỌN HÌNH THỨC THANH TOÁN</h4>
+        <div class="row">
+            <div class="col-md-6">
+            </div>
+            <div class="col-md-6">
+                {{#if msg}}
+                <div class="alert alert-danger d-flex align-items-center mt-1 alert-dismissible" role="alert">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <div>{{msg}}</div>
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <form align="center">
-                    <div class="modal-body">
-                        <button type="submit" class="btn btn-info" formmethod="post" style="margin-right: 50px;"
-                            formaction="/user/buyPackages/paynow">Thanh toán ngay</button>
-
-                        <button type="submit" class="btn btn-info" formmethod="post"
-                            formaction="/user/buyPackages/paylater">Thanh toán sau</button>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                </form>
+                {{/if}}
             </div>
         </div>
     </div>
+</div>
+
+<div class="modal fade" id="exampleBuy" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title">CHỌN HÌNH THỨC THANH TOÁN</h4>
+            </div>
+            <form align="center">
+                <div class="modal-body">
+                    {{!-- <span>
+                        <h5>Số tiền cần thanh toán cho hóa đơn này: {{totalPrice}} VNĐ</h5>
+                    </span> --}}
+                    <button type="submit" class="btn btn-info" formmethod="post" style="margin-right: 50px;"
+                        formaction="/user/buyPackages/paynow">Thanh toán ngay</button>
+
+                    <button type="submit" class="btn btn-info" formmethod="post"
+                        formaction="/user/buyPackages/paylater">Thanh toán sau</button>
+                </div>
+                <div class="modal-footer">
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
 </div>
 
 {{#section 'css'}}
@@ -130,5 +146,21 @@
         // thêm class active vào phần tử đầu tiên của ảnh
         $(".carousel-item:nth-child(1)").addClass("active");
     });
+    var checkName = 1;
+    $('.quantity').keyup(function () {
+        if ($(this).val().length != 0) {
+            checkName = 1;
+            $('.checkQuantity').html('');
+        }
+        else {
+            checkName = 0;
+            alert('Vui lòng điền số lượng sản phẩm trong gói sản phẩm!', 'danger', 'Quantity');
+            $('.btn-edit').prop('disabled', true);
+        }
+    });
+
+    function alert(message, type, element) {
+        $(`.check${element}`).html('<div class="alert alert-' + type + ' d-flex align-items-center mt-1 alert-dismissible" role="alert"> <i class="fas fa-exclamation-triangle"></i> <div>' + message + '</div><button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button></div>');
+    }
 </script>
 {{/section}}

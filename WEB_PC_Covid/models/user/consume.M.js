@@ -2,7 +2,7 @@ const db = require('../db');
 
 const tbName = 'Consume';
 const idFieldName = 'Id';
-const fieldName = ['IdUser', 'IdPackage', 'Time'];
+const fieldName = ['IdUser', 'IdPackage', 'Time', 'Price', 'Status'];
 module.exports = {
     all: async () => {
         const res = await db.load(tbName, idFieldName);
@@ -10,6 +10,16 @@ module.exports = {
     },
     allById: async CatID => {
         const condition = ` WHERE "IdUser" = ${CatID} `;
+        const res = await db.loadCondition(tbName, idFieldName, condition);
+        return res;
+    },
+    allById1: async CatID => {
+        const condition = ` WHERE "Id" = ${CatID} `;
+        const res = await db.loadCondition(tbName, idFieldName, condition);
+        return res;
+    },
+    allByStatus: async (id, value) => {
+        const condition = ` WHERE "IdUser" = ${id} AND "Status" LIKE '${value}'`;
         const res = await db.loadCondition(tbName, idFieldName, condition);
         return res;
     },

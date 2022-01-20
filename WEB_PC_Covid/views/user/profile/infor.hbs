@@ -4,6 +4,13 @@
         color: #fff;
         font-weight: 600;
     }
+
+    .text2 {
+        margin-bottom: 10px;
+        font-weight: 700;
+        font-size: 17px;
+        color: #3352db;
+    }
 </style>
 
 <div id="content">
@@ -23,7 +30,9 @@
                             <div id="filters" class="button-group" style="margin-right: 20px;">
                                 <div class="btn-group" role="group" aria-label="Basic example">
                                     {{#if isInform}}
-                                        <a tabindex="0" class="btn btn-lg btn-danger btn-login" role="button" data-bs-toggle="popover" data-bs-trigger="focus" title="Thông báo thanh toán" data-bs-content="{{inform}}"><i class="far fa-bell"></i></a>
+                                    <a tabindex="0" class="btn btn-lg btn-danger btn-login" role="button"
+                                        data-bs-toggle="popover" data-bs-trigger="focus" title="Thông báo thanh toán"
+                                        data-bs-content="{{inform}}"><i class="far fa-bell"></i></a>
                                     {{/if}}
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
                                         data-bs-target="#exampleManage">Lịch sử được quản lý</button>
@@ -48,7 +57,7 @@
                         <div class="py-3 px-2 px-lg-4 py-lg-5">
                             <div class="row">
                                 <div class="avatarBox col-12 col-lg-5" align="center" style="margin-left: -30px;">
-                                    <img src="https://png.pngtree.com/png-clipart/20200701/original/pngtree-black-default-avatar-png-image_5407174.jpg"
+                                    <img src="https://thelifetank.com/wp-content/uploads/2018/08/avatar-default-icon.png"
                                         class="img-fluid" width="200">
                                     <hr>
                                     <button type="button" class="btn btn-info" data-bs-toggle="modal"
@@ -65,23 +74,23 @@
                                         <tbody>
                                             {{#each this.profile}}
                                             <tr>
-                                                <th scope="row">Họ và tên:</th>
+                                                <th scope="row" class="text2">Họ và tên:</th>
                                                 <th scope="row">{{Name}}</th>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Năm:</th>
+                                                <th scope="row" class="text2">Năm:</th>
                                                 <th scope="row">{{Year}}</th>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Địa chỉ:</th>
-                                                <th scope="row">{{Address}}</th>
+                                                <th scope="row" class="text2">Địa điểm điều trị:</th>
+                                                <th scope="row">{{NamePlace}}</th>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Tiền nợ:</th>
+                                                <th scope="row" class="text2">Tiền nợ:</th>
                                                 <th scope="row">{{Debt}}</th>
                                             </tr>
                                             <tr>
-                                                <th scope="row">Tài khoản thanh toán:</th>
+                                                <th scope="row" class="text2">Tài khoản thanh toán:</th>
                                                 <th scope="row">{{IdNumber}}</th>
                                             </tr>
                                             {{/each}}
@@ -145,33 +154,32 @@
                 <div class="text-center" style="margin-top: 10px;">
                     <h5 class="modal-title" id="exampleModalLabel">Lịch sử tiêu thụ gói Nhu yếu phẩm</h5>
                 </div>
-                <form method="post" action="/add">
+                <form>
                     <div class="modal-body">
-                        <table class="table">
-                            <thead>
+                        {{#if this.empty1}}
+                        <div class="card-body">
+                            <p class="card-text">Không có dữ liệu.</p>
+                        </div>
+                        {{else}}
+                        <table class="table table-light table-striped table-hover">
+                            <thead class="thead-dark">
                                 <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col">TÊN GÓI</th>
-                                    <th scope="col">GIÁ TIỀN</th>
-                                    <th scope="col">SỐ LƯỢNG</th>
+                                    <th scope="col">Tên gói</th>
+                                    <th scope="col">Ngày tiêu thụ</th>
                                 </tr>
-
                             </thead>
+                            {{#each historyPackage}}
                             <tbody>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>Thức ăn</td>
-                                    <td>200.000VND</td>
-                                    <td>2</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>Nước uống</td>
-                                    <td>100.000VND</td>
-                                    <td>5</td>
+                                    <th scope="row">{{STT}}</th>
+                                    <td>{{NamePackage}}</td>
+                                    <td>{{Time}}</td>
                                 </tr>
                             </tbody>
+                            {{/each}}
                         </table>
+                        {{/if}}
                     </div>
                 </form>
                 <div class="modal-footer">
@@ -189,11 +197,9 @@
                 </div>
                 <br>
                 <form>
-                    {{#each this.profile}}
                     <div class="modal-body">
-                        <p>Số dư nợ: {{Debt}}</p>
+                        <div class="text2">Số dư nợ: {{DebtUser}} VNĐ</div>
                     </div>
-                    {{/each}}
                 </form>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -259,14 +265,12 @@
                     </div>
                     <div class="modal-body">
                         <form class="login-form">
+                            {{#if msg}}
                             <div class="form-group col-md-12 mx-auto text-center">
-                                <div class="alert alert-danger" role="alert" id="MessageValidate">{{msg}}</div>
+                                <div class="alert alert-danger alert-dismissible fade show" role="alert"
+                                    id="MessageValidate">{{msg}}</div>
                             </div>
-                            <div class="form-group">
-                                <label for="exampleInputPassword1">Mật khẩu cũ:</label>
-                                <input type="password" class="form-control box-input" placeholder="Password" id="oldPWd"
-                                    name="oldPwd">
-                            </div>
+                            {{/if}}
                             <br>
                             <div class="form-group">
                                 <label for="exampleInputNewPassword">Mật khẩu mới:</label>
@@ -280,9 +284,15 @@
                                     name="newPwd2">
                             </div>
                             <hr>
-                            <div class="form-check" style="margin-left: 350px;">
-                                <button type="submit" class="btn btn-login float-right" formaction="/user/profile"
-                                    formmethod="post">Thay đổi</button>
+                            <div class="row">
+                                <div class="col-md-9 col-sm-12">
+                                    <a role="button" class="btn btn-danger float-right" href="pay/payDetail">Liên kết
+                                        ngân hàng</a>
+                                </div>
+                                <div class="col-md-3 col-sm-12">
+                                    <button type="submit" class="btn btn-login float-right" formaction="/user/profile"
+                                        formmethod="post">Thay đổi</button>
+                                </div>
                             </div>
                         </form>
                     </div>
@@ -290,6 +300,7 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 
 {{#section 'css'}}
