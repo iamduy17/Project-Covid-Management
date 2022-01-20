@@ -30,12 +30,9 @@ router.get('/signout', async (req, res) => {
         };
 
         const addTimeStartManager = await managerHisModel.add(data);
-        var maxId = await managerHisModel.getIdMax();
-
-        if (maxId === null) maxId.Max = 1;
  
         let activity = {
-            IdHistoryManager: maxId.Max,
+            IdHistoryManager: addTimeStartManager.IdHistory,
         };
         
         for (let i = 0; i < req.session.activities.length; i++) {
