@@ -7,6 +7,9 @@ const Consume = require('../../models/user/consume.M');
 const PackageImg = require('../../models/user/packageImg.M');
 
 let IdPackage = 0;
+let quantity;
+let options;
+let totalP;
 
 router.get('/', async (req, res) => {
   const limit = 3;
@@ -23,7 +26,6 @@ router.get('/', async (req, res) => {
     var id = list[i].Id;
     list[i].images = await PackageImg.loadImage(id);
   }
-
 
   const nPages = Math.ceil(total[0].Size / 3);
 
@@ -44,7 +46,8 @@ router.get('/', async (req, res) => {
     prev_value: page - 1,
     next_value: page + 1,
     can_go_prev: page > 1,
-    can_go_next: page < nPages
+    can_go_next: page < nPages,
+    totalPrice: totalP
   });
 });
 
@@ -52,28 +55,30 @@ router.get('/:Id', async (req, res) => {
   const data = await PackageDetail.allByIdPackage(req.params.Id);
   IdPackage = req.params.Id;
   const p = await Package.allByCat(req.params.Id);
-  
-  p[0].images =  await PackageImg.loadImage(IdPackage);
+
+  p[0].images = await PackageImg.loadImage(IdPackage);
 
   const list = await PackageDetail.allById(req.params.Id);
 
-  let totalP = 0;
+  //let totalP = 0;
   for (let i = 0; i < list.length; i++) {
     const NameProduct = await Product.allById(list[i].IdProduct);
-    const PriceProduct = await Product.allById(list[i].IdProduct);
+    //const PriceProduct = await Product.allById(list[i].IdProduct);
     list[i].NameProduct = NameProduct[0].NameProduct;
-    list[i].PriceProduct = NameProduct[0].Price;
-    totalP += NameProduct[0].Price;
+    //list[i].PriceProduct = NameProduct[0].Price;
+    //totalP += NameProduct[0].Price;
   }
 
-  list.totalPrice = totalP;
-  req.session.totalPrice = totalP;
+  p[0].quantity = list.length;
+
+  //list.totalPrice = totalP;
+  //req.session.totalPrice = totalP;
 
   res.render('user/packages/packageDetail', {
     packageDetail: data,
     Package: p,
     product: list,
-    totalPrice: totalP,
+    //totalPrice: req.session.totalPrice,
     title: 'Chi tiết gói nhu yếu phẩm',
     active: { buyPackages: true },
   });
@@ -119,24 +124,88 @@ router.post('/search', async (req, res) => {
   });
 });
 
-router.post('/paynow', async(req, res) => {
-  const quantity = req.body.quantity;
-  
+router.post('/quantity', async (req, res) => {
+  options = req.body.options;
+  quantity = req.body.quantity;
+
+  //console.log(options);
+
+  totalP = 0;
+  for (i = 0; i < options.length; i++) {
+    const NameProduct = await Product.allById(options[i]);
+    totalP += NameProduct[0].Price;
+  }
+
+  const data = await PackageDetail.allByIdPackage(IdPackage);
+  const p = await Package.allByCat(IdPackage);
+  p[0].images = await PackageImg.loadImage(IdPackage);
+  const list = await PackageDetail.allById(IdPackage);
+
+  const limitProduct = p[0].LimitProducts;
+
+  for (let i = 0; i < list.length; i++) {
+    const NameProduct = await Product.allById(list[i].IdProduct);
+    list[i].NameProduct = NameProduct[0].NameProduct;
+  }
+  req.session.TotalPrice = totalP;
+
+  if (quantity < limitProduct) {
+    return res.render('user/packages/packageDetail', {
+      packageDetail: data,
+      Package: p,
+      product: list,
+      totalPrice: totalP,
+      title: 'Chi tiết gói nhu yếu phẩm',
+      //active: { buyPackages: true },
+      msg: `Số lượng sản phẩm trong gói phải lớn hơn ${limitProduct}!`,
+    });
+  }
+
+  if (quantity != options.length) {
+    return res.render('user/packages/packageDetail', {
+      packageDetail: data,
+      Package: p,
+      product: list,
+      totalPrice: totalP,
+      title: 'Chi tiết gói nhu yếu phẩm',
+      //active: { buyPackages: true },
+      msg: 'Tổng số gói chọn không trùng với Quantity!',
+    });
+  }
+});
+
+router.post('/paynow', async (req, res) => {
+  console.log(totalP);
+  req.session.TotalPrice = totalP;
+
   res.redirect('/user/pay/payDetail');
 });
 
+
 router.post('/paylater', async (req, res) => {
   const cs = await Consume.all();
-  var time = new Date();
-  const nowtime = time.toISOString()
-  .replace(/T/, ' ')
-  .replace(/\..+/, '');
+  const today = new Date();
+  const date =
+    today.getFullYear() +
+    '-' +
+    (today.getMonth() + 1) +
+    '-' +
+    today.getDate();
+  const time =
+    today.getHours() +
+    ':' +
+    today.getMinutes() +
+    ':' +
+    today.getSeconds();
+  const dateTime = date + ' ' + time;
 
+  console.log(totalP);
   let consume = {
     Id: cs.length + 1,
     IdUser: req.user.Id,
     IdPackage: IdPackage,
-    Time: nowtime
+    Time: dateTime,
+    Price: totalP
   };
 
   var c = await Consume.add(consume);

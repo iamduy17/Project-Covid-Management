@@ -14,14 +14,21 @@ router.get('/', async (req, res) => {
   for (i = 0; i < cs.length; i++) {
     const NamePackage = await Package.allByCat(cs[i].IdPackage);
     cs[i].NamePackage = NamePackage[0].NamePackage;
+    cs[i].STT = i + 1;
   }
 
   for (j = 0; j < cs.length; j++) {
     cs[j].NameUser = u[0].Name;
   }
 
+  for (t = 0; t < cs.length; t++) {
+    cs[t].Time = cs[t].Time.toISOString()
+    .replace(/T/, ' ')
+    .replace(/\..+/, '');
+  }
+
   res.render('user/pay/pay', {
-    title: 'Internet Banking',
+    title: 'Quản lý thanh toán',
     active: { pay: true },
     consume: cs,
     empty: cs.length === 0
@@ -84,18 +91,26 @@ router.post('/changePass', async (req, res) => {
     alert: 'Đổi password thành công!',
     layout: false,
   });
-
-  // req.session.idPayment = rs.user.id;
-  // console.log(rs.user)
-  // if (rs.message == 'Success'){
-  //   if(rs.user.firstActived == 1){
-  //     return res.redirect('/user/pay/changePass');
-  //   }
-  //   return res.redirect('/user/pay/payment');
-  // }
 });
 
-router.get('/payDetail', (req, res) => {
+let IdConsume = 0;
+let Price = 0;
+
+router.get('/payDetail', async(req, res) => {
+  Price = req.session.TotalPrice;
+  res.render('user/pay/payDetail', {
+    title: 'Internet Banking',
+    TotalPrice: Price,
+    active: { pay: true },
+    layout: false,
+  });
+});
+
+router.get('/payDetail/:Id', async(req, res) => {
+  IdConsume = req.params.Id;
+  //console.log(IdConsume);
+  const temp = await Consume.allById1(IdConsume);
+  Price = temp[0].Price;
   res.render('user/pay/payDetail', {
     title: 'Internet Banking',
     active: { pay: true },
@@ -110,12 +125,12 @@ router.get('/changePass', (req, res) => {
   });
 });
 
-
 router.get('/payment', async (req, res) => {
   const data = {
     ID: req.session.idPayment                          // TODO: need to be change with suitable data
   };
-  const pricePackage = req.session.totalPrice;
+  const pricePackage = req.session.TotalPrice;
+  //console.log(req.session);
   const rs = await payModel.paymentPost(data);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
@@ -128,7 +143,7 @@ router.get('/payment', async (req, res) => {
     active: { pay: true },
     balance: rs.money,
     Id: data.ID,
-    payment: pricePackage,                   // TODO: need to be change with suitable data  
+    payment: Price,                   // TODO: need to be change with suitable data  
     alert: '',
     isDonePayment: false
   });

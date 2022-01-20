@@ -8,6 +8,11 @@ module.exports = {
         const res = await db.load(tbName, idFieldName);
         return res;
     },
+    allById: async CatID => {
+        const condition = ` WHERE "Id" = ${CatID} `;
+        const res = await db.loadCondition(tbName, idFieldName, condition);
+        return res;
+    },
     allProduct: async () => {
         const res = await db.load('Product', idFieldName);
         return res;
