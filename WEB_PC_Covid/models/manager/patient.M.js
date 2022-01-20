@@ -39,7 +39,6 @@ module.exports = {
     return res;
   },
   loadPlace: async (userId) => {
-    console.log(userId);
     const idPlace = (await db.get('UserPlace', 'IdUser', userId))[0].IdPlace;
     const res = (await db.get('Place', 'Id', idPlace))[0];
     return res;

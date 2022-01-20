@@ -8,7 +8,7 @@ function compareNumbers(a, b) {
 }
 
 router.get('/', async (req, res) => {
-  //if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
   
   const list = await packetModel.all();
   const allProducts = await packetModel.allProduct();
@@ -45,8 +45,7 @@ router.get('/', async (req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm`);
-  //req.session.pathCur = `/manager/packets`;
+  req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -64,7 +63,7 @@ router.post('/delete/:Id', async(req, res) => {
   await packetModel.delProductPackage(package);
   await packetModel.del(package);
 
-  //req.session.activities.push(`${req.user.name} xóa gói nhu yếu`);
+  req.session.activities.push(`${req.user.name} xóa gói nhu yếu`);
   res.redirect('/manager/packets');
 });
 
@@ -89,7 +88,7 @@ router.post('/update/:Id', async(req, res) => {
     }
     await packetModel.addProPacket(productPackage);
   }
-  //req.session.activities.push(`${req.user.name} thay đổi gói nhu yếu phẩm ${packet.NamePackage}`);
+  req.session.activities.push(`${req.user.name} thay đổi gói nhu yếu phẩm ${packet.NamePackage}`);
   res.redirect('/manager/packets');
 });
 
@@ -111,12 +110,12 @@ router.post('/add', async(req, res) => {
     await packetModel.addProPacket(productPackage);
   }
 
-  //req.session.activities.push(`${req.user.name} thêm gói nhu yếu phẩm ${packet.NamePackage}`);
+  req.session.activities.push(`${req.user.name} thêm gói nhu yếu phẩm ${packet.NamePackage}`);
   res.redirect('/manager/packets');
 });
 
 router.get('/sort/byName', async(req, res) => {
-  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
 
   const list = await packetModel.allCondition(0);
   const allProducts = await packetModel.allProduct();
@@ -152,8 +151,7 @@ router.get('/sort/byName', async(req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo tên`);
-  //req.session.pathCur = `/manager/packets/sort/byName`;
+  req.session.pathCur = `/manager/packets/sort/byName`;
 
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
@@ -165,7 +163,7 @@ router.get('/sort/byName', async(req, res) => {
 });
 
 router.get('/sort/byLimitProducts', async(req, res) => {
-  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
 
   const list = await packetModel.allCondition(1);
   const allProducts = await packetModel.allProduct();
@@ -201,8 +199,7 @@ router.get('/sort/byLimitProducts', async(req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn số sản phẩm`);
-  //req.session.pathCur = `/manager/packets/sort/byLimitProducts`;
+  req.session.pathCur = `/manager/packets/sort/byLimitProducts`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -214,7 +211,7 @@ router.get('/sort/byLimitProducts', async(req, res) => {
 });
 
 router.get('/sort/byLimitPeople', async(req, res) => {
-  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
 
   const list = await packetModel.allCondition(2);
   const allProducts = await packetModel.allProduct();
@@ -250,8 +247,7 @@ router.get('/sort/byLimitPeople', async(req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn mỗi người`);
-  //req.session.pathCur = `/manager/packets/sort/byLimitPeople`;
+  req.session.pathCur = `/manager/packets/sort/byLimitPeople`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -262,7 +258,7 @@ router.get('/sort/byLimitPeople', async(req, res) => {
 });
 
 router.get('/sort/byLimitTime', async(req, res) => {
-  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
 
   const list = await packetModel.allCondition(3);
   const allProducts = await packetModel.allProduct();
@@ -298,8 +294,7 @@ router.get('/sort/byLimitTime', async(req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói nhu yếu phẩm theo mức giới hạn thời gian`);
-  //req.session.pathCur = `/manager/packets/sort/byLimitTime`;
+  req.session.pathCur = `/manager/packets/sort/byLimitTime`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -310,7 +305,7 @@ router.get('/sort/byLimitTime', async(req, res) => {
 });
 
 router.get('/search', async(req, res) => {
-  //  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
   const search = req.query.search;
   const list = await packetModel.loadSearch(search);
   const allProducts = await packetModel.allProduct();
@@ -346,8 +341,8 @@ router.get('/search', async(req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} tìm kiếm gói nhu yếu có từ khóa ${search}`);
-  //req.session.pathCur = `/manager/packets/search?search=${search}`;
+  req.session.activities.push(`${req.user.name} tìm kiếm gói nhu yếu có từ khóa ${search}`);
+  req.session.pathCur = `/manager/packets/search?search=${search}`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -358,7 +353,7 @@ router.get('/search', async(req, res) => {
 });
 
 router.get('/filter/byCountMore5', async (req, res) => {
-  //if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
   
   const list = await packetModel.all();
   const allProducts = await packetModel.allProduct();
@@ -401,8 +396,7 @@ router.get('/filter/byCountMore5', async (req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm lớn hơn 5`);
-  //req.session.pathCur = `/manager/packets`;
+  req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },
@@ -413,7 +407,7 @@ router.get('/filter/byCountMore5', async (req, res) => {
 });
 
 router.get('/filter/byCountLess5', async (req, res) => {
-  //if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
   
   const list = await packetModel.all();
   const allProducts = await packetModel.allProduct();
@@ -456,8 +450,7 @@ router.get('/filter/byCountLess5', async (req, res) => {
     list[index].uncheckedProducts = allProductsUnChecked;     // lưu danh sách các sản phẩm không nằm trong gói
   }
   
-  //req.session.activities.push(`${req.user.name} xem danh sách các gói có số lượng sản phẩm nhỏ hơn 5`);
-  //req.session.pathCur = `/manager/packets`;
+  req.session.pathCur = `/manager/packets`;
   res.render('manager/packets/list', {
     title: 'Các gói nhu yếu phẩm',
     active: { packets: true },

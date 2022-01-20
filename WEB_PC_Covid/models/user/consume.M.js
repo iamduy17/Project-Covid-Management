@@ -2,7 +2,7 @@ const db = require('../db');
 
 const tbName = 'Consume';
 const idFieldName = 'Id';
-const fieldName = ['IdUser', 'IdPackage', 'Time', 'Price', 'Status'];
+const fieldName = ['IdUser', 'IdPackage', 'Time', 'CreditLimit' , 'Status', 'Price'];
 module.exports = {
     all: async () => {
         const res = await db.load(tbName, idFieldName);

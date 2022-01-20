@@ -15,8 +15,9 @@ function generateIdAccountPayment() {
     return res;
 }
 router.get('/', async (req, res) => {
-    // if (!req.user || parseInt(req.user.Role) != 3)
-    //   return res.redirect('/');
+    if (!req.user || parseInt(req.user.Role) != 3)
+      return res.redirect('/');
+
     const limit = 7;
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
@@ -76,8 +77,8 @@ router.get('/', async (req, res) => {
     });
 });
 router.get('/search', async (req, res) => {
-    // if (!req.user || parseInt(req.user.Role) != 3)
-    //   return res.redirect('/');
+    if (!req.user || parseInt(req.user.Role) != 3)
+      return res.redirect('/');
 
     const search = req.query.search;
 
@@ -90,11 +91,6 @@ router.get('/search', async (req, res) => {
         patientModel.loadSearch(search, limit, offset),
     ]);
 
-    // if (list.length == 0) {
-    //   alert("Không tìm thấy bệnh nhân");
-
-    //   return res.redirect('/manager/patients');
-    // }
     let nPages = 0;
     if (total.length > 0) nPages = Math.ceil(total[0].Size / limit);
 
@@ -112,8 +108,6 @@ router.get('/search', async (req, res) => {
         var idUser = list[i].Id;
         list[i].address = await patientModel.loadAddress(idAddress);
         list[i].Place = await patientModel.loadPlace(idUser);
-
-        //list[i].places = await placeModel.all();
     }
     const places = await placeModel.allAvailable();
     const hospitals = places.filter((place) => place.Role == 1);
@@ -198,8 +192,8 @@ router.post('/addF0', async (req, res) => {
         Place: place.Id,
     };
     await patientModel.addHistory(history);
-    // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
-    
+    req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
+    req.session.pathCur = `/manager/patients`;
     let accountPayment = {
         ID: accountId,
         Password: passwordHashed,
@@ -227,7 +221,6 @@ router.post('/addF0', async (req, res) => {
         password: req.body.idNumber,
         idPayment: accountId
     });
-    //res.redirect('/manager/patients');
 });
 router.post('/addRelated/:id', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
@@ -286,8 +279,7 @@ router.post('/addRelated/:id', async (req, res) => {
         Place: place.Id,
     };
     await patientModel.addHistory(history);
-    // req.session.activities.push(`${req.user.name} thêm F${req.body.status}: ${req.body.name}`);
-    // req.session.activities.push(`${req.user.name} thêm F0 ${req.body.name}`);
+    req.session.activities.push(`${req.user.name} thêm F${req.body.status}: ${req.body.name}`);
     
     let accountPayment = {
         ID: accountId,
@@ -390,7 +382,7 @@ router.post('/update/:id', async (req, res) => {
         }
 
     }
-    // req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
+    req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
     res.redirect('/manager/patients');
 });
 module.exports = router;

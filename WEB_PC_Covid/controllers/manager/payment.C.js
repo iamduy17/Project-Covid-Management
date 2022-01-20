@@ -5,6 +5,7 @@ const express = require('express'),
   patientModel = require('../../models/manager/patient.M');
 
 router.get('/', async (req, res) => {
+  if (!req.user || parseInt(req.user.Role) != 3) return res.redirect('/');
   const cs = await paymentModel.all();
   
   for (let index = 0; index < cs.length; index++) {
@@ -29,6 +30,7 @@ router.get('/', async (req, res) => {
       cs[index].isChecked = "true";
   }
 
+  req.session.pathCur = `/manager/payment`;
   res.render('manager/payment/list', {
     title: 'Quản lí thanh toán',
     active: { payment: true },
