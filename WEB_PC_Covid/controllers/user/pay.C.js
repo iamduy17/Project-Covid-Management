@@ -41,11 +41,10 @@ router.post('/login', async (req, res) => {
     password: req.body.password,
   };
   const rs = await payModel.login(data);
-  
-  req.session.token = rs.refreshToken;
   //account existed
   if (rs) {
     req.session.idPayment = rs.user.id;
+    req.session.token = rs.refreshToken;
     if (rs.message == 'Success') {
       if (rs.user.firstActived == 1) {
         return res.redirect('/user/pay/changePass');
