@@ -2,7 +2,7 @@ const db = require('../db');
 
 const tbName = 'User';
 const idFieldName = 'Id';
-const fieldName = ['Id', 'Name', 'Year', 'Address', 'Status', 'Debt', 'IdNumber'];
+const fieldName = ['Id', 'Name', 'Year', 'Address', 'Status', 'Debt', 'Inform','IdNumber'];
 module.exports = {
     all: async () => {
         const res = await db.load(tbName, idFieldName);
@@ -23,7 +23,7 @@ module.exports = {
         return res;
     },
     updateUser: async (user, id) => {
-        const condition = `WHERE "id" = ${id}`;
+        const condition = ` WHERE "Id" = ${id} `;
         const res = await db.patch(tbName, fieldName, user, condition);
         return res;
     },

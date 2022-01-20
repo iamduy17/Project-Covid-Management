@@ -210,31 +210,36 @@
                 </div>
                 <form method="post" action="/add">
                     <div class="modal-body">
+                        {{#if this.emptyPayment}}
+                            <div class="card-body">
+                                <p class="card-text">Không có dữ liệu.</p>
+                            </div>
+                        {{else}}
                         <table class="table">
                             <thead>
                                 <tr>
                                     <th scope="col">STT</th>
-                                    <th scope="col">ID</th>
-                                    <th scope="col">GIÁ TIỀN</th>
-                                    <th scope="col">TRẠNG THÁI</th>
+                                    <th scope="col">Tên người mua</th>
+                                    <th scope="col">Tên gói nhu yếu</th>
+                                    <th scope="col">Thời gian mua</th>
+                                    <th scope="col">Trạng thái</th>
                                 </tr>
 
                             </thead>
                             <tbody>
-                                <tr>
-                                    <th scope="row">1</th>
-                                    <td>1</td>
-                                    <td>200.000VND</td>
-                                    <td>Đã thanh toán</td>
-                                </tr>
-                                <tr>
-                                    <th scope="row">2</th>
-                                    <td>2</td>
-                                    <td>100.000VND</td>
-                                    <td>Chưa thanh toán</td>
-                                </tr>
+                                {{#each HistoryPayment}}
+                                    <tr>
+                                        <th scope="row">{{STT}}</th>
+                                        <td>{{NameUser}}</td>
+                                        <td>{{NamePackage}}</td>
+                                        <td>{{TimeBuy}}</td>
+                                        <td>{{Status}}</td>
+                                    </tr>
+                                {{/each}}
+                                
                             </tbody>
                         </table>
+                        {{/if}}
                     </div>
                 </form>
                 <div class="modal-footer">
@@ -339,6 +344,11 @@
         myModal.show();
     };
     {{/if}}
+
+    var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
+    var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
+        return new bootstrap.Popover(popoverTriggerEl)
+    })
 
 </script>
 {{/section}}

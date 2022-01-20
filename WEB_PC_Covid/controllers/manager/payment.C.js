@@ -10,15 +10,6 @@ router.get('/', async (req, res) => {
   for (let index = 0; index < cs.length; index++) {
     const user = await patientModel.getOne(cs[index].IdUser);
     const packet = await packetModel.getOne(cs[index].IdPackage);
-      
-    // tìm tiền cần thanh toán của 1 gói
-    const idProducts = await packetModel.getListIdProductsOfPacket(packet.Id);
-    var moneyProducts = 0;
-    for (let j = 0; j < idProducts.length; j++) {
-      var moneyProduct = await packetModel.getNameProducts(idProducts[j].IdProduct);
-      moneyProducts += moneyProduct[0].Price;    
-    }
-    packet.money = moneyProducts;
 
     // tìm ngày mua
     var timeBuy = cs[index].Time.toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -32,7 +23,6 @@ router.get('/', async (req, res) => {
     cs[index].STT = index+1;
     cs[index].NameUser = user.Name;
     cs[index].NamePackage = packet.NamePackage;
-    cs[index].PackageMoney = packet.money;
     cs[index].TimeBuy = timeBuy;
     cs[index].TimeEnd = timeEnd;
     if(user.Inform == 1)
@@ -73,18 +63,11 @@ router.post('/', async (req, res) => {
       IdUser: cs[index].IdUser,
       IdPackage: cs[index].IdPackage,
       Time: cs[index].Time,
-      CreditLimit: newCreditLimit[index]
+      CreditLimit: newCreditLimit[index],
+      Status: "Chưa thanh toán", 
+      Price: cs[index].Price
     };
     await paymentModel.update(payment, cs[index].Id);
-
-    // tìm tiền cần thanh toán của 1 gói
-    const idProducts = await packetModel.getListIdProductsOfPacket(packet.Id);
-    var moneyProducts = 0;
-    for (let j = 0; j < idProducts.length; j++) {
-      var moneyProduct = await packetModel.getNameProducts(idProducts[j].IdProduct);
-      moneyProducts += moneyProduct[0].Price;    
-    }
-    packet.money = moneyProducts;
 
     // tìm ngày mua
     var timeBuy = cs[index].Time.toISOString().replace(/T/, ' ').replace(/\..+/, '');
@@ -98,7 +81,6 @@ router.post('/', async (req, res) => {
     cs[index].STT = index+1;
     cs[index].NameUser = user.Name;
     cs[index].NamePackage = packet.NamePackage;
-    cs[index].PackageMoney = packet.money;
     cs[index].TimeBuy = timeBuy;
     cs[index].TimeEnd = timeEnd;
     cs[index].isChecked = "true";
