@@ -387,7 +387,6 @@ router.post('/createSecurity', async (req, res) => {
         FirstActive: 1,
     };
     const rs = await userModel.patchQues_Ans_Active(account);
-    console.log('user: ', req.query.user);
     const user = await userModel.get(req.query.user);
     //User: user.Role = 1
     if (parseInt(user.Role) === 1) return res.redirect('/user');
