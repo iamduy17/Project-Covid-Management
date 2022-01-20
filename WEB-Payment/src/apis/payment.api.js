@@ -3,8 +3,7 @@ const express = require("express"),
   paymentC = require("../controllers/payment.C"),
   decodeMiddleware = require("../middlewares/decodeToken.middleware");
 
-router.put("/", decodeMiddleware);
-router.post("/", decodeMiddleware);
-router.put("/", paymentC.putPayment);
-router.post("/", paymentC.postPayment);
+router.put("/", decodeMiddleware, paymentC.putPayment);
+router.post("/", decodeMiddleware, paymentC.postPayment);
+
 module.exports = router;

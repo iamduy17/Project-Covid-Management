@@ -3,7 +3,7 @@ const express = require("express"),
   rechargeC = require("../controllers/recharge.C"),
   decodeMiddleware = require("../middlewares/decodeToken.middleware");
 
-router.put("/", decodeMiddleware);
-router.put("/", rechargeC.rechargeAccount);
+router.put("/", decodeMiddleware, rechargeC.rechargeAccount);
+
 
 module.exports = router;

@@ -34,6 +34,8 @@ router.post('/login', async (req, res) => {
     password: req.body.password,
   };
   const rs = await payModel.login(data);
+  console.log(rs);
+  req.session.token = rs.refreshToken;
   //account existed
   if (rs) {
     req.session.idPayment = rs.user.id;
@@ -71,7 +73,8 @@ router.post('/changePass', async (req, res) => {
     newPass: newPass,
   };
 
-  const rs = await payModel.changePass(data);
+  console.log(req.session.token)
+  const rs = await payModel.changePass(data, req.session.token);
   if (!rs) {
     return res.render('user/pay/changePass', {
       title: 'Internet Banking',
@@ -118,7 +121,7 @@ router.get('/payment', async (req, res) => {
     ID: req.session.idPayment                          // TODO: need to be change with suitable data
   };
   const pricePackage = req.session.totalPrice;
-  const rs = await payModel.paymentPost(data);
+  const rs = await payModel.paymentPost(data, req.session.token);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
@@ -185,7 +188,7 @@ router.post('/payment', async (req, res) => {
     });
 
   // TODO below this line: Thực hiện xóa dữ liệu trong bảng Consume
-  const rs1 = await payModel.paymentPost({ ID: data.ID });
+  const rs1 = await payModel.paymentPost({ ID: data.ID }, req.session.token);
   if (rs1.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',
@@ -223,7 +226,7 @@ router.post('/recharge', async (req, res) => {
     money: parseInt(req.body.money),
   };
 
-  const rs = await payModel.recharge(data);
+  const rs = await payModel.recharge(data, req.session.token);
   if (rs.message !== 'success')
     return res.render('user/pay/recharge', {
       title: 'Internet Banking',

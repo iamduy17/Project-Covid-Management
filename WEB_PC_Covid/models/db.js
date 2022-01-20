@@ -5,7 +5,7 @@ const schema = 'public';
 const cn = {
     user: 'postgres',
     host: 'localhost',
-    database: 'covid1', // điền tên db trên máy của mình vào
+    database: 'covid3', // điền tên db trên máy của mình vào
     password: '123456', // điền password master
     port: 5432,
     max: 30,
@@ -148,7 +148,7 @@ exports.patch = async (tbName, filedName, entity, condition) => {
 
     const conditionInput = pgp.as.format(condition, entity);
     const qStr = pgp.helpers.update(entity, filedName, table) + conditionInput;
-    //console.log('update:', qStr);
+    
     try {
         const res = await db.any(qStr);
         return res;
