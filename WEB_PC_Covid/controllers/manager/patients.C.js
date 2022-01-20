@@ -161,14 +161,8 @@ router.get('/getPlace/:status', async (req, res) => {
 });
 router.post('/addF0', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
-    const username = req.body.name
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd')
-        .replace(/Đ/g, 'D')
-        .replace(/ /g, '');
     let account = {
-        Username: username + req.body.idNumber,
+        Username: req.body.idNumber,
         Password: passwordHashed,
         Role: 1,
         LockUp: 0,
@@ -243,14 +237,8 @@ router.post('/addF0', async (req, res) => {
 });
 router.post('/addRelated/:id', async (req, res) => {
     const passwordHashed = await bcrypt.hash(req.body.idNumber, saltRounds);
-    const username = req.body.name
-        .normalize('NFD')
-        .replace(/[\u0300-\u036f]/g, '')
-        .replace(/đ/g, 'd')
-        .replace(/Đ/g, 'D')
-        .replace(' ', '');
     let account = {
-        Username: username + req.body.idNumber,
+        Username: req.body.idNumber,
         Password: passwordHashed,
         Role: 1,
         LockUp: 0,
@@ -375,6 +363,8 @@ router.post('/update/:id', async (req, res) => {
         await patientModel.updateUser(userRelated[i], userRelated[i].Id);
     }
     //update history
+    
+    //...
     // req.session.activities.push(`${req.user.name} cập nhập trạng thái F${user.Status}: ${user.Name}`);
     res.redirect('/manager/patients');
 });

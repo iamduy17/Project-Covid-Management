@@ -28,11 +28,17 @@ router.get('/', async (req, res) => {
   });
 });
 
-router.get('/changePassword', async (req, res) => {
+router.post('/', async (req, res) => {
 
-});
+  const listMana = await managerHistory.all();
+  for (i = 0; i < listMana.length; i++) {
+    console.log(listMana[i].IdManager);
+    listMana[i].Username = await account.allById(listMana[i].IdManager);
+  }
+  //console.log(listMana);
 
-router.post('/changePassword', async (req, res) => {
+  const listProfile = await profile.allByCat(req.user.Id);
+
   const newPass = req.body.newPwd;
   const verifyPass = req.body.newPwd2;
 
@@ -40,6 +46,11 @@ router.post('/changePassword', async (req, res) => {
     return res.render('user/profile/infor', {
       title: 'Internet Banking',
       msg: 'Password nhập lại không khớp!!',
+      HistoryManager: listMana,
+      profile: listProfile,
+      empty: listMana.length === 0,
+      title: 'Thông tin cá nhân',
+      active: { profile: true },
       alert: true,
     });
   }
@@ -51,20 +62,34 @@ router.post('/changePassword', async (req, res) => {
   if (challengeResult)
     return res.render('user/profile/infor', {
       title: 'Internet Banking',
-      msg: 'Mật khẩu mới trùng với mật khẩu cũ!', 
+      msg: 'Mật khẩu mới trùng với mật khẩu cũ!',
+      HistoryManager: listMana,
+      profile: listProfile,
+      empty: listMana.length === 0,
+      title: 'Thông tin cá nhân',
+      active: { profile: true },
       alert: true,
     });
 
   const pwdHashed = await bcrypt.hash(newPass, saltRounds);
-  let account = {
+  let acc = {
     Username: req.user.Username,
     Password: pwdHashed,
     FirstActive: 1
   };
 
-  const rs = await userModel.patchPassAndActive(account);
+  const rs = await userModel.patchPassAndActive(acc);
 
-  res.redirect('user/profile');
+
+  //console.log(listProfile);
+
+  res.render('user/profile/infor', {
+    HistoryManager: listMana,
+    profile: listProfile,
+    empty: listMana.length === 0,
+    title: 'Thông tin cá nhân',
+    active: { profile: true },
+  });
 });
 
 module.exports = router;

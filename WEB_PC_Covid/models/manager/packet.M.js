@@ -5,6 +5,10 @@ const idFieldName = 'Id';
 const fieldName = ['NamePackage', 'LimitProducts', 'LimitPeople', 'LimitTime'];
 
 module.exports = {
+  getOne: async (Id) =>{
+    const res = (await db.get(tbName, idFieldName, Id))[0];
+    return res;
+  },
   all: async () =>{
     const res = await db.load(tbName, idFieldName);
     return res;

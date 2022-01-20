@@ -35,7 +35,7 @@ router.get('/', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách các sản phẩm nhu yếu`);
-  //req.session.pathCur = `http://localhost:3000/manager/products`;
+  //req.session.pathCur = `/manager/products`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
@@ -128,7 +128,7 @@ router.get('/search', async(req, res) => {
     };
 
     //req.session.activities.push(`${req.user.name} tìm kiếm các sản phẩm nhu yếu theo từ khóa ${search}`);
-    //req.session.pathCur = `http://localhost:3000/manager/products/search?page=${page}`;
+    //req.session.pathCur = `/manager/products/search?page=${page}`;
     res.render('manager/products/list', {
       title: 'Danh sách các sản phẩm nhu yếu phẩm',
       active: { products: true },
@@ -143,7 +143,7 @@ router.get('/search', async(req, res) => {
   }
   else {
     //req.session.activities.push(`${req.user.name} tìm kiếm các sản phẩm nhu yếu theo từ khóa ${search}`);
-    //req.session.pathCur = `http://localhost:3000/manager/products/search?page=${page}`;
+    //req.session.pathCur = `/manager/products/search?page=${page}`;
     res.render('manager/products/list', {
       title: 'Danh sách các sản phẩm nhu yếu phẩm',
       active: { products: true },
@@ -226,7 +226,7 @@ router.get('/sort/byName', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm theo tên`);
-  //req.session.pathCur = `http://localhost:3000/manager/products/sort/byName`;
+  //req.session.pathCur = `/manager/products/sort/byName`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
@@ -271,7 +271,7 @@ router.get('/sort/byCost', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm theo giá tiền`);
-  //req.session.pathCur = `http://localhost:3000/manager/products/sort/byCost`;
+  //req.session.pathCur = `/manager/products/sort/byCost`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
@@ -316,7 +316,7 @@ router.get('/filter/byUnitKg', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có đơn vị là kg`);
-  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byUnitKg`;
+  //req.session.pathCur = `/manager/products/filter/byUnitKg`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
@@ -361,7 +361,7 @@ router.get('/filter/byCost10k', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có giá tối thiểu từ 10,000 VNĐ`);
-  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byCost10k`;
+  //req.session.pathCur = `/manager/products/filter/byCost10k`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
@@ -406,7 +406,7 @@ router.get('/filter/byCost0k', async(req, res) => {
   };
   
   //req.session.activities.push(`${req.user.name} xem danh sách sản phẩm có giá tối đa 10,000 VNĐ`);
-  //req.session.pathCur = `http://localhost:3000/manager/products/filter/byCost0k`;
+  //req.session.pathCur = `/manager/products/filter/byCost0k`;
   res.render('manager/products/list', {
     title: 'Danh sách các sản phẩm nhu yếu phẩm',
     active: { products: true },
