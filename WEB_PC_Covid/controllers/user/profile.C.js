@@ -58,8 +58,6 @@ router.get('/', async (req, res) => {
     TotalDebt += debt[i].Price;
   }
 
-  const listProfile = await profile.allByCat(req.user.Id);
-
   const IdPlace = await userPlace.allById(req.user.Id);
 
   const Place = await place.allById(IdPlace[0].IdPlace);

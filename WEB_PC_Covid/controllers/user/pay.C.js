@@ -197,6 +197,7 @@ router.post('/payment', async (req, res) => {
     money: parseInt(money),
   };
   const rs = await payModel.paymentPut(data);
+  console.log(rs);
   if (rs.message !== "success")
     return res.render('user/pay/payment', {
       title: 'Internet Banking',

@@ -4,7 +4,7 @@ const Package = require('../../models/user/buyPackage.M');
 const PackageDetail = require('../../models/user/packageDetail.M');
 const Product = require('../../models/user/product.M');
 const Consume = require('../../models/user/consume.M');
-const PackageImg = require('../../models/user/packageImg.M');
+
 
 let IdPackage = 0;
 let quantity;
@@ -21,12 +21,7 @@ router.get('/', async (req, res) => {
     Package.count(),
     Package.page(limit, offset)
   ]);
-
-  for (var i = 0; i < list.length; i++) {
-    var id = list[i].Id;
-    list[i].images = await PackageImg.loadImage(id);
-  }
-
+  
   const nPages = Math.ceil(total[0].Size / 3);
 
   const page_items = [];
@@ -56,23 +51,14 @@ router.get('/:Id', async (req, res) => {
   IdPackage = req.params.Id;
   const p = await Package.allByCat(req.params.Id);
 
-  p[0].images = await PackageImg.loadImage(IdPackage);
-
   const list = await PackageDetail.allById(req.params.Id);
 
-  //let totalP = 0;
   for (let i = 0; i < list.length; i++) {
     const NameProduct = await Product.allById(list[i].IdProduct);
-    //const PriceProduct = await Product.allById(list[i].IdProduct);
     list[i].NameProduct = NameProduct[0].NameProduct;
-    //list[i].PriceProduct = NameProduct[0].Price;
-    //totalP += NameProduct[0].Price;
   }
 
   p[0].quantity = list.length;
-
-  //list.totalPrice = totalP;
-  //req.session.totalPrice = totalP;
 
   res.render('user/packages/packageDetail', {
     packageDetail: data,
@@ -96,10 +82,6 @@ router.post('/search', async (req, res) => {
     Package.loadSearch(search, limit, offset)
   ]);
 
-  for (var i = 0; i < list.length; i++) {
-    var id = list[i].Id;
-    list[i].images = await PackageImg.loadImage(id);
-  }
 
   const nPages = Math.ceil(total[0].Size / 3);
 
@@ -128,8 +110,6 @@ router.post('/quantity', async (req, res) => {
   options = req.body.options;
   quantity = req.body.quantity;
 
-  //console.log(options);
-
   totalP = 0;
   for (i = 0; i < options.length; i++) {
     const NameProduct = await Product.allById(options[i]);
@@ -138,7 +118,6 @@ router.post('/quantity', async (req, res) => {
 
   const data = await PackageDetail.allByIdPackage(IdPackage);
   const p = await Package.allByCat(IdPackage);
-  p[0].images = await PackageImg.loadImage(IdPackage);
   const list = await PackageDetail.allById(IdPackage);
 
   const limitProduct = p[0].LimitProducts;
@@ -175,7 +154,6 @@ router.post('/quantity', async (req, res) => {
 });
 
 router.post('/paynow', async (req, res) => {
-  console.log(totalP);
   req.session.TotalPrice = totalP;
 
   res.redirect('/user/pay/payDetail');
@@ -199,7 +177,6 @@ router.post('/paylater', async (req, res) => {
     today.getSeconds();
   const dateTime = date + ' ' + time;
 
-  console.log(totalP);
   let consume = {
     Id: cs.length + 1,
     IdUser: req.user.Id,
