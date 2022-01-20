@@ -5,7 +5,6 @@ const PackageDetail = require('../../models/user/packageDetail.M');
 const Product = require('../../models/user/product.M');
 const Consume = require('../../models/user/consume.M');
 
-
 let IdPackage = 0;
 let quantity;
 let options;
@@ -21,7 +20,7 @@ router.get('/', async (req, res) => {
     Package.count(),
     Package.page(limit, offset)
   ]);
-  
+
   const nPages = Math.ceil(total[0].Size / 3);
 
   const page_items = [];
@@ -162,6 +161,7 @@ router.post('/paynow', async (req, res) => {
 
 router.post('/paylater', async (req, res) => {
   const cs = await Consume.all();
+  console.log('cs: ', cs.length);
   const today = new Date();
   const date =
     today.getFullYear() +
@@ -178,11 +178,12 @@ router.post('/paylater', async (req, res) => {
   const dateTime = date + ' ' + time;
 
   let consume = {
-    Id: cs.length + 1,
     IdUser: req.user.Id,
     IdPackage: IdPackage,
     Time: dateTime,
-    Price: totalP
+    Price: totalP,
+    Status: 'Chưa thanh toán',
+    CreditLimit: 50000,
   };
 
   var c = await Consume.add(consume);
