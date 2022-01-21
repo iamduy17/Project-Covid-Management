@@ -115,6 +115,11 @@ router.post('/', async (req, res) => {
   }
 
   const listProfile = await profile.allByCat(req.user.Id);
+  const IdPlace = await userPlace.allById(req.user.Id);
+
+  const Place = await place.allById(IdPlace[0].IdPlace);
+
+  listProfile[0].NamePlace = Place[0].NamePlace;
   // Nếu Inform của User là 1 thì hiện chuông thông báo
   if(listProfile[0].Inform > 0)
   {

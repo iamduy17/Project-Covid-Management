@@ -4,7 +4,6 @@ module.exports = {
     login: async (data) => {
         try {
             const url = `${process.env.URL_API}/login`;
-            console.log(url);
             const rs = await axios.post(url, data);
 
             return rs.data;
