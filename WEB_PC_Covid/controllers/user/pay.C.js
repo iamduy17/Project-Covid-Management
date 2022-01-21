@@ -5,13 +5,19 @@ const express = require('express'),
   payModel = require('../../models/user/pay.M'),
   Consume = require('../../models/user/consume.M'),
   User = require('../../models/user/profile.M'),
-  Package = require('../../models/user/buyPackage.M');
+  Package = require('../../models/user/buyPackage.M'),
+  paymentModel = require('../../models/manager/payment.M');
 
 router.get('/', async (req, res) => {
   const cs = await Consume.allById(req.user.Id);
   const u = await User.allByCat(req.user.Id);
 
   for (i = 0; i < cs.length; i++) {
+      if(cs[i].Status === "Đã thanh toán"){
+          cs.splice(i, 1);
+          i--;
+          continue;
+      }
     const NamePackage = await Package.allByCat(cs[i].IdPackage);
     cs[i].NamePackage = NamePackage[0].NamePackage;
     cs[i].STT = i + 1;
@@ -110,6 +116,7 @@ router.get('/payDetail', async(req, res) => {
 
 router.get('/payDetail/:Id', async(req, res) => {
   IdConsume = req.params.Id;
+  req.session.IdConsume = req.params.Id;
   const temp = await Consume.allById1(IdConsume);
   Price = temp[0].Price;
   res.render('user/pay/payDetail', {
@@ -200,7 +207,13 @@ router.post('/payment', async (req, res) => {
       title: 'Internet Banking',
       message: rs.message,
     });
-
+    if(req.session.IdConsume)
+    {
+        await paymentModel.updateStatus(
+            { Status: 'Đã thanh toán' },
+            req.session.IdConsume
+        );
+    }
   const rs1 = await payModel.paymentPost({ ID: data.ID }, req.session.token);
   if (rs1.message !== "success")
     return res.render('user/pay/payment', {

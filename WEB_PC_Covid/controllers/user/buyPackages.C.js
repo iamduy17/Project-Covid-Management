@@ -108,7 +108,7 @@ router.post('/search', async (req, res) => {
 router.post('/quantity', async (req, res) => {
   options = req.body.options;
   quantity = req.body.quantity;
-
+  
   totalP = 0;
   for (i = 0; i < options.length; i++) {
     const NameProduct = await Product.allById(options[i]);
@@ -120,7 +120,7 @@ router.post('/quantity', async (req, res) => {
   const list = await PackageDetail.allById(IdPackage);
 
   const limitProduct = p[0].LimitProducts;
-
+  const limitPeople = p[0].LimitPeople;
   for (let i = 0; i < list.length; i++) {
     const NameProduct = await Product.allById(list[i].IdProduct);
     list[i].NameProduct = NameProduct[0].NameProduct;
@@ -150,6 +150,17 @@ router.post('/quantity', async (req, res) => {
       msg: 'Tổng số gói chọn không trùng với Quantity!',
     });
   }
+  const CountPackage = await Consume.countCondition(IdPackage, req.user.Id);
+
+  if(parseInt(CountPackage[0].Size) >= parseInt(limitPeople))
+  return res.render('user/packages/packageDetail', {
+      packageDetail: data,
+      Package: p,
+      product: list,
+      totalPrice: totalP,
+      title: 'Chi tiết gói nhu yếu phẩm',
+      msg: 'Số lượng mua vượt quá giới hạn!',
+    });
 });
 
 router.post('/paynow', async (req, res) => {
@@ -161,7 +172,7 @@ router.post('/paynow', async (req, res) => {
 
 router.post('/paylater', async (req, res) => {
   const cs = await Consume.all();
-  console.log('cs: ', cs.length);
+
   const today = new Date();
   const date =
     today.getFullYear() +
