@@ -17,9 +17,9 @@
 | Dương Nam         | 19120593 | 19120593@student.hcmus.edu.vn        |
 
 ### Các link liên quan:
-- 1. Hệ thống quản lý Covid Deploy: https://covidpc.herokuapp.com/
-- 2. Hệ thống Thanh toán Deploy: https://payment-web.herokuapp.com/
-- 3. Phân chia công việc: https://docs.google.com/document/d/1hUetQTFqDSreTyqV2qZPLSSSwLgYmWeV9VqZonSqUrg/edit?usp=sharing
+- Hệ thống quản lý Covid Deploy: https://covidpc.herokuapp.com/
+- Hệ thống Thanh toán Deploy: https://payment-web.herokuapp.com/
+- Phân chia công việc: https://docs.google.com/document/d/1hUetQTFqDSreTyqV2qZPLSSSwLgYmWeV9VqZonSqUrg/edit?usp=sharing
 
 ### Các chức năng đã làm được:
 - Các chức năng được đánh giá theo thang điểm trong file docx của link: https://docs.google.com/document/d/1mq-61Ss8JLvhhMzB8VybYv55A0bOlMzi/edit?usp=sharing&ouid=106547223030428986010&rtpof=true&sd=true
